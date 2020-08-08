@@ -2,10 +2,11 @@ package abc.eims.controller;
 
 import abc.eims.utils.WebUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
+import org.springframework.web.bind.annotation.RequestParam;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,7 +21,31 @@ import java.io.IOException;
 @RequestMapping(value = "/login")
 @Controller
 public class GenerateCode {
-    @RequestMapping(value = "/code.do", method = RequestMethod.GET)
+
+    private static final Logger log = Logger.getLogger(GenerateCode.class);
+
+    /**
+     * 跳转到登陆页面
+     */
+    @RequestMapping("toLogin")
+    public String toLogin() {
+        return "system/main/login";
+    }
+
+
+    /**
+     * 登陆方法
+     */
+    @RequestMapping("login")
+    public String login(@RequestParam("username") String username,
+                        @RequestParam("password") String password,
+                        @RequestParam("code") String code) {
+        System.out.println(username + password + code);
+        return "system/main/index";
+    }
+
+
+    @RequestMapping(value = "/code", method = RequestMethod.GET)
     public void doPost(HttpServletRequest request, HttpServletResponse response) {
         log.info("开始生成验证码");
         response.setHeader("Pragma", "No-cache");

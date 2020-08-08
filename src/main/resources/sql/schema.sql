@@ -21,8 +21,9 @@ CREATE TABLE `t_employee`
   `department_id`   int(20)  DEFAULT NULL COMMENT '部门ID',
   `role_id`         int(20)     DEFAULT NULL COMMENT '角色ID',
 
-  `create_time`     timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time`     timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `phone` (`phone`),
@@ -89,7 +90,7 @@ CREATE TABLE `t_attendance_record` (
   `id`              int(20) NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `punch_type`      smallint(4) NOT NULL COMMENT '打卡类型, 1上班打卡，2下班打卡',
   `punch_time`      timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `employee_id`      int(20) NOT NULL COMMENT '描述',
+  `employee_id`     int(20) NOT NULL COMMENT '描述',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='角色权限关联表';
 

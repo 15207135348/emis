@@ -1,0 +1,80 @@
+[
+	{
+		"title": "员工管理",
+		"icon": "&#xe655;",
+		"href": "../resources/page/news/newsList.html",
+		"spread": true,
+		"children": [
+			{
+				"title": "员工信息(系统管理员)",
+				"icon": "&#xe66f;",
+				"href": "../resources/page/user/userList_0.html",
+				"spread": false
+			},
+			{
+				"title": "员工信息(管理员)",
+				"icon": "&#xe66f;",
+				"href": "../resources/page/user/userList_1.html",
+				"spread": false
+			},
+			{
+				"title": "员工信息(员工)",
+				"icon": "&#xe66f;",
+				"href": "../resources/page/user/userList_2.html",
+				"spread": false
+			},
+			{
+				"title": "添加员工(系统管理员)",
+				"icon": "&#xe665;",
+				"href": "../resources/page/user/userAdd_0.html",
+				"spread": false
+			},
+			{
+				"title": "添加员工(管理员)",
+				"icon": "&#xe665;",
+				"href": "../resources/page/user/userAdd_1.html",
+				"spread": false
+			}
+		]
+	},
+	{
+		"title": "考勤管理",
+		"icon": "&#xe634;",
+		"href": "../resources/page/img/images.html",
+		"spread": true,
+		"children": [
+			{
+				"title": "考勤信息(管理员)",
+				"icon": "&#xe61c;",
+				"href": "../resources/page/news/newsList.html",
+				"spread": false
+			},
+			{
+				"title": "考勤信息(员工)",
+				"icon": "&#xe61c;",
+				"href": "../resources/page/news/newsList_2.html",
+				"spread": false
+			}
+		]
+	},
+	{
+		"title": "个人中心",
+		"icon": "&#xe716;",
+		"href": "",
+		"spread": false,
+		"children": [
+			{
+				"title": "个人资料",
+				"icon": "&#xe61c;",
+				"href": "../resources/page/user/userInfo.html",
+				"spread": false
+			},
+			{
+				"title": "修改密码",
+				"icon": "&#xe609;",
+				"href": "../resources/page/user/changePwd.html",
+				"spread": false
+			}
+		]
+	}
+]
