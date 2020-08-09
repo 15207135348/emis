@@ -1,5 +1,6 @@
 package abc.eims.dao;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
@@ -11,8 +12,8 @@ import java.util.Date;
 @Repository
 public interface UserInfoMapper {
 
-    int changePwd(String account, String oldPwd, String newPwd);
+    int changePwd(@Param("account") String account, @Param("oldPwd") String oldPwd, @Param("newPwd") String newPwd);
 
-    int changeInfo(String eId, String name, Date birthday, Integer sex, String phone, String email);
+    int changeInfo(@Param("eId") String eId, @Param("name") String name, @Param("birthday") Date birthday, @Param("sex") Integer sex, @Param("phone") String phone, @Param("email") String email);
 
 }

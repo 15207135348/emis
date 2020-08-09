@@ -14,7 +14,7 @@
     <select id="findById" parameterType="int" resultType="attendance">
         SELECT *
         FROM t_attendance
-        WHERE a_id = #{id}
+        WHERE a_id = #{aId}
     </select>
 
     <select id="getMyAttendance" resultType="attendance">
@@ -34,6 +34,14 @@
             a_type = #{aType},
             a_time = #{aTime}
         where a_id = #{aId}
+    </update>
+
+    <update id="changeAttendanceRecord">
+        update t_attendance
+        set a_type = #{aType},
+            a_time = #{aTime}
+        where a_id = #{aId}
+
     </update>
 
     <delete id="deleteById" parameterType="int">

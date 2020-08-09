@@ -31,17 +31,20 @@ public class EmployeeController {
     public Map<String, String> getAllEmployeeInfo() {
 
         Map<String, String> map = new HashMap<>();
-        List<Employee> empList = employeeService.getAllEmployeeInfo();
-//        JSONPObject json = new JSONPObject(empList);
-        if (empList == null) {
+        List<Employee> empList = null;
+        try {
+            empList = employeeService.getAllEmployeeInfo();
+        }catch (Exception e){
             map.put("code", "-1");
             map.put("msg", "查询失败");
         }
-        String json = JsonUtil.obj2String(empList);
+//        JSONPObject json = new JSONPObject(empList);
+        String jsonEmployee = JsonUtil.obj2String(empList);
         map.put("code", "0");
         map.put("msg", "操作成功");
-        map.put("data", json);
+        map.put("data", jsonEmployee);
         return map;
+
     }
 
     @RequestMapping("set_employee_info")

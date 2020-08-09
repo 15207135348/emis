@@ -25,10 +25,10 @@ public class EmployeeServiceImpl implements IEmployeeService {
     public Employee findEmployeeByIdAndPassword(String account, String password) throws CustomException {
 
         String encode = MD5Utils.encodeByMD5(password);
-        Employee employee = new Employee();
-        employee.seteAccount(account);
-        employee.setePassword(encode);
-        Employee employee1 = employeeMapper.selectByAccountAndPassword(employee);
+//        Employee employee = new Employee();
+//        employee.seteAccount(account);
+//        employee.setePassword(encode);
+        Employee employee1 = employeeMapper.selectByAccountAndPassword(account,password);
         if (employee1 == null) {
             throw new CustomException("账号或密码错误");
         }

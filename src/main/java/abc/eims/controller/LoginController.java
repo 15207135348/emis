@@ -35,6 +35,7 @@ public class LoginController {
 
     /**
      * 点击切换验证码
+     *
      * @param request
      * @param response
      * @throws ServletException
@@ -63,6 +64,7 @@ public class LoginController {
 
     /**
      * 登录
+     *
      * @param httpSession
      * @param account
      * @param password
@@ -71,16 +73,16 @@ public class LoginController {
      */
     @RequestMapping("login_by_password")
     @ResponseBody
-    public Map<String, String> employeeLogin( HttpSession httpSession,
+    public Map<String, String> employeeLogin(HttpSession httpSession,
                                              String account,
-                                              String password,
-                                              String identifyingcode) {
+                                             String password,
+                                             String identifyingcode) {
 
         account = StringUtils.trim(account);
         String code = (String) httpSession.getAttribute("identifyingCode");
 
         HashMap<String, String> map = new HashMap<String, String>();
-        if (StringUtils.equalsIgnoreCase(identifyingcode,code)) {
+        if (StringUtils.equalsIgnoreCase(identifyingcode, code)) {
             Employee employee;
             try {
                 employee = employeeService.findEmployeeByIdAndPassword(account, password);
@@ -90,7 +92,7 @@ public class LoginController {
                 return map;
             }
             // 保存到session
-            httpSession.setAttribute("employeeId", employee.geteId());
+            httpSession.setAttribute("employeeId", employee.getE_id());
             map.put("code", "0");
             map.put("msg", "成功");
             return map;
@@ -103,15 +105,21 @@ public class LoginController {
 
     /**
      * 退出登录
+     *
      * @param httpSession
      * @return
      */
     @RequestMapping("login_out")
-    public String logout(HttpSession httpSession){
-        httpSession.removeAttribute("employeeId");
-        return "redirect:login_by_password";
-    }
+    public Map<String, String> logout(HttpSession httpSession) {
+        Map<String, String> map = new HashMap<>();
 
+        httpSession.removeAttribute("employeeId");
+        // return "redirect:login_by_password";
+        map.put("code", "0");
+        map.put("msg", "操作成功");
+        return map;
+
+    }
 
 
 }

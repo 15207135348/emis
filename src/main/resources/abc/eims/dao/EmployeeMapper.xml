@@ -20,8 +20,8 @@
     <select id="selectByAccountAndPassword" resultType="employee">
         select *
         from t_employee
-        where e_account = #{eAccount}
-          and e_password = #{ePassword}
+        where e_account = #{account}
+          and e_password = #{password}
     </select>
 
     <select id="findByAccount" resultType="employee">
@@ -51,12 +51,12 @@
 
     <update id="changeEmployeeInfo">
         update t_employee
-        set e_account  = #{eAccount},
-            e_name     = #{eName},
-            e_birthday = #{eBirthday},
-            e_sex      = #{eSex},
-            e_phone    = #{ePhone},
-            e_email    = #{eEmail}
+        set e_account  = #{account},
+            e_name     = #{name},
+            e_birthday = #{birthday},
+            e_sex      = #{sex},
+            e_phone    = #{phone},
+            e_email    = #{email}
         where e_account = #{account}
 
     </update>

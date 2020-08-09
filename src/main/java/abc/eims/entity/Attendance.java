@@ -6,64 +6,63 @@ package abc.eims.entity;
  */
 public class Attendance {
 
-    private Integer aId;
+    private Integer a_id;
 
-    private Integer eId;
+    private Integer e_id;
 
-    private Integer aType;
+    private Integer a_type;
 
-    private String aTime;
+    private String a_time;
 
     public Attendance() {
     }
 
-    public Attendance(Integer aId, Integer eId, Integer aType, String aTime) {
-        this.aId = aId;
-        this.eId = eId;
-        this.aType = aType;
-        this.aTime = aTime;
+    public Attendance(Integer a_id, Integer e_id, Integer a_type, String a_time) {
+        this.a_id = a_id;
+        this.e_id = e_id;
+        this.a_type = a_type;
+        this.a_time = a_time;
     }
 
-    public Integer getaId() {
-        return aId;
+    public Integer getA_id() {
+        return a_id;
     }
 
-    public void setaId(Integer aId) {
-        this.aId = aId;
+    public void setA_id(Integer a_id) {
+        this.a_id = a_id;
     }
 
-    public Integer geteId() {
-        return eId;
+    public Integer getE_id() {
+        return e_id;
     }
 
-    public void seteId(Integer eId) {
-        this.eId = eId;
+    public void setE_id(Integer e_id) {
+        this.e_id = e_id;
     }
 
-    public Integer getaType() {
-        return aType;
+    public Integer getA_type() {
+        return a_type;
     }
 
-    public void setaType(Integer aType) {
-        this.aType = aType;
+    public void setA_type(Integer a_type) {
+        this.a_type = a_type;
     }
 
-    public String getaTime() {
-        return aTime;
+    public String getA_time() {
+        return a_time;
     }
 
-    public void setaTime(String aTime) {
-        this.aTime = aTime;
+    public void setA_time(String a_time) {
+        this.a_time = a_time;
     }
 
     @Override
     public String toString() {
         return "Attendance{" +
-                "aId=" + aId +
-                ", eId=" + eId +
-                ", aType=" + aType +
-                ", aTime='" + aTime + '\'' +
+                "a_id=" + a_id +
+                ", e_id=" + e_id +
+                ", a_type=" + a_type +
+                ", a_time='" + a_time + '\'' +
                 '}';
     }
-
 }
