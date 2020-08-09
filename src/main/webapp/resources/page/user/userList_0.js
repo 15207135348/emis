@@ -8,7 +8,7 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
     //用户列表
     var tableIns = table.render({
         elem: '#userList',
-        url: '../../json/userList.json',
+        url: '/employee/get_employee_info.action',
         cellMinWidth: 95,
         page: true,
         height: "full-125",
@@ -17,20 +17,14 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
         id: "userListTable",
         cols: [[
             {type: "checkbox", fixed: "left", width: 50},
-            {field: 'userCode', title: '编号', minWidth: 100, align: "center"},
-            {field: 'userName', title: '姓名', minWidth: 100, align: "center"},
-            {field: 'userSex', title: '性别', align: 'center'},
-            {field: 'userAge', title: '年龄', align: 'center'},
-            {
-                field: 'userEmail', title: '邮箱', minWidth: 200, align: 'center', templet: function (d) {
-                    return '<a class="layui-blue" href="mailto:' + d.userEmail + '">' + d.userEmail + '</a>';
-                }
-            },
-            {field: 'userPhone', title: '手机', minWidth: 150, align: "center"},
-            {field: 'userPosition', title: '职位', align: 'center', minWidth: 100},
-            {field: 'userDepartment', title: '部门', align: 'center', minWidth: 100},
-            {field: 'userRole', title: '角色', align: 'center', minWidth: 100},
-            {title: '操作', minWidth:175, templet:'#userListBar',fixed:"right",align:"center"}
+            {field: 'e_account', title: '账号', minWidth: 100, align: "center"},
+            {field: 'e_name', title: '姓名', minWidth: 100, align: "center"},
+            {field: 'e_sex', title: '性别', align: 'center'},
+            {field: 'e_birthday', title: '生日', align: 'center'},
+            {field: 'e_email', title: '邮箱', minWidth: 200, align: 'center'},
+            {field: 'e_phone', title: '手机', minWidth: 150, align: "center"},
+            {field: 'e_role_id', title: '角色', align: 'center', minWidth: 100},
+            {title: '操作', minWidth: 175, templet: '#userListBar', fixed: "right", align: "center"}
         ]]
     });
 
