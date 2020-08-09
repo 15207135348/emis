@@ -1,25 +1,27 @@
 package abc.eims.dao;
 
 import abc.eims.entity.Items;
+import abc.eims.entity.Role;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * @author wangzhe
- * @date 2020/8/5 11:18
+ * @date 2020/8/9 9:14
  */
 @Repository
-public interface ItemsMapper {
+public interface RoleMapper {
 
-    List<Items> findAll();
+    public List<Role> findAll();
 
-    Items findById(Integer id);
+    Role findById(Integer id);
 
-    int insert(Items recode);
+    int insert(Role recode);
 
-    int update(Items recode);
+    int update(Role recode);
 
     void deleteById(Integer id);
+
 
 }

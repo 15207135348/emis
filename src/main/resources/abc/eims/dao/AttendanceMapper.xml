@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="abc.eims.dao.AttendanceMapper">
+
+    <select id="findAll" resultType="attendance">
+        select *
+        from t_attendance
+    </select>
+
+
+    <select id="findById" parameterType="int" resultType="attendance">
+        SELECT *
+        FROM t_attendance
+        WHERE a_id = #{id}
+    </select>
+
+    <select id="getMyAttendance" resultType="attendance">
+        SELECT *
+        FROM t_attendance
+        WHERE e_id = #{eId}
+    </select>
+
+    <insert id="insert" parameterType="attendance">
+        INSERT INTO t_attendance (e_id, a_type, a_time)
+        VALUES (#{eId}, #{aType}, #{aTime})
+    </insert>
+
+    <update id="update" parameterType="attendance">
+        update t_attendance
+        set e_id   = #{eId},
+            a_type = #{aType},
+            a_time = #{aTime}
+        where a_id = #{aId}
+    </update>
+
+    <delete id="deleteById" parameterType="int">
+        delete
+        from t_attendance
+        where a_id = #{aId}
+    </delete>
+
+</mapper>
