@@ -25,22 +25,14 @@ public class EmployeeServiceImpl implements IEmployeeService {
     public Employee findEmployeeByIdAndPassword(String account, String password) throws CustomException {
 
         String encode = MD5Utils.encodeByMD5(password);
-        Employee employee = employeeMapper.selectByAccountAndPassword(account, encode);
-        if (employee == null) {
+//        Employee employee = new Employee();
+//        employee.seteAccount(account);
+//        employee.setePassword(encode);
+        Employee employee1 = employeeMapper.selectByAccountAndPassword(account,password);
+        if (employee1 == null) {
             throw new CustomException("账号或密码错误");
         }
-        return employee;
-    }
-
-    @Override
-    public int findIdByAccountAndPassword(String account, String password) throws CustomException {
-
-        String encode = MD5Utils.encodeByMD5(password);
-        Integer id =  employeeMapper.findIdByAccountAndPassword(account, encode);
-        if (id == null){
-            throw new CustomException("账号或密码错误");
-        }
-        return id;
+        return employee1;
     }
 
     @Override
@@ -66,16 +58,6 @@ public class EmployeeServiceImpl implements IEmployeeService {
     @Override
     public void changeEmployeeRole(String account, String roleId) {
         employeeMapper.changeEmployeeRole(account, roleId);
-    }
-
-    @Override
-    public void insert(Employee employee) {
-        employeeMapper.insert(employee);
-    }
-
-    @Override
-    public Employee findByAccount(String eAccount) {
-        return employeeMapper.findByAccount(eAccount);
     }
 
 }

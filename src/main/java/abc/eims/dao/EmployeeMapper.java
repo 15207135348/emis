@@ -3,6 +3,7 @@ package abc.eims.dao;
 import abc.eims.entity.Attendance;
 import abc.eims.entity.Employee;
 import abc.eims.entity.Items;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
@@ -17,29 +18,27 @@ public interface EmployeeMapper {
 
     List<Employee> findAll();
 
-    Employee findById(Integer id);
+    Employee findById(@Param("eId") Integer id);
 
-    Employee findByAccount(String account);
+    Employee findByAccount(@Param("account") String account);
 
     int insert(Employee recode);
 
     int update(Employee recode);
 
-    void deleteById(Integer id);
+    void deleteById(@Param("eId") Integer id);
 
-    int deleteByAccount(String account);
+    int deleteByAccount(@Param("account") String account);
 
-    Employee selectByAccountAndPassword(String eAccount, String ePassword);
+    Employee selectByAccountAndPassword(@Param("account") String account, @Param("password") String password);
 
-    Integer findIdByAccountAndPassword(String eAccount, String ePassword);
+    int changeEmployeeInfo(@Param("account") String account,
+                           @Param("name") String name,
+                           @Param("birthday") Date birthday,
+                           @Param("sex") Integer sex,
+                           @Param("phone") String phone,
+                           @Param("email") String email);
 
-    int changeEmployeeInfo(String account,
-                           String name,
-                           Date birthday,
-                           Integer sex,
-                           String phone,
-                           String email);
-
-    int changeEmployeeRole(String account, String roleId);
+    int changeEmployeeRole(@Param("account") String account, @Param("roleId") String roleId);
 
 }

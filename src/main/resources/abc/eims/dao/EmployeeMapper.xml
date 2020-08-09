@@ -17,18 +17,11 @@
         WHERE e_id = #{eId}
     </select>
 
-    <select id="findIdByAccountAndPassword" resultType="java.lang.Integer" parameterType="java.lang.String">
-        select e_id
-        from t_employee
-        where e_account = #{param1}
-        and e_password = #{param2}
-    </select>
-
-    <select id="selectByAccountAndPassword" resultType="employee" parameterType="java.lang.String">
+    <select id="selectByAccountAndPassword" resultType="employee">
         select *
         from t_employee
-        where e_account = #{arg0}
-        and e_password = #{arg1}
+        where e_account = #{account}
+          and e_password = #{password}
     </select>
 
     <select id="findByAccount" resultType="employee">
@@ -58,12 +51,12 @@
 
     <update id="changeEmployeeInfo">
         update t_employee
-        set e_account  = #{eAccount},
-            e_name     = #{eName},
-            e_birthday = #{eBirthday},
-            e_sex      = #{eSex},
-            e_phone    = #{ePhone},
-            e_email    = #{eEmail}
+        set e_account  = #{account},
+            e_name     = #{name},
+            e_birthday = #{birthday},
+            e_sex      = #{sex},
+            e_phone    = #{phone},
+            e_email    = #{email}
         where e_account = #{account}
 
     </update>

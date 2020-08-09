@@ -8,134 +8,124 @@ import java.util.Date;
  */
 public class Employee {
 
-    private Integer eId;
+    private Integer e_id;
 
-    private String eAccount;
+    private String e_account;
 
-    private String ePassword;
+    private String e_password;
 
-    private String eName;
+    private String e_name;
 
-    private Date eBirthday;
+    private Date e_birthday;
 
-    private Integer eSex;
+    private Integer e_sex;
 
-    private String ePhone;
+    private String e_phone;
 
-    private String eEmail;
+    private String e_email;
 
-    private Integer eRoleId;
+    private Integer e_roleId;
+
 
     public Employee() {
     }
 
-    public Employee(String eAccount, String ePassword, String eName, Date eBirthday, Integer eSex, String ePhone, String eEmail, Integer eRoleId) {
-        this.eAccount = eAccount;
-        this.ePassword = ePassword;
-        this.eName = eName;
-        this.eBirthday = eBirthday;
-        this.eSex = eSex;
-        this.ePhone = ePhone;
-        this.eEmail = eEmail;
-        this.eRoleId = eRoleId;
+    public Employee(Integer e_id, String e_account, String e_password, String e_name, Date e_birthday, Integer e_sex, String e_phone, String e_email, Integer e_roleId) {
+        this.e_id = e_id;
+        this.e_account = e_account;
+        this.e_password = e_password;
+        this.e_name = e_name;
+        this.e_birthday = e_birthday;
+        this.e_sex = e_sex;
+        this.e_phone = e_phone;
+        this.e_email = e_email;
+        this.e_roleId = e_roleId;
     }
 
-    public Employee(Integer eId, String eAccount, String ePassword, String eName, Date eBirthday, Integer eSex, String ePhone, String eEmail, Integer eRoleId) {
-        this.eId = eId;
-        this.eAccount = eAccount;
-        this.ePassword = ePassword;
-        this.eName = eName;
-        this.eBirthday = eBirthday;
-        this.eSex = eSex;
-        this.ePhone = ePhone;
-        this.eEmail = eEmail;
-        this.eRoleId = eRoleId;
+    public Integer getE_id() {
+        return e_id;
     }
 
-    public Integer geteId() {
-        return eId;
+    public void setE_id(Integer e_id) {
+        this.e_id = e_id;
     }
 
-    public void seteId(Integer eId) {
-        this.eId = eId;
+    public String getE_account() {
+        return e_account;
     }
 
-    public String geteAccount() {
-        return eAccount;
+    public void setE_account(String e_account) {
+        this.e_account = e_account;
     }
 
-    public void seteAccount(String eAccount) {
-        this.eAccount = eAccount;
+    public String getE_password() {
+        return e_password;
     }
 
-    public String getePassword() {
-        return ePassword;
+    public void setE_password(String e_password) {
+        this.e_password = e_password;
     }
 
-    public void setePassword(String ePassword) {
-        this.ePassword = ePassword;
+    public String getE_name() {
+        return e_name;
     }
 
-    public String geteName() {
-        return eName;
+    public void setE_name(String e_name) {
+        this.e_name = e_name;
     }
 
-    public void seteName(String eName) {
-        this.eName = eName;
+    public Date getE_birthday() {
+        return e_birthday;
     }
 
-    public Date geteBirthday() {
-        return eBirthday;
+    public void setE_birthday(Date e_birthday) {
+        this.e_birthday = e_birthday;
     }
 
-    public void seteBirthday(Date eBirthday) {
-        this.eBirthday = eBirthday;
+    public Integer getE_sex() {
+        return e_sex;
     }
 
-    public Integer geteSex() {
-        return eSex;
+    public void setE_sex(Integer e_sex) {
+        this.e_sex = e_sex;
     }
 
-    public void seteSex(Integer eSex) {
-        this.eSex = eSex;
+    public String getE_phone() {
+        return e_phone;
     }
 
-    public String getePhone() {
-        return ePhone;
+    public void setE_phone(String e_phone) {
+        this.e_phone = e_phone;
     }
 
-    public void setePhone(String ePhone) {
-        this.ePhone = ePhone;
+    public String getE_email() {
+        return e_email;
     }
 
-    public String geteEmail() {
-        return eEmail;
+    public void setE_email(String e_email) {
+        this.e_email = e_email;
     }
 
-    public void seteEmail(String eEmail) {
-        this.eEmail = eEmail;
+    public Integer getE_roleId() {
+        return e_roleId;
     }
 
-    public Integer geteRoleId() {
-        return eRoleId;
-    }
-
-    public void seteRoleId(Integer eRoleId) {
-        this.eRoleId = eRoleId;
+    public void setE_roleId(Integer e_roleId) {
+        this.e_roleId = e_roleId;
     }
 
     @Override
     public String toString() {
         return "Employee{" +
-                "eId=" + eId +
-                ", eAccount='" + eAccount + '\'' +
-                ", ePassword='" + ePassword + '\'' +
-                ", eName='" + eName + '\'' +
-                ", eBirthday=" + eBirthday +
-                ", eSex='" + eSex + '\'' +
-                ", ePhone='" + ePhone + '\'' +
-                ", eEmail='" + eEmail + '\'' +
-                ", eRoleId=" + eRoleId +
+                "e_id=" + e_id +
+                ", e_account='" + e_account + '\'' +
+                ", e_password='" + e_password + '\'' +
+                ", e_name='" + e_name + '\'' +
+                ", e_birthday=" + e_birthday +
+                ", e_sex=" + e_sex +
+                ", e_phone='" + e_phone + '\'' +
+                ", e_email='" + e_email + '\'' +
+                ", e_roleId=" + e_roleId +
                 '}';
     }
 
