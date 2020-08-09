@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="emis:war">
-    <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="eims.war">
-      <element id="artifact" artifact-name="emis:war exploded" />
-    </root>
-  </artifact>
-</component>

@@ -14,6 +14,9 @@ public interface IEmployeeService {
 
     Employee findEmployeeByIdAndPassword(String account, String password) throws CustomException;
 
+    int findIdByAccountAndPassword(String account, String password) throws CustomException;
+
+
     Employee findEmployeeById(int id);
 
     List<Employee> getAllEmployeeInfo();
@@ -28,5 +31,9 @@ public interface IEmployeeService {
                             String email);
 
     void changeEmployeeRole(String account, String roleId);
+
+    void insert(Employee employee);
+
+    Employee findByAccount(String eAccount);
 
 }

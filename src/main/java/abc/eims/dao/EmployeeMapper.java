@@ -29,7 +29,9 @@ public interface EmployeeMapper {
 
     int deleteByAccount(String account);
 
-    Employee selectByAccountAndPassword(Employee employee);
+    Employee selectByAccountAndPassword(String eAccount, String ePassword);
+
+    Integer findIdByAccountAndPassword(String eAccount, String ePassword);
 
     int changeEmployeeInfo(String account,
                            String name,

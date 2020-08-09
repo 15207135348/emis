@@ -29,6 +29,17 @@ public class Employee {
     public Employee() {
     }
 
+    public Employee(String eAccount, String ePassword, String eName, Date eBirthday, Integer eSex, String ePhone, String eEmail, Integer eRoleId) {
+        this.eAccount = eAccount;
+        this.ePassword = ePassword;
+        this.eName = eName;
+        this.eBirthday = eBirthday;
+        this.eSex = eSex;
+        this.ePhone = ePhone;
+        this.eEmail = eEmail;
+        this.eRoleId = eRoleId;
+    }
+
     public Employee(Integer eId, String eAccount, String ePassword, String eName, Date eBirthday, Integer eSex, String ePhone, String eEmail, Integer eRoleId) {
         this.eId = eId;
         this.eAccount = eAccount;

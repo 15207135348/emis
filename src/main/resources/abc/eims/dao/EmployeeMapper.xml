@@ -17,11 +17,18 @@
         WHERE e_id = #{eId}
     </select>
 
-    <select id="selectByAccountAndPassword" resultType="employee">
+    <select id="findIdByAccountAndPassword" resultType="java.lang.Integer" parameterType="java.lang.String">
+        select e_id
+        from t_employee
+        where e_account = #{param1}
+        and e_password = #{param2}
+    </select>
+
+    <select id="selectByAccountAndPassword" resultType="employee" parameterType="java.lang.String">
         select *
         from t_employee
-        where e_account = #{eAccount}
-          and e_password = #{ePassword}
+        where e_account = #{arg0}
+        and e_password = #{arg1}
     </select>
 
     <select id="findByAccount" resultType="employee">

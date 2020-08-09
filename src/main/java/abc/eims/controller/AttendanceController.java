@@ -17,8 +17,7 @@ public class AttendanceController {
     @RequestMapping("get_my_attendance_record")
     @ResponseBody
     public Map<String,String> getMyAttendanceRecord(HttpSession httpSession){
-
-
+        return null;
 
     }
 
