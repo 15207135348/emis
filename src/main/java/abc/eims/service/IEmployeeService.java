@@ -14,9 +14,6 @@ public interface IEmployeeService {
 
     Employee findEmployeeByIdAndPassword(String account, String password) throws CustomException;
 
-    int findIdByAccountAndPassword(String account, String password) throws CustomException;
-
-
     Employee findEmployeeById(int id);
 
     List<Employee> getAllEmployeeInfo();

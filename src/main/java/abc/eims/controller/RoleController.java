@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * @author wangzhe
@@ -45,12 +46,12 @@ public class RoleController {
     @RequestMapping(value = "get_menu", produces = "text/html;charset=utf-8")
     @ResponseBody
     public String getMenu() {
-        String account = CookieUtil.getCookieValueFromRequest();
-        Employee employee = employeeService.findByAccount(account);
+        int eId = Integer.parseInt(Objects.requireNonNull(CookieUtil.getCookieValueFromRequest()));
+        Employee employee = employeeService.findEmployeeById(eId);
         if (employee == null){
             return getMenuById(0);
         }
-        int roleId = employee.geteRoleId();
+        int roleId = employee.getE_role_id();
         return getMenuById(roleId);
 
     }

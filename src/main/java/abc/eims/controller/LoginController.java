@@ -4,12 +4,18 @@ import abc.eims.entity.Employee;
 import abc.eims.exception.CustomException;
 import abc.eims.service.Impl.EmployeeServiceImpl;
 import abc.eims.utils.CaptchaUtil;
+import abc.eims.utils.CookieUtil;
+import abc.eims.vo.Response;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -33,6 +39,11 @@ public class LoginController {
     private EmployeeServiceImpl employeeService;
 
 
+    @RequestMapping(value = "/toLogin")
+    public String toLogin(){
+        return "login";
+    }
+
     /**
      * 点击切换验证码
      *
@@ -41,7 +52,7 @@ public class LoginController {
      * @throws ServletException
      * @throws IOException
      */
-    @RequestMapping(value = "/changeCode.do")
+    @RequestMapping(value = "/changeCode")
     @ResponseBody
     public void getIdentifyingCode(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -52,54 +63,47 @@ public class LoginController {
 
     @RequestMapping("register")
     @ResponseBody
-    public Map<String, String> employeeRegister(String account,
-                                                String password,
-                                                String name,
-                                                String phone,
-                                                String email,
-                                                String sex,
-                                                Date birthday) {
-        return null;
+    public Response employeeRegister(@RequestBody Employee employee) {
+        Employee employee1 = employeeService.findByAccount(employee.getE_account());
+        if (employee1 != null){
+            return new Response(Response.Code.UserHasExistError);
+        }
+        employeeService.insert(employee);
+        CookieUtil.addCookie(String.valueOf(employee.getE_id()));
+        return new Response(Response.Code.Success);
     }
 
     /**
      * 登录
      *
-     * @param httpSession
      * @param account
      * @param password
      * @param identifyingcode
      * @return
      */
     @RequestMapping("login_by_password")
-    @ResponseBody
-    public Map<String, String> employeeLogin(HttpSession httpSession,
-                                             String account,
-                                             String password,
-                                             String identifyingcode) {
+    public String employeeLogin(
+            @RequestParam("e_account") String account,
+            @RequestParam("e_password") String password,
+            @RequestParam("code") String identifyingcode) {
 
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        HttpSession httpSession = request.getSession();
         account = StringUtils.trim(account);
         String code = (String) httpSession.getAttribute("identifyingCode");
-
-        HashMap<String, String> map = new HashMap<String, String>();
         if (StringUtils.equalsIgnoreCase(identifyingcode, code)) {
             Employee employee;
             try {
                 employee = employeeService.findEmployeeByIdAndPassword(account, password);
             } catch (CustomException e) {
-                map.put("code", "-1");
-                map.put("msg", e.getMessage());
-                return map;
+                return "login";
             }
             // 保存到session
             httpSession.setAttribute("employeeId", employee.getE_id());
-            map.put("code", "0");
-            map.put("msg", "成功");
-            return map;
+            CookieUtil.addCookie(String.valueOf(employee.getE_id()));
+            return "index";
         } else {
-            map.put("code", "-2");
-            map.put("msg", "验证码错误");
-            return map;
+            return "login";
         }
     }
 
@@ -110,14 +114,10 @@ public class LoginController {
      * @return
      */
     @RequestMapping("login_out")
-    public Map<String, String> logout(HttpSession httpSession) {
-        Map<String, String> map = new HashMap<>();
-
+    public String logout(HttpSession httpSession) {
         httpSession.removeAttribute("employeeId");
-        // return "redirect:login_by_password";
-        map.put("code", "0");
-        map.put("msg", "操作成功");
-        return map;
+        CookieUtil.removeCookie();
+        return "login";
 
     }
 

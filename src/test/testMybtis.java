@@ -14,11 +14,4 @@ public class testMybtis {
     @Autowired
     EmployeeMapper employeeMapper;
 
-
-
-    @Test
-    public void test(){
-        int id = employeeMapper.findIdByAccountAndPassword("admin", "379B75FE452F76792BCCA3A64289599F");
-        System.out.println(id);
-    }
 }

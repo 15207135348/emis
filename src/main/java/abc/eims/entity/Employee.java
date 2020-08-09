@@ -24,13 +24,13 @@ public class Employee {
 
     private String e_email;
 
-    private Integer e_roleId;
+    private Integer e_role_id;
 
 
     public Employee() {
     }
 
-    public Employee(Integer e_id, String e_account, String e_password, String e_name, Date e_birthday, Integer e_sex, String e_phone, String e_email, Integer e_roleId) {
+    public Employee(Integer e_id, String e_account, String e_password, String e_name, Date e_birthday, Integer e_sex, String e_phone, String e_email, Integer e_role_id) {
         this.e_id = e_id;
         this.e_account = e_account;
         this.e_password = e_password;
@@ -39,7 +39,7 @@ public class Employee {
         this.e_sex = e_sex;
         this.e_phone = e_phone;
         this.e_email = e_email;
-        this.e_roleId = e_roleId;
+        this.e_role_id = e_role_id;
     }
 
     public Integer getE_id() {
@@ -106,12 +106,12 @@ public class Employee {
         this.e_email = e_email;
     }
 
-    public Integer getE_roleId() {
-        return e_roleId;
+    public Integer getE_role_id() {
+        return e_role_id;
     }
 
-    public void setE_roleId(Integer e_roleId) {
-        this.e_roleId = e_roleId;
+    public void setE_role_id(Integer e_role_id) {
+        this.e_role_id = e_role_id;
     }
 
     @Override
@@ -125,7 +125,7 @@ public class Employee {
                 ", e_sex=" + e_sex +
                 ", e_phone='" + e_phone + '\'' +
                 ", e_email='" + e_email + '\'' +
-                ", e_roleId=" + e_roleId +
+                ", e_role_id=" + e_role_id +
                 '}';
     }
 

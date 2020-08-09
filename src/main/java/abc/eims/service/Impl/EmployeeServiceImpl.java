@@ -28,7 +28,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 //        Employee employee = new Employee();
 //        employee.seteAccount(account);
 //        employee.setePassword(encode);
-        Employee employee1 = employeeMapper.selectByAccountAndPassword(account,password);
+        Employee employee1 = employeeMapper.selectByAccountAndPassword(account, encode);
         if (employee1 == null) {
             throw new CustomException("账号或密码错误");
         }
@@ -58,6 +58,16 @@ public class EmployeeServiceImpl implements IEmployeeService {
     @Override
     public void changeEmployeeRole(String account, String roleId) {
         employeeMapper.changeEmployeeRole(account, roleId);
+    }
+
+    @Override
+    public void insert(Employee employee) {
+        employeeMapper.insert(employee);
+    }
+
+    @Override
+    public Employee findByAccount(String eAccount) {
+        return employeeMapper.findByAccount(eAccount);
     }
 
 }
