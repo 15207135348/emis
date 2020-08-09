@@ -29,7 +29,7 @@ public class GenerateCode {
      */
     @RequestMapping("toLogin")
     public String toLogin() {
-        return "system/main/login";
+        return "login";
     }
 
 
@@ -37,11 +37,11 @@ public class GenerateCode {
      * 登陆方法
      */
     @RequestMapping("login")
-    public String login(@RequestParam("username") String username,
-                        @RequestParam("password") String password,
+    public String login(@RequestParam("e_account") String account,
+                        @RequestParam("e_password") String password,
                         @RequestParam("code") String code) {
-        System.out.println(username + password + code);
-        return "system/main/index";
+        System.out.println(account + password + code);
+        return "index";
     }
 
 
