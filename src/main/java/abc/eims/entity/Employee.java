@@ -18,7 +18,7 @@ public class Employee {
 
     private Date eBirthday;
 
-    private String eSex;
+    private Integer eSex;
 
     private String ePhone;
 
@@ -29,7 +29,7 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(Integer eId, String eAccount, String ePassword, String eName, Date eBirthday, String eSex, String ePhone, String eEmail, Integer eRoleId) {
+    public Employee(Integer eId, String eAccount, String ePassword, String eName, Date eBirthday, Integer eSex, String ePhone, String eEmail, Integer eRoleId) {
         this.eId = eId;
         this.eAccount = eAccount;
         this.ePassword = ePassword;
@@ -81,11 +81,11 @@ public class Employee {
         this.eBirthday = eBirthday;
     }
 
-    public String geteSex() {
+    public Integer geteSex() {
         return eSex;
     }
 
-    public void seteSex(String eSex) {
+    public void seteSex(Integer eSex) {
         this.eSex = eSex;
     }
 

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="abc.eims.dao.UserInfoMapper">
+
+
+    <update id="changePwd">
+        update t_employee
+        set e_password = #{newPwd}
+        where e_account = #{account}
+          and e_password = #{oldPwd}
+    </update>
+
+    <update id="changeInfo">
+        update t_employee
+        set e_name     = #{name},
+            e_birthday = #{birthday},
+            e_sex      = #{sex},
+            e_phone    = #{phone},
+            e_email    = #{email}
+        where e_id = #{eId}
+    </update>
+
+</mapper>

@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,20 +48,21 @@ public class LoginController {
         CaptchaUtil.outputCaptcha(request, response);
     }
 
-    /**
-     * 注册
-     * @param model
-     * @return
-     */
+
     @RequestMapping("register")
     @ResponseBody
-    public Map<String, String> employeeRegister(Model model) {
+    public Map<String, String> employeeRegister(String account,
+                                                String password,
+                                                String name,
+                                                String phone,
+                                                String email,
+                                                String sex,
+                                                Date birthday) {
         return null;
     }
 
     /**
      * 登录
-     * @param model
      * @param httpSession
      * @param account
      * @param password
@@ -69,8 +71,10 @@ public class LoginController {
      */
     @RequestMapping("login_by_password")
     @ResponseBody
-    public Map<String, String> employeeLogin(Model model, HttpSession httpSession,
-                                             String account, String password, String identifyingcode) {
+    public Map<String, String> employeeLogin( HttpSession httpSession,
+                                             String account,
+                                              String password,
+                                              String identifyingcode) {
 
         account = StringUtils.trim(account);
         String code = (String) httpSession.getAttribute("identifyingCode");
@@ -81,18 +85,18 @@ public class LoginController {
             try {
                 employee = employeeService.findEmployeeByIdAndPassword(account, password);
             } catch (CustomException e) {
-                map.put("msg", e.getMessage());
                 map.put("code", "-1");
+                map.put("msg", e.getMessage());
                 return map;
             }
             // 保存到session
             httpSession.setAttribute("employeeId", employee.geteId());
+            map.put("code", "0");
             map.put("msg", "成功");
-            map.put("status", "0");
             return map;
         } else {
-            map.put("msg", "验证码错误");
             map.put("code", "-2");
+            map.put("msg", "验证码错误");
             return map;
         }
     }
@@ -107,5 +111,7 @@ public class LoginController {
         httpSession.removeAttribute("employeeId");
         return "redirect:login_by_password";
     }
+
+
 
 }
