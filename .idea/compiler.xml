@@ -6,11 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="eims" />
+        <module name="emis" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="eims" target="1.8" />
+      <module name="emis" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
