@@ -2,6 +2,10 @@ package abc.eims.vo;
 
 import com.alibaba.fastjson.JSONObject;
 
+/**
+ * @author wangzhe
+ * @date 2020/8/10 04:59
+ */
 public class Response {
     // 请求是否成功
     private int code;

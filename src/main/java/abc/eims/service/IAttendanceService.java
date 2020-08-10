@@ -2,7 +2,6 @@ package abc.eims.service;
 
 import abc.eims.entity.Attendance;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -11,10 +10,10 @@ import java.util.List;
  */
 public interface IAttendanceService {
 
-    List<Attendance> getMyAttendance(HttpSession httpSession);
+    List<Attendance> getMyAttendance();
 
     List<Attendance> getAllAttendance();
 
-    int changeAttendanceRecord(Integer aId, Integer aType, String aTime);
+    void changeAttendanceRecord(Integer aId, Integer aType, String aTime);
 
 }

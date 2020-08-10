@@ -2,12 +2,14 @@ package abc.eims.service.Impl;
 
 import abc.eims.dao.UserInfoMapper;
 import abc.eims.service.IUserInfoService;
+import abc.eims.utils.CookieUtil;
 import abc.eims.utils.MD5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * @author wangzhe
@@ -27,9 +29,10 @@ public class UserInfoServiceImpl implements IUserInfoService {
     }
 
     @Override
-    public int changeInfo(HttpSession httpSession, String name, Date birthday, Integer sex, String phone, String email) {
-        String employeeId = (String) httpSession.getAttribute("employeeId");
-        return userInfoMapper.changeInfo(employeeId, name, birthday, sex, phone, email);
+    public int changeInfo(String name, Date birthday, Integer sex, String phone, String email) {
+//        String employeeId = (String) httpSession.getAttribute("employeeId");
+        int eId = Integer.parseInt(Objects.requireNonNull(CookieUtil.getCookieValueFromRequest()));
+        return userInfoMapper.changeInfo(eId, name, birthday, sex, phone, email);
     }
 
 

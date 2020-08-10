@@ -16,7 +16,7 @@ public interface AttendanceMapper {
 
     List<Attendance> findAll();
 
-    List<Attendance> getMyAttendance(@Param("eId") String eId);
+    List<Attendance> getMyAttendance(@Param("eId") Integer eId);
 
     Attendance findById(@Param("aId") Integer aId);
 

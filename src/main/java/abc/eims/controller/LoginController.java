@@ -36,12 +36,12 @@ public class LoginController {
 
 
     @RequestMapping(value = "/toLogin")
-    public String toLogin(){
+    public String toLogin() {
         return "login";
     }
 
     /**
-     * 点击切换验证码
+     * 点击生成验证码
      *
      * @param request
      * @param response
@@ -61,7 +61,7 @@ public class LoginController {
     @ResponseBody
     public Response employeeRegister(@RequestBody Employee employee) {
         Employee employee1 = employeeService.findByAccount(employee.getE_account());
-        if (employee1 != null){
+        if (employee1 != null) {
             return new Response(Response.Code.UserHasExistError);
         }
         employeeService.insert(employee);
@@ -95,7 +95,7 @@ public class LoginController {
                 return "login";
             }
             // 保存到session
-            httpSession.setAttribute("employeeId", employee.getE_id());
+//            httpSession.setAttribute("employeeId", employee.getE_id());
             CookieUtil.addCookie(String.valueOf(employee.getE_id()));
             return "index";
         } else {

@@ -11,6 +11,6 @@ public interface IUserInfoService {
 
     int changePassword(String account, String oldPwd, String newPwd);
 
-    int changeInfo(HttpSession httpSession, String name, Date birthday, Integer sex, String phone, String email);
+    int changeInfo(String name, Date birthday, Integer sex, String phone, String email);
 
 }

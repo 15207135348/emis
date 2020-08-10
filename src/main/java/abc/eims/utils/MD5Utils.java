@@ -1,7 +1,10 @@
 package abc.eims.utils;
 
 import java.security.MessageDigest;
-
+/**
+ * @author wangzhe
+ * @date 2020/8/9 18:59
+ */
 public class MD5Utils {
     /**
      * 十六进制下数字到字符的映射数组

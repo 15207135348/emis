@@ -39,8 +39,7 @@ public class UserInfoController {
 
     @RequestMapping("set_my_info")
     @ResponseBody
-    public Map<String, String> changeInfo(HttpSession httpSession,
-                                          String name,
+    public Map<String, String> changeInfo(String name,
                                           Date birthday,
                                           Integer sex,
                                           String phone,
@@ -48,7 +47,7 @@ public class UserInfoController {
 
         Map<String, String> map = new HashMap<>();
         try {
-            userInfoService.changeInfo(httpSession, name, birthday, sex, phone, email);
+            userInfoService.changeInfo(name, birthday, sex, phone, email);
         } catch (Exception e) {
             map.put("code", "-1");
             map.put("msg", "更新信息失败");
