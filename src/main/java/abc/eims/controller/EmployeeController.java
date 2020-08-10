@@ -2,7 +2,6 @@ package abc.eims.controller;
 
 import abc.eims.entity.Employee;
 import abc.eims.service.Impl.EmployeeServiceImpl;
-import abc.eims.utils.JsonUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
