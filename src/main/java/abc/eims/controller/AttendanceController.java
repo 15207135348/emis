@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -93,5 +92,22 @@ public class AttendanceController {
         map.put("msg", "操作成功");
         return map;
     }
+
+    @RequestMapping("del_attendance_info")
+    @ResponseBody
+    public Map<String, String> delAttendanceRecord(Integer aId) {
+        Map<String, String> map = new HashMap<>();
+
+        try {
+            attendanceService.delAttendanceRecord(aId);
+        } catch (Exception e) {
+            map.put("code", "-1");
+            map.put("msg", "操作失败");
+        }
+        map.put("code", "0");
+        map.put("msg", "操作成功");
+        return map;
+    }
+
 
 }

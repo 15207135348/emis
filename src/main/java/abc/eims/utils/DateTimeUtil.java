@@ -5,6 +5,8 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -16,6 +18,18 @@ public class DateTimeUtil {
     //str--->date
     //date---str
     static final String STANDARD_FORMAT = "yyyy-MM-dd HH:mm:ss";
+
+
+    public static Date dateToStamp(String s) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = null;
+        try {
+            date = simpleDateFormat.parse(s);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
+    }
 
 
     public static Date strToDate(String dateTimeStr, String formatStr) {

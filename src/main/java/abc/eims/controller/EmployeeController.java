@@ -7,10 +7,10 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,16 +56,20 @@ public class EmployeeController {
 
     @RequestMapping("set_employee_info")
     @ResponseBody
-    public Map<String, String> changeEmployeeInfo(String account,
+    public Map<String, String> changeEmployeeInfo(Integer eId,
+                                                  String account,
+                                                  String password,
                                                   String name,
-                                                  Date birthday,
+                                                  String birthday,
                                                   Integer sex,
                                                   String phone,
-                                                  String email) {
+                                                  String email,
+                                                  Integer roleId) {
+
         Map<String, String> map = new HashMap<>();
 
         try {
-            employeeService.changeEmployeeInfo(account, name, birthday, sex, phone, email);
+            employeeService.updateOrInsert(eId, account, password, name, birthday, sex, phone, email, roleId);
         } catch (Exception e) {
             map.put("code", "-1");
             map.put("msg", "信息修改失败");
@@ -79,10 +83,10 @@ public class EmployeeController {
 
     @RequestMapping("del_employee_info")
     @ResponseBody
-    public Map<String, String> delEmployeeInfo(String account) {
+    public Map<String, String> delEmployeeInfo(@RequestBody List<String> accountList) {
         Map<String, String> map = new HashMap<>();
         try {
-            employeeService.delEmployeeInfoByAccount(account);
+            employeeService.delEmployeeInfoByAccount(accountList);
         } catch (Exception e) {
             map.put("code", "-1");
             map.put("msg", "删除失败");

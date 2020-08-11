@@ -1,12 +1,9 @@
 package abc.eims.dao;
 
-import abc.eims.entity.Attendance;
 import abc.eims.entity.Employee;
-import abc.eims.entity.Items;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,20 +21,31 @@ public interface EmployeeMapper {
 
     int insert(Employee recode);
 
-    int update(Employee recode);
+    int update(@Param("eId") Integer eId,
+               @Param("account") String account,
+               @Param("password") String password,
+               @Param("name") String name,
+               @Param("birthday") String birthday,
+               @Param("sex") Integer sex,
+               @Param("phone") String phone,
+               @Param("email") String email,
+               @Param("roleId") Integer roleId);
 
     void deleteById(@Param("eId") Integer id);
 
-    int deleteByAccount(@Param("account") String account);
+    int deleteByAccount(@Param("list") List<String> accountList);
 
     Employee selectByAccountAndPassword(@Param("account") String account, @Param("password") String password);
 
-    int changeEmployeeInfo(@Param("account") String account,
-                           @Param("name") String name,
-                           @Param("birthday") Date birthday,
-                           @Param("sex") Integer sex,
-                           @Param("phone") String phone,
-                           @Param("email") String email);
+//    int changeEmployeeInfo(@Param("eId") Integer eId,
+//                           @Param("account") String account,
+//                           @Param("password") String password,
+//                           @Param("name") String name,
+//                           @Param("birthday") String birthday,
+//                           @Param("sex") Integer sex,
+//                           @Param("phone") String phone,
+//                           @Param("email") String email,
+//                           @Param("roleId") String roleId);
 
     int changeEmployeeRole(@Param("account") String account, @Param("roleId") String roleId);
 
