@@ -36,7 +36,7 @@
         VALUES (#{eAccount}, #{ePassword}, #{eName}, #{eBirthday}, #{eSex}, #{ePhone}, #{eEmail}, #{eRoleId})
     </insert>
 
-    <update id="update" parameterType="employee">
+    <update id="update">
         update t_employee
         set e_account  = #{eAccount},
             e_password = #{ePassword},
@@ -49,22 +49,11 @@
         where e_id = #{eId}
     </update>
 
-    <update id="changeEmployeeInfo">
-        update t_employee
-        set e_account  = #{account},
-            e_name     = #{name},
-            e_birthday = #{birthday},
-            e_sex      = #{sex},
-            e_phone    = #{phone},
-            e_email    = #{email}
-        where e_account = #{account}
 
-    </update>
     <update id="changeEmployeeRole">
         update t_employee
         set e_role_id = #{roleId}
         where e_account = #{account}
-
     </update>
 
     <delete id="deleteById" parameterType="int">
@@ -74,9 +63,10 @@
     </delete>
 
     <delete id="deleteByAccount" parameterType="int">
-        delete
-        from t_employee
-        where e_account = #{account}
+        delete from t_employee where e_account in
+        <foreach collection="list" item="e_account" open="(" close=")" separator=",">
+            #{e_account}
+        </foreach>
     </delete>
 
 </mapper>

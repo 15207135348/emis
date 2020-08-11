@@ -38,4 +38,9 @@ public class AttendanceServiceImpl implements IAttendanceService {
         attendanceMapper.changeAttendanceRecord(aId, aType, aTime);
     }
 
+    @Override
+    public void delAttendanceRecord(Integer aId) {
+        attendanceMapper.deleteById(aId);
+    }
+
 }

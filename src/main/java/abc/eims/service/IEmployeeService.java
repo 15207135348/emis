@@ -3,7 +3,6 @@ package abc.eims.service;
 import abc.eims.entity.Employee;
 import abc.eims.exception.CustomException;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,18 +17,31 @@ public interface IEmployeeService {
 
     List<Employee> getAllEmployeeInfo();
 
-    void delEmployeeInfoByAccount(String account);
+    void delEmployeeInfoByAccount(List<String> accountList);
 
-    void changeEmployeeInfo(String account,
+    void changeEmployeeInfo(Integer eId,
+                            String account,
+                            String password,
                             String name,
-                            Date birthday,
+                            String birthday,
                             Integer sex,
                             String phone,
-                            String email);
+                            String email,
+                            String roleId);
 
     void changeEmployeeRole(String account, String roleId);
 
     void insert(Employee employee);
+
+    void updateOrInsert(Integer eId,
+                String account,
+                String password,
+                String name,
+                String birthday,
+                Integer sex,
+                String phone,
+                String email,
+                Integer roleId);
 
     Employee findByAccount(String eAccount);
 

@@ -16,4 +16,6 @@ public interface IAttendanceService {
 
     void changeAttendanceRecord(Integer aId, Integer aType, String aTime);
 
+    void delAttendanceRecord(Integer aId);
+
 }
