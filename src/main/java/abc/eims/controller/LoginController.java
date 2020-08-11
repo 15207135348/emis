@@ -5,6 +5,7 @@ import abc.eims.exception.CustomException;
 import abc.eims.service.Impl.EmployeeServiceImpl;
 import abc.eims.utils.CaptchaUtil;
 import abc.eims.utils.CookieUtil;
+import abc.eims.utils.MD5Utils;
 import abc.eims.vo.Response;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,9 +65,13 @@ public class LoginController {
         if (employee1 != null) {
             return new Response(Response.Code.UserHasExistError);
         }
+        String password = MD5Utils.encodeByMD5(employee.getE_password());
+        employee.setE_password(password);
+
         employeeService.insert(employee);
         CookieUtil.addCookie(String.valueOf(employee.getE_id()));
         return new Response(Response.Code.Success);
+
     }
 
     /**

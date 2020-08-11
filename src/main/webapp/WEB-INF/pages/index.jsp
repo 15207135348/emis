@@ -94,7 +94,7 @@
 		</div>
 		<!-- 底部 -->
 		<div class="layui-footer footer">
-			<p><span>copyright @2019 老雷</span></p>
+			<p><span>copyright @2019 老王</span></p>
 		</div>
 	</div>
 

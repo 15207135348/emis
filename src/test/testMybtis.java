@@ -1,5 +1,5 @@
 import abc.eims.dao.EmployeeMapper;
-import abc.eims.entity.Employee;
+import abc.eims.utils.MD5Utils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,5 +13,10 @@ public class testMybtis {
 
     @Autowired
     EmployeeMapper employeeMapper;
+
+    @Test
+    public void test(){
+        System.out.println(MD5Utils.encodeByMD5("admin"));
+    }
 
 }

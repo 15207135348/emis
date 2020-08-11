@@ -78,9 +78,9 @@
             //     }
             // });
 
-            setTimeout(function(){
+            setTimeout(function () {
                 $("#loginFrm").submit();
-            },1000);
+            }, 1000);
 
             return false;
         });
