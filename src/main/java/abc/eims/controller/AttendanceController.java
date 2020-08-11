@@ -1,7 +1,9 @@
 package abc.eims.controller;
 
 import abc.eims.entity.Attendance;
+import abc.eims.entity.Employee;
 import abc.eims.service.Impl.AttendanceServiceImpl;
+import abc.eims.service.Impl.EmployeeServiceImpl;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -24,6 +26,9 @@ public class AttendanceController {
     @Autowired
     private AttendanceServiceImpl attendanceService;
 
+    @Autowired
+    private EmployeeServiceImpl employeeService;
+
     @RequestMapping("get_my_attendance_record")
     @ResponseBody
     public String getMyAttendanceRecord() {
@@ -41,7 +46,10 @@ public class AttendanceController {
         if (attendList != null) {
             JSONArray array = new JSONArray();
             for (Attendance attendance : attendList) {
-                array.add(JSON.toJSON(attendance));
+                Employee e = employeeService.findEmployeeById(attendance.getE_id());
+                JSONObject o = new JSONObject(array.add(JSON.toJSON(attendance)));
+                o.put("account", e.getE_account());
+                o.put("name", e.getE_name());
             }
             object.put("code", "0");
             object.put("msg", "操作成功");
@@ -67,7 +75,10 @@ public class AttendanceController {
         if (attendListAll != null) {
             JSONArray array = new JSONArray();
             for (Attendance attendance : attendListAll) {
-                array.add(JSON.toJSON(attendance));
+                Employee e = employeeService.findEmployeeById(attendance.getE_id());
+                JSONObject o = new JSONObject(array.add(JSON.toJSON(attendance)));
+                o.put("account", e.getE_account());
+                o.put("name", e.getE_name());
             }
             object.put("code", "0");
             object.put("msg", "操作成功");
