@@ -25,7 +25,7 @@ public class RoleController {
     /**
      * 跳转到登陆页面
      */
-    @RequestMapping(value = "get_menu", produces = "text/html;charset=utf-8")
+    @RequestMapping(value = "get_menu", produces = "application/json;charset=utf-8")
     @ResponseBody
     public String getMenu() {
         int eId = Integer.parseInt(Objects.requireNonNull(CookieUtil.getCookieValueFromRequest()));

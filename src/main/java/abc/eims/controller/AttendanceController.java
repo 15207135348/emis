@@ -1,7 +1,9 @@
 package abc.eims.controller;
 
 import abc.eims.entity.Attendance;
+import abc.eims.entity.Employee;
 import abc.eims.service.Impl.AttendanceServiceImpl;
+import abc.eims.service.Impl.EmployeeServiceImpl;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -9,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,10 +20,14 @@ import java.util.Map;
  * @date 2020/8/9 19:12
  */
 @Controller
+@RequestMapping("/attendance")
 public class AttendanceController {
 
     @Autowired
     private AttendanceServiceImpl attendanceService;
+
+    @Autowired
+    private EmployeeServiceImpl employeeService;
 
     @RequestMapping("get_my_attendance_record")
     @ResponseBody
@@ -54,9 +58,7 @@ public class AttendanceController {
 
     @RequestMapping("get_employee_attendance_record")
     @ResponseBody
-    public String getAllAttendanceRecord() {
-//        Map<String, String> map = new HashMap<>();
-
+    public JSONObject getAllAttendanceRecord() {
         JSONObject object = new JSONObject();
         List<Attendance> attendListAll = null;
         try {
@@ -68,14 +70,18 @@ public class AttendanceController {
         if (attendListAll != null) {
             JSONArray array = new JSONArray();
             for (Attendance attendance : attendListAll) {
+                Employee employee = employeeService.findEmployeeById(attendance.getE_id());
+                JSONObject obj = (JSONObject) JSON.toJSON(attendance);
+                obj.put("e_account", employee.getE_account());
+                obj.put("e_name", employee.getE_name());
                 array.add(JSON.toJSON(attendance));
             }
-            object.put("code", "0");
+            object.put("code", 0);
             object.put("msg", "操作成功");
             object.put("count", attendListAll.size());
             object.put("data", array);
         }
-        return object.toJSONString();
+        return object;
     }
 
     @RequestMapping("set_employee_attendance_record")

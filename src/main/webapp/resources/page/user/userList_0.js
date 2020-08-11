@@ -53,12 +53,13 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
             success: function (layero, index) {
                 var body = layui.layer.getChildFrame('body', index);
                 if (edit) {
-                    body.find(".userName").val(edit.userName);  //登录名
-                    body.find(".userEmail").val(edit.userEmail);  //邮箱
-                    body.find(".userSex input[value=" + edit.userSex + "]").prop("checked", "checked");  //性别
-                    body.find(".userGrade").val(edit.userGrade);  //会员等级
-                    body.find(".userStatus").val(edit.userStatus);    //用户状态
-                    body.find(".userDesc").text(edit.userDesc);    //用户简介
+                    body.find(".userCode").val(edit.e_account);  //登录名
+                    body.find(".userName").val(edit.e_name);  //登录名
+                    body.find(".birthday").val(edit.e_birthday);  //登录名
+                    body.find(".userSex input[value=" + edit.e_sex + "]").prop("checked", "checked");  //性别
+                    body.find(".userPhone").val(edit.e_phone);  //电话
+                    body.find(".userEmail").val(edit.e_email);  //邮箱
+                    body.find(".userGrade").val(edit.e_role_id);  //等级
                     form.render();
                 }
                 setTimeout(function () {
@@ -84,18 +85,18 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
     $(".delAll_btn").click(function () {
         var checkStatus = table.checkStatus('userListTable'),
             data = checkStatus.data,
-            newsId = [];
+            accounts = [];
         if (data.length > 0) {
-            for (var i in data) {
-                newsId.push(data[i].newsId);
+            for (var k in data) {
+                accounts.push(data[k].e_account);
             }
             layer.confirm('确定删除选中的用户？', {icon: 3, title: '提示信息'}, function (index) {
-                // $.get("删除文章接口",{
-                //     newsId : newsId  //将需要删除的newsId作为参数传入
-                // },function(data){
-                tableIns.reload();
-                layer.close(index);
-                // })
+                $.get("/employee/del_employee_info",{
+                    accountList : accounts
+                },function(data){
+                    tableIns.reload();
+                    layer.close(index);
+                })
             })
         } else {
             layer.msg("请选择需要删除的用户");
@@ -104,39 +105,17 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
 
     //列表操作
     table.on('tool(userList)', function (obj) {
-        var layEvent = obj.event,
-            data = obj.data;
-
+        var layEvent = obj.event, data = obj.data;
         if (layEvent === 'edit') { //编辑
             addUser(data);
-        } else if (layEvent === 'usable') { //启用禁用
-            var _this = $(this),
-                usableText = "是否确定禁用此用户？",
-                btnText = "已禁用";
-            if (_this.text() == "已禁用") {
-                usableText = "是否确定启用此用户？",
-                    btnText = "已启用";
-            }
-            layer.confirm(usableText, {
-                icon: 3,
-                title: '系统提示',
-                cancel: function (index) {
-                    layer.close(index);
-                }
-            }, function (index) {
-                _this.text(btnText);
-                layer.close(index);
-            }, function (index) {
-                layer.close(index);
-            });
         } else if (layEvent === 'del') { //删除
             layer.confirm('确定删除此用户？', {icon: 3, title: '提示信息'}, function (index) {
-                // $.get("删除文章接口",{
-                //     newsId : data.newsId  //将需要删除的newsId作为参数传入
-                // },function(data){
-                tableIns.reload();
-                layer.close(index);
-                // })
+                $.post("/employee/del_employee_info",{
+                    accountList : [data.e_account]
+                },function(data){
+                    tableIns.reload();
+                    layer.close(index);
+                })
             });
         }
     });

@@ -9,7 +9,7 @@ layui.use(['form', 'layer', 'laydate', 'table', 'laytpl'], function () {
     //新闻列表
     var tableIns = table.render({
         elem: '#newsList',
-        url: '../../json/newsList.json',
+        url: '/attendance/get_employee_attendance_record.action',
         cellMinWidth: 95,
         page: true,
         height: "full-125",
@@ -18,15 +18,12 @@ layui.use(['form', 'layer', 'laydate', 'table', 'laytpl'], function () {
         id: "newsListTable",
         cols: [[
             {type: "checkbox", fixed: "left", width: 50},
-            {field: 'newsId', title: 'ID', width: 60, align: "center"},
-            {field: 'username', title: '员工编号', align: 'center'},
-            {field: 'name', title: '员工姓名', align: 'center'},
-            {field: 'punchType', title: '打卡类型', align: 'center', templet: "#newsStatus"},
-            {
-                field: 'punchTime', title: '打卡时间', align: 'center', minWidth: 110, templet: function (d) {
-                    return d.newsTime.substring(0, 10);
-                }
-            }
+            {field: 'a_id', title: 'ID', width: 60, align: "center"},
+            {field: 'e_account', title: '员工账号', align: 'center'},
+            {field: 'e_name', title: '员工姓名', align: 'center'},
+            {field: 'a_type', title: '打卡类型', align: 'center'},
+            {field: 'a_time', title: '打卡时间', align: 'center', minWidth: 150},
+            {title: '操作', width: 170, templet: '#newsListBar', fixed: "right", align: "center"}
         ]]
     });
 
@@ -99,23 +96,23 @@ layui.use(['form', 'layer', 'laydate', 'table', 'laytpl'], function () {
     $(".delAll_btn").click(function () {
         var checkStatus = table.checkStatus('newsListTable'),
             data = checkStatus.data,
-            newsId = [];
+            idList = [];
         if (data.length > 0) {
             for (var i in data) {
-                newsId.push(data[i].newsId);
+                idList.push(data[i].a_id);
             }
             layer.confirm('确定删除选中的文章？', {icon: 3, title: '提示信息'}, function (index) {
-                // $.get("删除文章接口",{
-                //     newsId : newsId  //将需要删除的newsId作为参数传入
-                // },function(data){
-                tableIns.reload();
-                layer.close(index);
-                // })
+                $.get("/attendance/del_attendance_info", {
+                    idList: idList
+                }, function (data) {
+                    tableIns.reload();
+                    layer.close(index);
+                })
             })
         } else {
             layer.msg("请选择需要删除的文章");
         }
-    })
+    });
 
     //列表操作
     table.on('tool(newsList)', function (obj) {
@@ -126,13 +123,13 @@ layui.use(['form', 'layer', 'laydate', 'table', 'laytpl'], function () {
             addNews(data);
         } else if (layEvent === 'del') { //删除
             layer.confirm('确定删除此文章？', {icon: 3, title: '提示信息'}, function (index) {
-                // $.get("删除文章接口",{
-                //     newsId : data.newsId  //将需要删除的newsId作为参数传入
-                // },function(data){
-                tableIns.reload();
-                layer.close(index);
-                // })
-            });
+                $.get("/attendance/del_attendance_info", {
+                    idList: data.a_id
+                }, function (data) {
+                    tableIns.reload();
+                    layer.close(index);
+                })
+            })
         } else if (layEvent === 'look') { //预览
             layer.alert("此功能需要前台展示，实际开发中传入对应的必要参数进行文章内容页面访问")
         }

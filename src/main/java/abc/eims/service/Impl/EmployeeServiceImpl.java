@@ -28,7 +28,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 //        Employee employee = new Employee();
 //        employee.seteAccount(account);
 //        employee.setePassword(encode);
-        Employee employee1 = employeeMapper.selectByAccountAndPassword(encode, password);
+        Employee employee1 = employeeMapper.selectByAccountAndPassword(account, encode);
         if (employee1 == null) {
             throw new CustomException("账号或密码错误");
         }
