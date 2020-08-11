@@ -9,7 +9,7 @@ layui.use(['form', 'layer', 'laydate', 'table', 'laytpl'], function () {
     //新闻列表
     var tableIns = table.render({
         elem: '#newsList',
-        url: '/attendance/get_employee_attendance_record.action',
+        url: '/attendance/get_my_attendance_record.action',
         cellMinWidth: 95,
         page: true,
         height: "full-125",

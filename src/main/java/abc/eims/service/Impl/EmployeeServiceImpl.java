@@ -96,7 +96,6 @@ public class EmployeeServiceImpl implements IEmployeeService {
         employee.setE_birthday(date);
         employee.setE_phone(phone);
         employee.setE_role_id(roleId);
-
         employeeMapper.insert(employee);
 
     }

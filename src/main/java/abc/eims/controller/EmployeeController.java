@@ -27,9 +27,9 @@ public class EmployeeController {
     private EmployeeServiceImpl employeeService;
 
 
-    @RequestMapping(value = "/get_employee_info", produces = "text/html;charset=utf-8")
+    @RequestMapping(value = "/get_employee_info")
     @ResponseBody
-    public String getAllEmployeeInfo() {
+    public JSONObject getAllEmployeeInfo() {
 
         JSONObject object = new JSONObject();
         List<Employee> empList = null;
@@ -50,7 +50,7 @@ public class EmployeeController {
             object.put("data", array);
             System.out.println(array);
         }
-        return object.toJSONString();
+        return object;
 
     }
 

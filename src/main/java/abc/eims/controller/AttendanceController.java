@@ -19,6 +19,7 @@ import java.util.Map;
  * @date 2020/8/9 19:12
  */
 @Controller
+@RequestMapping("/attendance")
 public class AttendanceController {
 
     @Autowired
@@ -26,9 +27,8 @@ public class AttendanceController {
 
     @RequestMapping("get_my_attendance_record")
     @ResponseBody
-    public String getMyAttendanceRecord() {
+    public JSONObject getMyAttendanceRecord() {
 
-//        Map<String, String> map = new HashMap<>();
         JSONObject object = new JSONObject();
         List<Attendance> attendList = null;
         try {
@@ -37,7 +37,6 @@ public class AttendanceController {
             object.put("code", "-1");
             object.put("msg", "查询失败");
         }
-//        String jsonAttend = JsonUtil.obj2String(attendList);
         if (attendList != null) {
             JSONArray array = new JSONArray();
             for (Attendance attendance : attendList) {
@@ -48,13 +47,12 @@ public class AttendanceController {
             object.put("count", attendList.size());
             object.put("data", array);
         }
-        return object.toJSONString();
+        return object;
     }
 
     @RequestMapping("get_employee_attendance_record")
     @ResponseBody
-    public String getAllAttendanceRecord() {
-//        Map<String, String> map = new HashMap<>();
+    public JSONObject getAllAttendanceRecord() {
 
         JSONObject object = new JSONObject();
         List<Attendance> attendListAll = null;
@@ -74,7 +72,7 @@ public class AttendanceController {
             object.put("count", attendListAll.size());
             object.put("data", array);
         }
-        return object.toJSONString();
+        return object;
     }
 
     @RequestMapping("set_employee_attendance_record")
