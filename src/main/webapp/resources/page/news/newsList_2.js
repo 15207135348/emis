@@ -65,13 +65,11 @@ layui.use(['form', 'layer', 'laydate', 'table', 'laytpl'], function () {
             success: function (layero, index) {
                 var body = layui.layer.getChildFrame('body', index);
                 if (edit) {
-                    body.find(".newsName").val(edit.newsName);
-                    body.find(".abstract").val(edit.abstract);
-                    body.find(".thumbImg").attr("src", edit.newsImg);
-                    body.find("#news_content").val(edit.content);
-                    body.find(".newsStatus select").val(edit.newsStatus);
-                    body.find(".openness input[name='openness'][title='" + edit.newsLook + "']").prop("checked", "checked");
-                    body.find(".newsTop input[name='newsTop']").prop("checked", edit.newsTop);
+                    body.find(".a_id").val(edit.a_id);
+                    body.find(".userCode").val(edit.e_account);
+                    body.find(".userName").val(edit.e_name);
+                    body.find(".a_type").attr("src", edit.a_type);
+                    body.find(".a_time").val(edit.a_time);
                     form.render();
                 }
                 setTimeout(function () {
@@ -101,8 +99,8 @@ layui.use(['form', 'layer', 'laydate', 'table', 'laytpl'], function () {
             for (var i in data) {
                 idList.push(data[i].a_id);
             }
-            layer.confirm('确定删除选中的文章？', {icon: 3, title: '提示信息'}, function (index) {
-                $.get("/attendance/del_attendance_info", {
+            layer.confirm('确定删除选中的考勤记录？', {icon: 3, title: '提示信息'}, function (index) {
+                $.get("/attendance/del_attendance_info.action", {
                     idList: idList
                 }, function (data) {
                     tableIns.reload();
@@ -122,8 +120,8 @@ layui.use(['form', 'layer', 'laydate', 'table', 'laytpl'], function () {
         if (layEvent === 'edit') { //编辑
             addNews(data);
         } else if (layEvent === 'del') { //删除
-            layer.confirm('确定删除此文章？', {icon: 3, title: '提示信息'}, function (index) {
-                $.get("/attendance/del_attendance_info", {
+            layer.confirm('确定删除此考勤记录？', {icon: 3, title: '提示信息'}, function (index) {
+                $.get("/attendance/del_attendance_info.action", {
                     idList: data.a_id
                 }, function (data) {
                     tableIns.reload();
@@ -134,5 +132,4 @@ layui.use(['form', 'layer', 'laydate', 'table', 'laytpl'], function () {
             layer.alert("此功能需要前台展示，实际开发中传入对应的必要参数进行文章内容页面访问")
         }
     });
-
-})
+});

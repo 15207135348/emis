@@ -33,7 +33,14 @@ public interface IEmployeeService {
 
     void insert(Employee employee);
 
-    void updateOrInsert(String account, String name, String birthday, Integer sex, String phone, String email, Integer roleId);
+    int updateOrInsert(
+            String account,
+            String name,
+            String birthday,
+            Integer sex,
+            String phone,
+            String email,
+            Integer roleId);
 
     Employee findByAccount(String eAccount);
 

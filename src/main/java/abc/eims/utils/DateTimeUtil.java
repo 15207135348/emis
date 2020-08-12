@@ -24,7 +24,7 @@ public class DateTimeUtil {
         if (s == null) {
             return null;
         }
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = null;
         try {
             date = simpleDateFormat.parse(s);
@@ -61,6 +61,10 @@ public class DateTimeUtil {
         }
         DateTime dateTime = new DateTime(date);
         return dateTime.toString(STANDARD_FORMAT);
+    }
+
+    public static void main(String[] args) {
+        System.out.println(dateToStr(new Date()));
     }
 
 }

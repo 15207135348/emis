@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.Date;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:applicationContext.xml")
 public class testEmployeeMapper {
@@ -37,8 +39,8 @@ public class testEmployeeMapper {
 //        list.add("1996249");
 //        employeeService.delEmployeeInfoByAccount(list);
 
-        employeeService.updateOrInsert(2, null, null, "王二麻子", null,
-                null, null, null, null);
+        employeeService.updateOrInsert("11111", "王二麻子", "2020-12-12",
+                1, "15207135348", "1365733349@qq.com", 2);
 
     }
 

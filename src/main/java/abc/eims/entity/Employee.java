@@ -1,12 +1,16 @@
 package abc.eims.entity;
 
+import abc.eims.utils.DateTimeUtil;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+
 import java.util.Date;
 
 /**
  * @author wangzhe
  * @date 2020/8/7 15:39
  */
-public class Employee {
+public class Employee implements Jsonable {
 
     private Integer e_id;
 
@@ -128,5 +132,15 @@ public class Employee {
                 ", e_role_id=" + e_role_id +
                 '}';
     }
+
+    @Override
+    public JSONObject toJSON() {
+        JSONObject object = (JSONObject) JSON.toJSON(this);
+        object.put("e_birthday", DateTimeUtil.dateToStr(e_birthday, "yyyy-MM-dd"));
+        object.put("e_sex", e_sex == 1 ? "男" : "女");
+        object.put("e_role_id", e_role_id == 1 ? "超级管理员" : e_role_id == 2 ? "管理员" : "普通员工");
+        return object;
+    }
+
 
 }

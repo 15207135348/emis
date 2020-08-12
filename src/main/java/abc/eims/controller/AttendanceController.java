@@ -10,8 +10,10 @@ import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,9 +48,10 @@ public class AttendanceController {
             JSONArray array = new JSONArray();
             for (Attendance attendance : attendList) {
                 Employee e = employeeService.findEmployeeById(attendance.getE_id());
-                JSONObject o = new JSONObject(array.add(JSON.toJSON(attendance)));
-                o.put("account", e.getE_account());
-                o.put("name", e.getE_name());
+                JSONObject o = attendance.toJSON();
+                o.put("e_account", e.getE_account());
+                o.put("e_name", e.getE_name());
+                array.add(o);
             }
             object.put("code", "0");
             object.put("msg", "操作成功");
@@ -74,9 +77,10 @@ public class AttendanceController {
             JSONArray array = new JSONArray();
             for (Attendance attendance : attendListAll) {
                 Employee e = employeeService.findEmployeeById(attendance.getE_id());
-                JSONObject o = new JSONObject(array.add(JSON.toJSON(attendance)));
-                o.put("account", e.getE_account());
-                o.put("name", e.getE_name());
+                JSONObject o = attendance.toJSON();
+                o.put("e_account", e.getE_account());
+                o.put("e_name", e.getE_name());
+                array.add(o);
             }
             object.put("code", "0");
             object.put("msg", "操作成功");
@@ -88,7 +92,14 @@ public class AttendanceController {
 
     @RequestMapping("set_employee_attendance_record")
     @ResponseBody
-    public Map<String, String> changeAttendanceRecord(Integer aId, Integer aType, String aTime) {
+    public Map<String, String> changeAttendanceRecord(HttpServletRequest request) {
+
+        Integer aId = Integer.valueOf(request.getParameter("a_id"));
+
+        Integer aType = Integer.valueOf(request.getParameter("a_type"));
+
+        String aTime = request.getParameter("a_time");
+
         Map<String, String> map = new HashMap<>();
 
         try {
@@ -102,11 +113,10 @@ public class AttendanceController {
         return map;
     }
 
-    @RequestMapping("del_attendance_info")
+    @RequestMapping("/del_attendance_info")
     @ResponseBody
-    public Map<String, String> delAttendanceRecord(Integer aId) {
+    public Map<String, String> delAttendanceRecord(@RequestParam("idList") Integer aId) {
         Map<String, String> map = new HashMap<>();
-
         try {
             attendanceService.delAttendanceRecord(aId);
         } catch (Exception e) {

@@ -57,8 +57,6 @@
         form.on("submit(login)", function (data) {
             $(this).text("登录中...").attr("disabled", "disabled").addClass("layui-disabled");
 
-
-
             // console.log("登录中")
             // var account = document.getElementById("e_account").value;
             // var password = document.getElementById("e_password").value;
@@ -80,8 +78,6 @@
             //     error: function (data) {
             //     }
             // });
-
-
 
             setTimeout(function () {
                 $("#loginFrm").submit();
@@ -105,13 +101,14 @@
             } else {
                 $(this).parent().removeClass("layui-input-active");
             }
-        })
+        });
 
         var image = document.getElementById("imgCode_image");
         image.onclick = function (ev) {
             image.setAttribute("src", "http://localhost:8080/auth/changeCode.action");
             image.update()
         };
+
     })
 
 </script>

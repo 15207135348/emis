@@ -42,6 +42,37 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
         }
     });
 
+
+    function getSex(val) {
+        if(val === 0){
+            return "男"
+        }else {
+            return "女"
+        }
+    }
+
+    function getType(val) {
+        if(val === 0){
+            return "上班打卡";
+        }
+        if(val === 1){
+            return "下班打卡";
+        }
+    }
+
+
+    function getGrage(val) {
+        if(val === 1){
+            return "超级管理员";
+        }
+        if(val === 2){
+            return "管理员";
+        }
+        if(val === 3){
+            return "普通员工";
+        }
+    }
+
     //添加用户
     function addUser(edit) {
         var index = layui.layer.open({
@@ -54,7 +85,7 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
                     body.find(".userCode").val(edit.e_account);  //登录名
                     body.find(".userName").val(edit.e_name);  //登录名
                     body.find(".birthday").val(edit.e_birthday);  //登录名
-                    body.find(".userSex input[value=" + edit.e_sex + "]").prop("checked", "checked");  //性别
+                    body.find(".userSex").val(edit.e_sex);
                     body.find(".userPhone").val(edit.e_phone);  //电话
                     body.find(".userEmail").val(edit.e_email);  //邮箱
                     form.render();
@@ -89,7 +120,7 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
             }
             layer.confirm('确定删除选中的用户？', {icon: 3, title: '提示信息'}, function (index) {
                 $.get("/employee/del_employee_info.action",{
-                    accountList : accounts
+                    accountList : accounts.join(',')
                 },function(data){
                     tableIns.reload();
                     layer.close(index);
@@ -107,8 +138,8 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
             addUser(data);
         } else if (layEvent === 'del') { //删除
             layer.confirm('确定删除此用户？', {icon: 3, title: '提示信息'}, function (index) {
-                $.post("/employee/del_employee_info.action",{
-                    accountList : [data.e_account]
+                $.get("/employee/del_employee_info.action",{
+                    accountList : data.e_account
                 },function(data){
                     tableIns.reload();
                     layer.close(index);

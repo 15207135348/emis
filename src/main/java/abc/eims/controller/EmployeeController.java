@@ -2,16 +2,16 @@ package abc.eims.controller;
 
 import abc.eims.entity.Employee;
 import abc.eims.service.Impl.EmployeeServiceImpl;
+import abc.eims.utils.DateTimeUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,7 +43,7 @@ public class EmployeeController {
         if (empList != null) {
             JSONArray array = new JSONArray();
             for (Employee employee : empList) {
-                array.add(JSON.toJSON(employee));
+                array.add(employee.toJSON());
             }
             object.put("code", 0);
             object.put("msg", "");
@@ -55,40 +55,44 @@ public class EmployeeController {
 
     }
 
-    @RequestMapping("set_employee_info")
+    @RequestMapping("/set_employee_info")
     @ResponseBody
-    public Map<String, String> changeEmployeeInfo(@RequestParam("e_id") Integer eId,
-                                                  @RequestParam("e_account")String account,
-                                                  @RequestParam("e_password")String password,
-                                                  @RequestParam("e_name")String name,
-                                                  @RequestParam("e_birthday")String birthday,
-                                                  @RequestParam("e_sex")Integer sex,
-                                                  @RequestParam("e_phone")String phone,
-                                                  @RequestParam("e_email")String email,
-                                                  @RequestParam("e_role_id")Integer roleId) {
-
+    public Map<String, String> changeEmployeeInfo(HttpServletRequest request) {
+        String account = request.getParameter("e_account");
+        String name = request.getParameter("e_name");
+        String birthday = request.getParameter("e_birthday");
+        System.out.println(request.getParameter("e_sex"));
+        Integer sex = Integer.valueOf(request.getParameter("e_sex"));
+        String phone = request.getParameter("e_phone");
+        String email = request.getParameter("e_email");
+        Integer roleId = Integer.valueOf(request.getParameter("e_role_id"));
         Map<String, String> map = new HashMap<>();
 
         try {
-            employeeService.updateOrInsert(eId, account, password, name,
+            int res = employeeService.updateOrInsert(account, name,
                     birthday, sex, phone, email, roleId);
+            if (res == 1) {
+                map.put("code", "0");
+                map.put("msg", "添加成功");
+            } else {
+                map.put("code", "0");
+                map.put("msg", "修改成功");
+            }
         } catch (Exception e) {
             map.put("code", "-1");
             map.put("msg", "信息修改失败");
         }
-        map.put("code", "0");
-        map.put("msg", "修改成功");
         return map;
 
     }
 
-
     @RequestMapping("del_employee_info")
     @ResponseBody
-    public Map<String, String> delEmployeeInfo(@RequestBody List<String> accountList) {
+    public Map<String, String> delEmployeeInfo(@RequestParam("accountList") String accountList) {
         Map<String, String> map = new HashMap<>();
         try {
-            employeeService.delEmployeeInfoByAccount(accountList);
+            String[] arr = accountList.split(",");
+            employeeService.delEmployeeInfoByAccount(Arrays.asList(arr));
         } catch (Exception e) {
             map.put("code", "-1");
             map.put("msg", "删除失败");
