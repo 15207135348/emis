@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -83,7 +84,7 @@ public class LoginController {
      * @return
      */
     @RequestMapping("login_by_password")
-    public String employeeLogin(
+    public ModelAndView employeeLogin(
             @RequestParam("e_account") String account,
             @RequestParam("e_password") String password,
             @RequestParam("code") String identifyingcode) {
@@ -97,26 +98,22 @@ public class LoginController {
             try {
                 employee = employeeService.findEmployeeByIdAndPassword(account, password);
             } catch (CustomException e) {
-                return "login";
+                return new ModelAndView("login", "msg", e.getMessage());
             }
             // 保存到session
 //            httpSession.setAttribute("employeeId", employee.getE_id());
             CookieUtil.addCookie(String.valueOf(employee.getE_id()));
-            return "index";
+            return new ModelAndView("index", "msg", "登录成功");
         } else {
-            return "login";
+            return new ModelAndView("login", "msg", "验证码错误");
         }
     }
 
     /**
-     * 退出登录
-     *
-     * @param httpSession
      * @return
      */
     @RequestMapping("login_out")
-    public String logout(HttpSession httpSession) {
-        httpSession.removeAttribute("employeeId");
+    public String logout() {
         CookieUtil.removeCookie();
         return "login";
     }
