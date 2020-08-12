@@ -81,23 +81,24 @@ public class EmployeeServiceImpl implements IEmployeeService {
     }
 
     @Override
-    public void updateOrInsert(Integer eId, String account, String password, String name, String birthday, Integer sex, String phone, String email, Integer roleId) {
-        Employee employee = employeeMapper.findById(eId);
+    public void updateOrInsert(String account, String name, String birthday, Integer sex, String phone, String email, Integer roleId) {
+        Employee employee = employeeMapper.findByAccount(account);
         if (employee != null) {
-            employeeMapper.update(eId, account, password, name, birthday, sex, phone, email, roleId);
+            employeeMapper.update(employee.getE_id(), account, null, name, birthday, sex, phone, email, roleId);
         }
-
-        Date date = DateTimeUtil.dateToStamp(birthday);
-        employee.setE_id(eId);
-        employee.setE_account(account);
-        employee.setE_password(password);
-        employee.setE_name(name);
-        employee.setE_sex(sex);
-        employee.setE_birthday(date);
-        employee.setE_phone(phone);
-        employee.setE_role_id(roleId);
-        employeeMapper.insert(employee);
-
+        else {
+            employee = new Employee();
+            Date date = DateTimeUtil.dateToStamp(birthday + " 00:00:00");
+            employee.setE_account(account);
+            employee.setE_password(MD5Utils.encodeByMD5("123456"));
+            employee.setE_name(name);
+            employee.setE_sex(sex);
+            employee.setE_birthday(date);
+            employee.setE_phone(phone);
+            employee.setE_role_id(roleId);
+            int id = employeeMapper.insert(employee);
+            System.out.println(id);
+        }
     }
 
     @Override

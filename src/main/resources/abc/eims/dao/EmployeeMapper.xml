@@ -31,8 +31,7 @@
     </select>
 
     <insert id="insert" parameterType="employee">
-        INSERT INTO t_employee
-        (e_account, e_password, e_name, e_birthday, e_sex, e_phone, e_email, e_role_id)
+        INSERT INTO t_employee (e_account, e_password, e_name, e_birthday, e_sex, e_phone, e_email, e_role_id)
         VALUES (#{eAccount}, #{ePassword}, #{eName}, #{eBirthday}, #{eSex}, #{ePhone}, #{eEmail}, #{eRoleId})
     </insert>
 

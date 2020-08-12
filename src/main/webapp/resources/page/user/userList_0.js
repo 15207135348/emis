@@ -91,7 +91,7 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
                 accounts.push(data[k].e_account);
             }
             layer.confirm('确定删除选中的用户？', {icon: 3, title: '提示信息'}, function (index) {
-                $.get("/employee/del_employee_info",{
+                $.post("/employee/del_employee_info.action",{
                     accountList : accounts
                 },function(data){
                     tableIns.reload();
@@ -110,7 +110,7 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
             addUser(data);
         } else if (layEvent === 'del') { //删除
             layer.confirm('确定删除此用户？', {icon: 3, title: '提示信息'}, function (index) {
-                $.post("/employee/del_employee_info",{
+                $.post("/employee/del_employee_info.action",{
                     accountList : [data.e_account]
                 },function(data){
                     tableIns.reload();
