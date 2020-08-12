@@ -22,13 +22,11 @@ public class EmployeeServiceImpl implements IEmployeeService {
     @Autowired
     private EmployeeMapper employeeMapper;
 
+    //没问题
     @Override
     public Employee findEmployeeByIdAndPassword(String account, String password) throws CustomException {
 
         String encode = MD5Utils.encodeByMD5(password);
-//        Employee employee = new Employee();
-//        employee.seteAccount(account);
-//        employee.setePassword(encode);
         Employee employee1 = employeeMapper.selectByAccountAndPassword(account, encode);
         if (employee1 == null) {
             throw new CustomException("账号或密码错误");
@@ -36,20 +34,22 @@ public class EmployeeServiceImpl implements IEmployeeService {
         return employee1;
     }
 
+    //没问题
     @Override
     public Employee findEmployeeById(int eId) {
         return employeeMapper.findById(eId);
     }
 
+    //没问题
     @Override
     public List<Employee> getAllEmployeeInfo() {
         return employeeMapper.findAll();
     }
 
+    //没问题
     @Override
     public void delEmployeeInfoByAccount(List<String> list) {
-
-        employeeMapper.deleteByAccount(list);
+        employeeMapper.deleteEmployeeInfoByAccount(list);
     }
 
     @Override
@@ -57,18 +57,6 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
     }
 
-//    @Override
-//    public void changeEmployeeInfo(Integer eId,
-//                                   String account,
-//                                   String password,
-//                                   String name,
-//                                   String birthday,
-//                                   Integer sex,
-//                                   String phone,
-//                                   String email,
-//                                   String roleId) {
-//        employeeMapper.changeEmployeeInfo(eId, account, password, name, birthday, sex, phone, email, roleId);
-//    }
 
     @Override
     public void changeEmployeeRole(String account, String roleId) {
@@ -85,19 +73,19 @@ public class EmployeeServiceImpl implements IEmployeeService {
         Employee employee = employeeMapper.findById(eId);
         if (employee != null) {
             employeeMapper.update(eId, account, password, name, birthday, sex, phone, email, roleId);
+        } else {
+            Date date = DateTimeUtil.dateToStamp(birthday);
+            Employee e = new Employee();
+            e.setE_id(eId);
+            e.setE_account(account);
+            e.setE_password(password);
+            e.setE_name(name);
+            e.setE_sex(sex);
+            e.setE_birthday(date);
+            e.setE_phone(phone);
+            e.setE_role_id(roleId);
+            employeeMapper.insert(e);
         }
-
-        Date date = DateTimeUtil.dateToStamp(birthday);
-        employee.setE_id(eId);
-        employee.setE_account(account);
-        employee.setE_password(password);
-        employee.setE_name(name);
-        employee.setE_sex(sex);
-        employee.setE_birthday(date);
-        employee.setE_phone(phone);
-        employee.setE_role_id(roleId);
-        employeeMapper.insert(employee);
-
     }
 
     @Override

@@ -4,7 +4,7 @@
 <html class="loginHtml">
 <head>
     <meta charset="utf-8">
-    <title>登录-员工考勤系统</title>
+    <title>登录-员工信息管理系统</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -44,6 +44,7 @@
             <a href="javascript:;" class="seraph icon-sina layui-col-xs4 layui-col-sm4 layui-col-md4 layui-col-lg4"></a> -->
     </div>
 </form>
+
 <script type="text/javascript" src="${ctx}/resources/layui/layui.js"></script>
 <script type="text/javascript" src="${ctx}/resources/js/cache.js"></script>
 <script type="text/javascript">
@@ -55,6 +56,9 @@
         //登录按钮
         form.on("submit(login)", function (data) {
             $(this).text("登录中...").attr("disabled", "disabled").addClass("layui-disabled");
+
+
+
             // console.log("登录中")
             // var account = document.getElementById("e_account").value;
             // var password = document.getElementById("e_password").value;
@@ -74,9 +78,10 @@
             //         window.location.href = 'index.jsp'
             //     },
             //     error: function (data) {
-            //
             //     }
             // });
+
+
 
             setTimeout(function () {
                 $("#loginFrm").submit();
@@ -107,8 +112,6 @@
             image.setAttribute("src", "http://localhost:8080/auth/changeCode.action");
             image.update()
         };
-
-
     })
 
 </script>

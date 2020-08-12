@@ -10,7 +10,6 @@
         from t_employee
     </select>
 
-
     <select id="findById" parameterType="int" resultType="employee">
         SELECT *
         FROM t_employee
@@ -33,19 +32,21 @@
     <insert id="insert" parameterType="employee">
         INSERT INTO t_employee
         (e_account, e_password, e_name, e_birthday, e_sex, e_phone, e_email, e_role_id)
-        VALUES (#{eAccount}, #{ePassword}, #{eName}, #{eBirthday}, #{eSex}, #{ePhone}, #{eEmail}, #{eRoleId})
+        VALUES (#{e_account}, #{e_password}, #{e_name}, #{e_birthday}, #{e_sex}, #{e_phone}, #{e_email}, #{e_role_id})
     </insert>
 
     <update id="update">
         update t_employee
-        set e_account  = #{eAccount},
-            e_password = #{ePassword},
-            e_name     = #{eName},
-            e_birthday = #{eBirthday},
-            e_sex      = #{eSex},
-            e_phone    = #{ePhone},
-            e_email    = #{eEmail},
-            e_role_id  = #{eRoleId}
+        <set>
+            <if test="account != null">e_account=#{account},</if>
+            <if test="password != null">e_password=#{password},</if>
+            <if test="name != null">e_name=#{name},</if>
+            <if test="birthday != null">e_birthday=#{birthday},</if>
+            <if test="sex">e_sex=#{sex},</if>
+            <if test="phone != null">e_phone=#{phone},</if>
+            <if test="email != null">e_email=#{email},</if>
+            <if test="roleId != null">e_role_id=#{roleId},</if>
+        </set>
         where e_id = #{eId}
     </update>
 
@@ -62,7 +63,7 @@
         where e_id = #{eId}
     </delete>
 
-    <delete id="deleteByAccount" parameterType="int">
+    <delete id="deleteEmployeeInfoByAccount" parameterType="int">
         delete from t_employee where e_account in
         <foreach collection="list" item="e_account" open="(" close=")" separator=",">
             #{e_account}

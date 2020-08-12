@@ -120,6 +120,4 @@ public class LoginController {
         CookieUtil.removeCookie();
         return "login";
     }
-
-
 }
