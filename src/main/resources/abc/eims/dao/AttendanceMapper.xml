@@ -38,10 +38,11 @@
 
     <update id="changeAttendanceRecord">
         update t_attendance
-        set a_type = #{aType},
-            a_time = #{aTime}
+        <set>
+            <if test="aType != null">a_type=#{aType},</if>
+            <if test="aTime != null">a_time=#{aTime},</if>
+        </set>
         where a_id = #{aId}
-
     </update>
 
     <delete id="deleteById" parameterType="int">

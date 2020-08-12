@@ -21,6 +21,9 @@ public class DateTimeUtil {
 
 
     public static Date dateToStamp(String s) {
+        if (s == null) {
+            return null;
+        }
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = null;
         try {

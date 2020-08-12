@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>首页-员工考勤系统</title>
+	<title>首页-员工信息管理系统</title>
 	<meta name="renderer" content="webkit">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta http-equiv="Access-Control-Allow-Origin" content="*">
@@ -12,7 +12,7 @@
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="format-detection" content="telephone=no">
-	<link rel="icon" href="${ctx }/resources/favicon.ico">
+	<link rel="icon" href="${ctx }/resources/favicon1.ico">
 	<link rel="stylesheet" href="${ctx }/resources/layui/css/layui.css" media="all" />
 	<link rel="stylesheet" href="${ctx }/resources/css/index.css" media="all" />
 </head>
@@ -21,7 +21,7 @@
 		<!-- 顶部 -->
 		<div class="layui-header header">
 			<div class="layui-main mag0">
-				<a href="#" class="logo">员工考勤管理</a>
+				<a href="#" class="logo">考勤管理系统</a>
 				<!-- 显示/隐藏菜单 -->
 				<a href="javascript:;" class="seraph hideMenu icon-caidan"></a>
 			    <!-- 顶部右侧菜单 -->

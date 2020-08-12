@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,10 +46,9 @@ public class AttendanceController {
             JSONArray array = new JSONArray();
             for (Attendance attendance : attendList) {
                 Employee e = employeeService.findEmployeeById(attendance.getE_id());
-                JSONObject o = (JSONObject) JSON.toJSON(attendance);
-                o.put("e_account", e.getE_account());
-                o.put("e_name", e.getE_name());
-                array.add(o);
+                JSONObject o = new JSONObject(array.add(JSON.toJSON(attendance)));
+                o.put("account", e.getE_account());
+                o.put("name", e.getE_name());
             }
             object.put("code", "0");
             object.put("msg", "操作成功");
@@ -74,10 +74,9 @@ public class AttendanceController {
             JSONArray array = new JSONArray();
             for (Attendance attendance : attendListAll) {
                 Employee e = employeeService.findEmployeeById(attendance.getE_id());
-                JSONObject o = (JSONObject) JSON.toJSON(attendance);
-                o.put("e_account", e.getE_account());
-                o.put("e_name", e.getE_name());
-                array.add(o);
+                JSONObject o = new JSONObject(array.add(JSON.toJSON(attendance)));
+                o.put("account", e.getE_account());
+                o.put("name", e.getE_name());
             }
             object.put("code", "0");
             object.put("msg", "操作成功");
@@ -118,4 +117,5 @@ public class AttendanceController {
         map.put("msg", "操作成功");
         return map;
     }
+
 }

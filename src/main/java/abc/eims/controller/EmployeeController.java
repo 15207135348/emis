@@ -55,20 +55,23 @@ public class EmployeeController {
 
     }
 
-    @RequestMapping("/set_employee_info")
+    @RequestMapping("set_employee_info")
     @ResponseBody
-    public Map<String, String> changeEmployeeInfo(@RequestParam("e_account") String account,
-                                                  @RequestParam("e_name") String name,
-                                                  @RequestParam("e_birthday") String birthday,
-                                                  @RequestParam("e_sex") Integer sex,
-                                                  @RequestParam("e_phone") String phone,
-                                                  @RequestParam("e_email") String email,
-                                                  @RequestParam("e_role_id") Integer roleId) {
+    public Map<String, String> changeEmployeeInfo(@RequestParam("e_id") Integer eId,
+                                                  @RequestParam("e_account")String account,
+                                                  @RequestParam("e_password")String password,
+                                                  @RequestParam("e_name")String name,
+                                                  @RequestParam("e_birthday")String birthday,
+                                                  @RequestParam("e_sex")Integer sex,
+                                                  @RequestParam("e_phone")String phone,
+                                                  @RequestParam("e_email")String email,
+                                                  @RequestParam("e_role_id")Integer roleId) {
 
         Map<String, String> map = new HashMap<>();
 
         try {
-            employeeService.updateOrInsert(account, name, birthday, sex, phone, email, roleId);
+            employeeService.updateOrInsert(eId, account, password, name,
+                    birthday, sex, phone, email, roleId);
         } catch (Exception e) {
             map.put("code", "-1");
             map.put("msg", "信息修改失败");
@@ -80,7 +83,7 @@ public class EmployeeController {
     }
 
 
-    @RequestMapping("/el_employee_info")
+    @RequestMapping("del_employee_info")
     @ResponseBody
     public Map<String, String> delEmployeeInfo(@RequestBody List<String> accountList) {
         Map<String, String> map = new HashMap<>();
@@ -95,7 +98,8 @@ public class EmployeeController {
         return map;
     }
 
-    @RequestMapping("/set_employee_role")
+    //没有使用
+    @RequestMapping("set_employee_role")
     @ResponseBody
     public Map<String, String> changeEmployeeRole(String account, String roleId) {
 
