@@ -31,7 +31,6 @@ public class EmployeeController {
     @Autowired
     private AttendanceServiceImpl attendanceService;
 
-
     @RequestMapping(value = "/get_employee_info")
     @ResponseBody
     public JSONObject getAllEmployeeInfo() {

@@ -41,8 +41,7 @@ public class RoleController {
     private String getMenuById(int roleId) {
         if (roleId == 1) {
             return Const.one;
-        }
-        if (roleId == 2) {
+        } else if (roleId == 2) {
             return Const.two;
         }
         return Const.three;

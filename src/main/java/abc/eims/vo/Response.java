@@ -59,7 +59,7 @@ public class Response {
 
     public enum Code {
 
-        Success(0, "请求成功"),
+        Success(0, "登录成功"),
         ParameterError(-1, "参数错误"),
         UserNotExistError(-2, "用户不存在"),
         UserHasExistError(-3, "用户已存在"),
