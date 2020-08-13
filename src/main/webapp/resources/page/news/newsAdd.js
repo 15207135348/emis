@@ -14,11 +14,9 @@ layui.use(['form', 'layer', 'laydate'], function () {
         //弹出loading
         var index = top.layer.msg('数据提交中，请稍候', {icon: 16, time: false, shade: 0.8});
         // 实际使用时的提交信息
-        var options=$(".a_type option:selected");
-        console.log(options.val());
         $.get("/attendance/set_employee_attendance_record.action", {
             a_id: $(".a_id").val(),
-            a_type: options.val(),
+            a_type: $(".a_type input:checked").val(),
             a_time: $(".a_time").val()
         }, function (res) {
             top.layer.close(index);

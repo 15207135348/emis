@@ -61,7 +61,6 @@ public class EmployeeController {
         String account = request.getParameter("e_account");
         String name = request.getParameter("e_name");
         String birthday = request.getParameter("e_birthday");
-        System.out.println(request.getParameter("e_sex"));
         Integer sex = Integer.valueOf(request.getParameter("e_sex"));
         String phone = request.getParameter("e_phone");
         String email = request.getParameter("e_email");

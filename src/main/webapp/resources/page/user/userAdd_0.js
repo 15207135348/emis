@@ -12,17 +12,17 @@ layui.use(['form', 'layer', 'laydate'], function () {
 
     form.on("submit(addUser)", function (data) {
 
-        var options=$("#userSex option:selected");
         // 弹出loading
         var index = top.layer.msg('数据提交中，请稍候', {icon: 16, time: false, shade: 0.8});
         var exec = false;
         var e_account = $(".userCode").val(),
             e_name = $(".userName").val(),
             e_birthday = $(".birthday").val(),
-            e_sex = options.val(),
+            e_sex = $(".userSex input:checked").val(),
             e_phone = $(".userPhone").val(),
             e_email = $(".userEmail").val(),
-            e_role_id = $(".userGrade").val();
+            e_role_id = $(".userGrade input:checked").val();
+
 
         // 实际使用时的提交信息
         $.get("/employee/set_employee_info.action", {

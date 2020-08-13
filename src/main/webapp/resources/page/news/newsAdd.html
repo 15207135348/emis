@@ -32,15 +32,19 @@
 			<input type="text" disabled readonly class="layui-input userName layui-disabled" lay-verify="required">
 		</div>
 	</div>
-	<div class="layui-form-item layui-row layui-col-xs12">
-		<label class="layui-form-label">打卡类型</label>
-		<div class="layui-input-block">
-			<select name="userGrade" class="a_type" lay-filter="userGrade">
-				<option value="1">上班打卡</option>
-				<option value="2">下班打卡</option>
-			</select>
+
+
+	<div class="layui-row">
+		<div class="magb15 layui-col-md12 layui-col-xs12">
+			<label class="layui-form-label">打卡类型</label>
+			<div class="layui-input-block a_type">
+				<input type="radio" name="a_type" value="1" title="上班打卡" checked>
+				<input type="radio" name="a_type" value="2" title="下班打卡">
+			</div>
 		</div>
 	</div>
+
+
 
 	<div class="layui-form-item layui-row layui-col-xs12">
 		<label class="layui-form-label">打卡时间</label>

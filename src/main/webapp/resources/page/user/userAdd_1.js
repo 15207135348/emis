@@ -17,7 +17,7 @@ layui.use(['form', 'layer', 'laydate'], function () {
         var e_account = $(".userCode").val(),
             e_name = $(".userName").val(),
             e_birthday = $(".birthday").val(),
-            e_sex = $(".userSex option:selected").val(),
+            e_sex = $(".userSex input:checked").val(),
             e_phone = $(".userPhone").val(),
             e_email = $(".userEmail").val();
 

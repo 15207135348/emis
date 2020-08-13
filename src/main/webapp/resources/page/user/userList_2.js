@@ -82,10 +82,11 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
             success: function (layero, index) {
                 var body = layui.layer.getChildFrame('body', index);
                 if (edit) {
+                    var sex_code = edit.e_sex === '男' ? "1" : "0";
                     body.find(".userCode").val(edit.e_account);  //登录名
                     body.find(".userName").val(edit.e_name);  //登录名
                     body.find(".birthday").val(edit.e_birthday);  //登录名
-                    body.find(".userSex").val(edit.e_sex);
+                    body.find(".userSex input[value="+sex_code+"]").prop("checked","checked");  //性别
                     body.find(".userPhone").val(edit.e_phone);  //电话
                     body.find(".userEmail").val(edit.e_email);  //邮箱
                     form.render();

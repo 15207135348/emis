@@ -65,10 +65,11 @@ layui.use(['form', 'layer', 'laydate', 'table', 'laytpl'], function () {
             success: function (layero, index) {
                 var body = layui.layer.getChildFrame('body', index);
                 if (edit) {
+                    var type_code = edit.a_type === '上班打卡' ? "1" : "2";
                     body.find(".a_id").val(edit.a_id);
                     body.find(".userCode").val(edit.e_account);
                     body.find(".userName").val(edit.e_name);
-                    body.find(".a_type").attr("src", edit.a_type);
+                    body.find(".a_type input[value="+type_code+"]").prop("checked","checked");  //性别
                     body.find(".a_time").val(edit.a_time);
                     form.render();
                 }
