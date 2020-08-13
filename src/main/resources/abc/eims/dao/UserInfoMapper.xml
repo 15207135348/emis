@@ -8,8 +8,8 @@
     <update id="changePwd">
         update t_employee
         set e_password = #{newPwd}
-        where e_account = #{account}
-          and e_id = #{eId}
+        where e_id = #{eId}
+        and e_password = #{oldPwd}
     </update>
 
     <update id="changeInfo">

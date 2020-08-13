@@ -24,20 +24,15 @@ public class UserInfoController {
 
     @RequestMapping("set_my_password")
     @ResponseBody
-<<<<<<< HEAD
     public Map<String, String> changePassword(@RequestParam("old_password") String oldPwd,
-                                              @RequestParam("new_password")String newPwd) {
-=======
-    public Map<String, String> changePassword(String oldPwd,
-                                              String newPwd) {
->>>>>>> 9a45c3b5ffda51fbd3a8ecef74c37790afd0748b
-
+                                              @RequestParam("new_password") String newPwd) {
         Map<String, String> map = new HashMap<>();
         try {
             userInfoService.changePassword(oldPwd, newPwd);
         } catch (Exception e) {
             map.put("code", "-1");
             map.put("msg", "密码修改失败");
+            return map;
         }
         map.put("code", "0");
         map.put("msg", "密码修改成功");
@@ -57,6 +52,7 @@ public class UserInfoController {
         } catch (Exception e) {
             map.put("code", "-1");
             map.put("msg", "更新信息失败");
+            return map;
         }
         map.put("code", "0");
         map.put("msg", "更新成功");
