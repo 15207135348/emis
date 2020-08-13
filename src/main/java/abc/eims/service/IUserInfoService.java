@@ -8,8 +8,12 @@ import java.util.Date;
  */
 public interface IUserInfoService {
 
-    void changePassword(String account, String oldPwd, String newPwd);
+    void changePassword(String oldPwd, String newPwd);
 
-    void changeInfo(String name, Date birthday, Integer sex, String phone, String email);
+    void changeInfo(String name,
+                    Date birthday,
+                    Integer sex,
+                    String phone,
+                    String email);
 
 }

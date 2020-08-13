@@ -42,7 +42,7 @@
             <if test="password != null">e_password=#{password},</if>
             <if test="name != null">e_name=#{name},</if>
             <if test="birthday != null">e_birthday=#{birthday},</if>
-            <if test="sex">e_sex=#{sex},</if>
+            <if test="sex != null">e_sex=#{sex},</if>
             <if test="phone != null">e_phone=#{phone},</if>
             <if test="email != null">e_email=#{email},</if>
             <if test="roleId != null">e_role_id=#{roleId},</if>

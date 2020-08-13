@@ -23,11 +23,12 @@ public class UserInfoController {
 
     @RequestMapping("set_my_password")
     @ResponseBody
-    public Map<String, String> changePassword(String account, String oldPwd, String newPwd) {
+    public Map<String, String> changePassword(String oldPwd,
+                                              String newPwd) {
 
         Map<String, String> map = new HashMap<>();
         try {
-            userInfoService.changePassword(account, oldPwd, newPwd);
+            userInfoService.changePassword(oldPwd, newPwd);
         } catch (Exception e) {
             map.put("code", "-1");
             map.put("msg", "密码修改失败");

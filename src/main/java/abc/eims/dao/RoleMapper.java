@@ -1,6 +1,5 @@
 package abc.eims.dao;
 
-import abc.eims.entity.Items;
 import abc.eims.entity.Role;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;

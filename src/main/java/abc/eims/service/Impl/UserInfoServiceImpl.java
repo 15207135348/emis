@@ -20,16 +20,20 @@ public class UserInfoServiceImpl implements IUserInfoService {
     @Autowired
     private UserInfoMapper userInfoMapper;
 
-
     @Override
-    public void changePassword(String account, String oldPwd, String newPwd) {
+    public void changePassword(String oldPwd, String newPwd) {
+        int eId = Integer.parseInt(Objects.requireNonNull(
+                            CookieUtil.getCookieValueFromRequest()));
         oldPwd = MD5Utils.encodeByMD5(oldPwd);
-        userInfoMapper.changePwd(account, oldPwd, newPwd);
+        newPwd = MD5Utils.encodeByMD5(newPwd);
+        userInfoMapper.changePwd(eId, oldPwd, newPwd);
     }
 
     @Override
-    public void changeInfo(String name, Date birthday, Integer sex, String phone, String email) {
-        int eId = Integer.parseInt(Objects.requireNonNull(CookieUtil.getCookieValueFromRequest()));
+    public void changeInfo(String name, Date birthday,
+                           Integer sex, String phone, String email) {
+        int eId = Integer.parseInt(Objects.requireNonNull(
+                            CookieUtil.getCookieValueFromRequest()));
         userInfoMapper.changeInfo(eId, name, birthday, sex, phone, email);
     }
 

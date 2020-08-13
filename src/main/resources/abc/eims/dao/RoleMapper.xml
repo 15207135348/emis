@@ -10,7 +10,6 @@
         from t_role
     </select>
 
-
     <select id="findById" parameterType="int" resultType="role">
         SELECT *
         FROM t_role

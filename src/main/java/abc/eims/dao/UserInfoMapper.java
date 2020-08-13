@@ -12,7 +12,7 @@ import java.util.Date;
 @Repository
 public interface UserInfoMapper {
 
-    int changePwd(@Param("account") String account,
+    int changePwd(@Param("eId") Integer eId,
                   @Param("oldPwd") String oldPwd,
                   @Param("newPwd") String newPwd);
 
