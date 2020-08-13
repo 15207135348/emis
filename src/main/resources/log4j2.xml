@@ -26,7 +26,6 @@
 
         <!-- <Logger name="com.cssweb.test.app" level="trace" additivity="true">
             <AppenderRef ref="running-log" /> </Logger> -->
-
         <Root level="info">
             <!-- 这里是输入到文件，很重要-->
             <AppenderRef ref="running-log"/>

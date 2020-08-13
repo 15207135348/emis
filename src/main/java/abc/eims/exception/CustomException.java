@@ -1,5 +1,9 @@
 package abc.eims.exception;
 
+/**
+ * @author wangzhe
+ * @date 2020/8/8 12:40
+ */
 public class CustomException extends Exception{
     private String message;
 

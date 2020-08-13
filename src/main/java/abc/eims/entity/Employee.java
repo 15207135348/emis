@@ -10,7 +10,7 @@ import java.util.Date;
  * @author wangzhe
  * @date 2020/8/7 15:39
  */
-public class Employee implements Jsonable {
+public class Employee {
 
     private Integer e_id;
 
@@ -133,7 +133,6 @@ public class Employee implements Jsonable {
                 '}';
     }
 
-    @Override
     public JSONObject toJSON() {
         JSONObject object = (JSONObject) JSON.toJSON(this);
         object.put("e_birthday", DateTimeUtil.dateToStr(e_birthday, "yyyy-MM-dd"));
@@ -141,6 +140,5 @@ public class Employee implements Jsonable {
         object.put("e_role_id", e_role_id == 1 ? "超级管理员" : e_role_id == 2 ? "管理员" : "普通员工");
         return object;
     }
-
 
 }

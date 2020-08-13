@@ -21,8 +21,12 @@ public class AttendanceServiceImpl implements IAttendanceService {
     private AttendanceMapper attendanceMapper;
 
     @Override
+    public Attendance findByEid(Integer eId) {
+        return attendanceMapper.findByEid(eId);
+    }
+
+    @Override
     public List<Attendance> getMyAttendance() {
-        //String eId = (String) httpSession.getAttribute("employeeId");
         int eId = Integer.parseInt(Objects.requireNonNull(CookieUtil.getCookieValueFromRequest()));
         return attendanceMapper.getMyAttendance(eId);
     }
@@ -39,8 +43,8 @@ public class AttendanceServiceImpl implements IAttendanceService {
     }
 
     @Override
-    public void delAttendanceRecord(Integer aId) {
-        attendanceMapper.deleteById(aId);
+    public void delAttendanceRecord(List<String> aIdList) {
+        attendanceMapper.deleteByaId(aIdList);
     }
 
 }

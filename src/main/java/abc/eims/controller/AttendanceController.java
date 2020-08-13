@@ -4,7 +4,6 @@ import abc.eims.entity.Attendance;
 import abc.eims.entity.Employee;
 import abc.eims.service.Impl.AttendanceServiceImpl;
 import abc.eims.service.Impl.EmployeeServiceImpl;
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -115,10 +115,11 @@ public class AttendanceController {
 
     @RequestMapping("/del_attendance_info")
     @ResponseBody
-    public Map<String, String> delAttendanceRecord(@RequestParam("idList") Integer aId) {
+    public Map<String, String> delAttendanceRecord(@RequestParam("idList") String aIdList) {
         Map<String, String> map = new HashMap<>();
         try {
-            attendanceService.delAttendanceRecord(aId);
+            String[] arr = aIdList.split(",");
+            attendanceService.delAttendanceRecord(Arrays.asList(arr));
         } catch (Exception e) {
             map.put("code", "-1");
             map.put("msg", "操作失败");

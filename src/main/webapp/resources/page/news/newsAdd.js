@@ -12,7 +12,7 @@ layui.use(['form', 'layer', 'laydate'], function () {
 
     form.on("submit(addNews)", function (data) {
         //弹出loading
-        var index = top.layer.msg('数据提交中，请稍候', {icon: 16, time: false, shade: 0.8});
+        var index = top.layer.msg('数据提交中，请稍候...', {icon: 16, time: false, shade: 0.8});
         // 实际使用时的提交信息
         var options=$(".a_type option:selected");
         console.log(options.val());

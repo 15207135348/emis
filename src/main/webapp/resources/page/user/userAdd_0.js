@@ -14,7 +14,7 @@ layui.use(['form', 'layer', 'laydate'], function () {
 
         var options=$("#userSex option:selected");
         // 弹出loading
-        var index = top.layer.msg('数据提交中，请稍候', {icon: 16, time: false, shade: 0.8});
+        var index = top.layer.msg('数据提交中，请稍候...', {icon: 16, time: false, shade: 0.8});
         var exec = false;
         var e_account = $(".userCode").val(),
             e_name = $(".userName").val(),

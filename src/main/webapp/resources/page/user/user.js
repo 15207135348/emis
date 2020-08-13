@@ -15,7 +15,7 @@ layui.use(['form','layer','laydate','table','laytpl'],function(){
         },
         newPwd : function(value, item){
             if(value.length < 6){
-                return "密码长度不能小于6位";
+                return "密码长度不能小于6位！";
             }
         },
         confirmPwd : function(value, item){

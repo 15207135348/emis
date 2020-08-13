@@ -1,11 +1,11 @@
 package abc.eims.controller;
 
 import abc.eims.service.Impl.UserInfoServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,6 +18,7 @@ import java.util.Map;
 @RequestMapping("pernal_center")
 public class UserInfoController {
 
+    @Autowired
     private UserInfoServiceImpl userInfoService;
 
     @RequestMapping("set_my_password")
@@ -25,7 +26,6 @@ public class UserInfoController {
     public Map<String, String> changePassword(String account, String oldPwd, String newPwd) {
 
         Map<String, String> map = new HashMap<>();
-//        int flag = 0;
         try {
             userInfoService.changePassword(account, oldPwd, newPwd);
         } catch (Exception e) {
@@ -44,7 +44,6 @@ public class UserInfoController {
                                           Integer sex,
                                           String phone,
                                           String email) {
-
         Map<String, String> map = new HashMap<>();
         try {
             userInfoService.changeInfo(name, birthday, sex, phone, email);

@@ -10,7 +10,6 @@
         from items
     </select>
 
-
     <select id="findById" parameterType="int" resultType="items">
         SELECT *
         FROM items

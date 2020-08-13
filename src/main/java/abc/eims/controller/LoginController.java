@@ -32,10 +32,8 @@ import java.io.IOException;
 @RequestMapping("auth")
 public class LoginController {
 
-
     @Autowired
     private EmployeeServiceImpl employeeService;
-
 
     @RequestMapping(value = "/toLogin")
     public String toLogin() {

@@ -1,6 +1,5 @@
 package abc.eims.service;
 
-import javax.servlet.http.HttpSession;
 import java.util.Date;
 
 /**
@@ -9,8 +8,8 @@ import java.util.Date;
  */
 public interface IUserInfoService {
 
-    int changePassword(String account, String oldPwd, String newPwd);
+    void changePassword(String account, String oldPwd, String newPwd);
 
-    int changeInfo(String name, Date birthday, Integer sex, String phone, String email);
+    void changeInfo(String name, Date birthday, Integer sex, String phone, String email);
 
 }

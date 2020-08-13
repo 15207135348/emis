@@ -7,7 +7,7 @@ import com.alibaba.fastjson.JSONObject;
  * @author wangzhe
  * @date 2020/8/8 23:28
  */
-public class Attendance implements Jsonable {
+public class Attendance {
 
     private Integer a_id;
 
@@ -69,10 +69,10 @@ public class Attendance implements Jsonable {
                 '}';
     }
 
-    @Override
     public JSONObject toJSON() {
         JSONObject object = (JSONObject) JSON.toJSON(this);
         object.put("a_type", a_type == 1 ? "上班打卡" : "下班打卡");
         return object;
     }
+
 }

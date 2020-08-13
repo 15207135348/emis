@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,9 +41,18 @@ public class testAttendance {
 
     @Test
     public void test2() {
-        attendanceService.changeAttendanceRecord(1,3,null);
+        attendanceService.changeAttendanceRecord(1, 3, null);
     }
 
+
+    @Test
+    public void test3() {
+        List<String> list = new ArrayList<>();
+        list.add("1");
+        list.add("2");
+        attendanceMapper.deleteByaId(list);
+
+    }
 
 
 }

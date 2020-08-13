@@ -29,7 +29,7 @@ layui.use(['form', 'layer', 'laydate', 'table', 'laytpl'], function () {
 
     //是否置顶
     form.on('switch(newsTop)', function (data) {
-        var index = layer.msg('修改中，请稍候', {icon: 16, time: false, shade: 0.8});
+        var index = layer.msg('修改中，请稍候...', {icon: 16, time: false, shade: 0.8});
         setTimeout(function () {
             layer.close(index);
             if (data.elem.checked) {
@@ -52,14 +52,14 @@ layui.use(['form', 'layer', 'laydate', 'table', 'laytpl'], function () {
                 }
             })
         } else {
-            layer.msg("请输入搜索的内容");
+            layer.msg("请输入要搜索的内容");
         }
     });
 
     //添加文章
     function addNews(edit) {
         var index = layui.layer.open({
-            title: "添加文章",
+            title: "添加考勤记录",
             type: 2,
             content: "newsAdd.html",
             success: function (layero, index) {
@@ -94,14 +94,14 @@ layui.use(['form', 'layer', 'laydate', 'table', 'laytpl'], function () {
     $(".delAll_btn").click(function () {
         var checkStatus = table.checkStatus('newsListTable'),
             data = checkStatus.data,
-            idList = [];
+            aids = [];
         if (data.length > 0) {
             for (var i in data) {
-                idList.push(data[i].a_id);
+                aids.push(data[i].a_id);
             }
             layer.confirm('确定删除选中的考勤记录？', {icon: 3, title: '提示信息'}, function (index) {
                 $.get("/attendance/del_attendance_info.action", {
-                    idList: idList
+                    idList: aids.join(',')
                 }, function (data) {
                     tableIns.reload();
                     layer.close(index);

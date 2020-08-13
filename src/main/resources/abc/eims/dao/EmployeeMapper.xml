@@ -50,7 +50,6 @@
         where e_id = #{eId}
     </update>
 
-
     <update id="changeEmployeeRole">
         update t_employee
         set e_role_id = #{roleId}

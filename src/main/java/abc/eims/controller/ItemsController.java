@@ -24,7 +24,6 @@ public class ItemsController {
 
     @RequestMapping("list")
     public String list(Model model) {
-//        System.out.println("kkkkk");
         List<Items> itemsList = itemsService.findAll();
         model.addAttribute("itemsList", itemsList);
         return "items/list";
