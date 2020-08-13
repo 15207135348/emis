@@ -12,8 +12,15 @@ import java.util.Date;
 @Repository
 public interface UserInfoMapper {
 
-    int changePwd(@Param("account") String account, @Param("oldPwd") String oldPwd, @Param("newPwd") String newPwd);
+    int changePwd(@Param("eId") Integer eId,
+                  @Param("oldPwd") String oldPwd,
+                  @Param("newPwd") String newPwd);
 
-    int changeInfo(@Param("eId") Integer eId, @Param("name") String name, @Param("birthday") Date birthday, @Param("sex") Integer sex, @Param("phone") String phone, @Param("email") String email);
+    int changeInfo(@Param("eId") Integer eId,
+                   @Param("name") String name,
+                   @Param("birthday") Date birthday,
+                   @Param("sex") Integer sex,
+                   @Param("phone") String phone,
+                   @Param("email") String email);
 
 }

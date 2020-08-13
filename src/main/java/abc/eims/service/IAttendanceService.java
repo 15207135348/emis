@@ -10,12 +10,14 @@ import java.util.List;
  */
 public interface IAttendanceService {
 
+    Attendance findByEid(Integer eId);
+
     List<Attendance> getMyAttendance();
 
     List<Attendance> getAllAttendance();
 
     void changeAttendanceRecord(Integer aId, Integer aType, String aTime);
 
-    void delAttendanceRecord(Integer aId);
+    void delAttendanceRecord(List<String> aIdList);
 
 }

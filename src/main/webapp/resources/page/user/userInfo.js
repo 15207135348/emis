@@ -40,8 +40,8 @@ layui.use(['form','layer','upload','laydate',"address"],function(){
         max : 0,
         mark : {"0-12-15":"生日"},
         done: function(value, date){
-            if(date.month === 12 && date.date === 15){ //点击每年12月15日，弹出提示语
-                layer.msg('今天是马哥的生日，也是layuicms2.0的发布日，快来送上祝福吧！');
+            if(date.month === 8 && date.date === 21){ //点击每年12月15日，弹出提示语
+                layer.msg('今天也是我的生日，快来送上祝福吧！');
             }
         }
     });
@@ -80,7 +80,7 @@ layui.use(['form','layer','upload','laydate',"address"],function(){
 
     //修改密码
     form.on("submit(changePwd)",function(data){
-        var index = layer.msg('提交中，请稍候',{icon: 16,time:false,shade:0.8});
+        var index = layer.msg('提交中，请稍候...',{icon: 16,time:false,shade:0.8});
         setTimeout(function(){
             layer.close(index);
             layer.msg("密码修改成功！");

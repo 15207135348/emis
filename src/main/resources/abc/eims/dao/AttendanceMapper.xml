@@ -10,11 +10,16 @@
         from t_attendance
     </select>
 
-
     <select id="findById" parameterType="int" resultType="attendance">
         SELECT *
         FROM t_attendance
         WHERE a_id = #{aId}
+    </select>
+
+    <select id="findByEid" parameterType="int" resultType="attendance">
+        SELECT *
+        FROM t_attendance
+        WHERE e_id = #{eId}
     </select>
 
     <select id="getMyAttendance" resultType="attendance">
@@ -45,10 +50,17 @@
         where a_id = #{aId}
     </update>
 
-    <delete id="deleteById" parameterType="int">
+    <delete id="deleteByaId" parameterType="int">
+        delete from t_attendance where a_id in
+        <foreach collection="aIdList" item="a_id" open="(" close=")" separator=",">
+            #{a_id}
+        </foreach>
+    </delete>
+
+    <delete id="deleteByeId" parameterType="int">
         delete
         from t_attendance
-        where a_id = #{aId}
+        where e_id = #{eId}
     </delete>
 
 </mapper>

@@ -1,5 +1,6 @@
 package abc.eims.service.Impl;
 
+import abc.eims.dao.AttendanceMapper;
 import abc.eims.dao.EmployeeMapper;
 import abc.eims.entity.Employee;
 import abc.eims.exception.CustomException;
@@ -8,6 +9,7 @@ import abc.eims.utils.DateTimeUtil;
 import abc.eims.utils.MD5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -21,6 +23,9 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
     @Autowired
     private EmployeeMapper employeeMapper;
+
+    @Autowired
+    private AttendanceMapper attendanceMapper;
 
     //没问题
     @Override
@@ -48,7 +53,13 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
     //没问题
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void delEmployeeInfoByAccount(List<String> list) {
+        for (String account : list) {
+            Employee employee = employeeMapper.findByAccount(account);
+            Integer eId = employee.getE_id();
+            attendanceMapper.deleteByeId(eId);
+        }
         employeeMapper.deleteEmployeeInfoByAccount(list);
     }
 
@@ -71,7 +82,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
     @Override
     public int updateOrInsert(String account, String name,
-                               String birthday, Integer sex, String phone, String email, Integer roleId) {
+                              String birthday, Integer sex, String phone, String email, Integer roleId) {
         Employee employee = employeeMapper.findByAccount(account);
         if (employee != null) {
             employeeMapper.update(employee.getE_id(), account, employee.getE_password(),

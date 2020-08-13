@@ -35,8 +35,10 @@ public interface EmployeeMapper {
 
     void deleteEmployeeInfoByAccount(@Param("list") List<String> accountList);
 
-    Employee selectByAccountAndPassword(@Param("account") String account, @Param("password") String password);
+    Employee selectByAccountAndPassword(@Param("account") String account,
+                                        @Param("password") String password);
 
-    int changeEmployeeRole(@Param("account") String account, @Param("roleId") String roleId);
+    int changeEmployeeRole(@Param("account") String account,
+                           @Param("roleId") String roleId);
 
 }

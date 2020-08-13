@@ -29,26 +29,5 @@
             </list>
         </property>
     </bean>
-    <!--<bean id="utf8StringHttpMessageConverter"-->
-          <!--class="org.springframework.http.converter.StringHttpMessageConverter">-->
-        <!--<property name="supportedMediaTypes">-->
-            <!--<list>-->
-                <!--<value>text/plain;charset=UTF-8</value>-->
-            <!--</list>-->
-        <!--</property>-->
-    <!--</bean>-->
-
-    <!--<bean id="jacksonMessageConverter"-->
-          <!--class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">-->
-        <!--&lt;!&ndash; 解决 HttpMediaTypeNotAcceptableException: Could not find acceptable representation &ndash;&gt;-->
-        <!--<property name="supportedMediaTypes">-->
-            <!--<list>-->
-                <!--<value>text/html;charset=UTF-8</value>-->
-                <!--&lt;!&ndash; 以下2个是新增的 &ndash;&gt;-->
-                <!--<value>application/x-www-form-urlencoded;charset=UTF-8</value>-->
-                <!--<value>application/json;charset=UTF-8</value>-->
-            <!--</list>-->
-        <!--</property>-->
-    <!--</bean>-->
 
 </beans>

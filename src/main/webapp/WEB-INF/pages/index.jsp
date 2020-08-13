@@ -21,7 +21,7 @@
 		<!-- 顶部 -->
 		<div class="layui-header header">
 			<div class="layui-main mag0">
-				<a href="#" class="logo">考勤管理系统</a>
+				<a href="#" class="logo">员工管理系统</a>
 				<!-- 显示/隐藏菜单 -->
 				<a href="javascript:;" class="seraph hideMenu icon-caidan"></a>
 			    <!-- 顶部右侧菜单 -->
@@ -53,14 +53,14 @@
 				<p>你好！<span class="userName">${user.realname }</span>, 欢迎登录</p>
 			</div>
 			<!-- 搜索 -->
-			<div class="layui-form component">
-				<select name="search" id="search" lay-search lay-filter="searchPage">
-					<option value="">搜索页面或功能</option>
-					<option value="1">layer</option>
-					<option value="2">form</option>
-				</select>
-				<i class="layui-icon">&#xe615;</i>
-			</div>
+<%--			<div class="layui-form component">--%>
+<%--				<select name="search" id="search" lay-search lay-filter="searchPage">--%>
+<%--					<option value="">搜索页面或功能</option>--%>
+<%--					<option value="1">layer</option>--%>
+<%--					<option value="2">form</option>--%>
+<%--				</select>--%>
+<%--				<i class="layui-icon">&#xe615;</i>--%>
+<%--			</div>--%>
 			<div class="navBar layui-side-scroll" id="navBar">
 				<ul class="layui-nav layui-nav-tree">
 					<li class="layui-nav-item layui-this">
@@ -94,7 +94,7 @@
 		</div>
 		<!-- 底部 -->
 		<div class="layui-footer footer">
-			<p><span>copyright @2019 老王</span></p>
+			<p><span>copyright @2020 wangzhe@abc</span></p>
 		</div>
 	</div>
 

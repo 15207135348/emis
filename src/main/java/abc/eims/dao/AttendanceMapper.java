@@ -1,7 +1,6 @@
 package abc.eims.dao;
 
 import abc.eims.entity.Attendance;
-import abc.eims.entity.Items;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -20,12 +19,18 @@ public interface AttendanceMapper {
 
     Attendance findById(@Param("aId") Integer aId);
 
+    Attendance findByEid(@Param("eId") Integer eId);
+
     int insert(Attendance recode);
 
     int update(Attendance recode);
 
-    void deleteById(@Param("aId") Integer aId);
+    void deleteByaId(@Param("aIdList") List<String> aIdList);
 
-    int changeAttendanceRecord(@Param("aId") Integer aId, @Param("aType") Integer aType, @Param("aTime") String aTime);
+    void deleteByeId(@Param("eId") Integer eId);
+
+    int changeAttendanceRecord(@Param("aId") Integer aId,
+                               @Param("aType") Integer aType,
+                               @Param("aTime") String aTime);
 
 }

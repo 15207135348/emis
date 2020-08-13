@@ -5,12 +5,11 @@
 
 <mapper namespace="abc.eims.dao.UserInfoMapper">
 
-
     <update id="changePwd">
         update t_employee
         set e_password = #{newPwd}
         where e_account = #{account}
-          and e_password = #{oldPwd}
+          and e_id = #{eId}
     </update>
 
     <update id="changeInfo">

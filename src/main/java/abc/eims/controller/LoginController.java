@@ -32,10 +32,8 @@ import java.io.IOException;
 @RequestMapping("auth")
 public class LoginController {
 
-
     @Autowired
     private EmployeeServiceImpl employeeService;
-
 
     @RequestMapping(value = "/toLogin")
     public String toLogin() {
@@ -89,8 +87,10 @@ public class LoginController {
             @RequestParam("e_password") String password,
             @RequestParam("code") String identifyingcode) {
 
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.
+                    getRequestAttributes()).getRequest();
         HttpSession httpSession = request.getSession();
+
         account = StringUtils.trim(account);
         String code = (String) httpSession.getAttribute("identifyingCode");
         if (StringUtils.equalsIgnoreCase(identifyingcode, code)) {
@@ -100,12 +100,11 @@ public class LoginController {
             } catch (CustomException e) {
                 return new ModelAndView("login", "msg", e.getMessage());
             }
-            // 保存到session
-//            httpSession.setAttribute("employeeId", employee.getE_id());
+
             CookieUtil.addCookie(String.valueOf(employee.getE_id()));
-            return new ModelAndView("index", "msg", "登录成功");
+            return new ModelAndView("index", "msg", Response.Code.Success);
         } else {
-            return new ModelAndView("login", "msg", "验证码错误");
+            return new ModelAndView("login", "msg", Response.Code.CodeError);
         }
     }
 

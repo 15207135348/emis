@@ -5,13 +5,13 @@
   "data": [
     {
       "usersId": "1",
-      "userName": "驊驊龔頾",
+      "userName": "王者",
       "userEmail": "mage@layui.com",
       "userSex": "男",
       "userStatus": "0",
       "userGrade": "4",
       "userEndTime": "2018-01-31 10:00",
-      "userDesc": "layuiCMS作者，原名‘请叫我马哥’"
+      "userDesc": "Java程序猿一个~"
     },
     {
       "usersId": "2",
@@ -31,7 +31,7 @@
       "userStatus": "1",
       "userGrade": "2",
       "userEndTime": "2018-01-25 16:25",
-      "userDesc": "fly社区管理员，据传与layui作者有奸情，故帐号被封。"
+      "userDesc": "fly社区管理员"
     }
   ]
 }

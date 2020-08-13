@@ -1,14 +1,15 @@
 package abc.eims.controller;
 
 import abc.eims.entity.Employee;
+import abc.eims.service.Impl.AttendanceServiceImpl;
 import abc.eims.service.Impl.EmployeeServiceImpl;
-import abc.eims.utils.DateTimeUtil;
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
@@ -27,6 +28,8 @@ public class EmployeeController {
     @Autowired
     private EmployeeServiceImpl employeeService;
 
+    @Autowired
+    private AttendanceServiceImpl attendanceService;
 
     @RequestMapping(value = "/get_employee_info")
     @ResponseBody
@@ -36,6 +39,7 @@ public class EmployeeController {
         List<Employee> empList = null;
         try {
             empList = employeeService.getAllEmployeeInfo();
+            System.out.println(empList.size());
         } catch (Exception e) {
             object.put("code", -1);
             object.put("msg", "查询失败");
@@ -61,10 +65,15 @@ public class EmployeeController {
         String account = request.getParameter("e_account");
         String name = request.getParameter("e_name");
         String birthday = request.getParameter("e_birthday");
+<<<<<<< HEAD
+=======
+//        System.out.println(request.getParameter("e_sex"));
+>>>>>>> 9a45c3b5ffda51fbd3a8ecef74c37790afd0748b
         Integer sex = Integer.valueOf(request.getParameter("e_sex"));
         String phone = request.getParameter("e_phone");
         String email = request.getParameter("e_email");
         Integer roleId = Integer.valueOf(request.getParameter("e_role_id"));
+
         Map<String, String> map = new HashMap<>();
 
         try {

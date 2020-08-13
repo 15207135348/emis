@@ -1,12 +1,12 @@
 package abc.eims.controller;
 
 import abc.eims.service.Impl.UserInfoServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,16 +19,22 @@ import java.util.Map;
 @RequestMapping("personal_center")
 public class UserInfoController {
 
+    @Autowired
     private UserInfoServiceImpl userInfoService;
 
     @RequestMapping("set_my_password")
     @ResponseBody
+<<<<<<< HEAD
     public Map<String, String> changePassword(@RequestParam("old_password") String oldPwd,
                                               @RequestParam("new_password")String newPwd) {
+=======
+    public Map<String, String> changePassword(String oldPwd,
+                                              String newPwd) {
+>>>>>>> 9a45c3b5ffda51fbd3a8ecef74c37790afd0748b
 
         Map<String, String> map = new HashMap<>();
         try {
-            userInfoService.changePassword(account, oldPwd, newPwd);
+            userInfoService.changePassword(oldPwd, newPwd);
         } catch (Exception e) {
             map.put("code", "-1");
             map.put("msg", "密码修改失败");
@@ -45,7 +51,6 @@ public class UserInfoController {
                                           Integer sex,
                                           String phone,
                                           String email) {
-
         Map<String, String> map = new HashMap<>();
         try {
             userInfoService.changeInfo(name, birthday, sex, phone, email);

@@ -7,7 +7,7 @@ layui.use(['form','jquery',"layer"],function() {
 
     //判断是否web端打开
     if(!/http(s*):\/\//.test(location.href)){
-        layer.alert("请先将项目部署到 localhost 下再进行访问【建议通过tomcat、webstorm、hb等方式运行，不建议通过iis方式运行】，否则部分数据将无法显示");
+        layer.alert("请先将项目部署到 localhost 下再进行访问，否则部分数据将无法显示");
     }else{    //判断是否处于锁屏状态【如果关闭以后则未关闭浏览器之前不再显示】
         if(window.sessionStorage.getItem("lockcms") != "true" && window.sessionStorage.getItem("showNotice") != "true"){
             showNotice();
@@ -50,7 +50,7 @@ layui.use(['form','jquery',"layer"],function() {
                                 '<input type="password" class="admin-header-lock-input layui-input" autocomplete="off" placeholder="请输入密码解锁.." name="lockPwd" id="lockPwd" />'+
                                 '<button class="layui-btn" id="unlock">解锁</button>'+
                             '</div>'+
-                            '<p>请输入“123456”，否则不会解锁成功哦！！！</p>'+
+                            '<p>密码提示: 123456 ~</p>'+
                         '</div>',
             closeBtn : 0,
             shade : 0.9,

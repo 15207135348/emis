@@ -14,11 +14,8 @@ import java.util.Date;
  * @date 2020/8/9 17:59
  */
 public class DateTimeUtil {
-    //使用joda-time开源宝
-    //str--->date
-    //date---str
-    static final String STANDARD_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
+    static final String STANDARD_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
     public static Date dateToStamp(String s) {
         if (s == null) {

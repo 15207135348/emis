@@ -6,6 +6,10 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * @author wangzhe
+ * @date 2020/8/9 2:30
+ */
 public class CustomExceptionResolver implements HandlerExceptionResolver {
     public ModelAndView resolveException(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) {
         CustomException customException = null;
@@ -22,4 +26,5 @@ public class CustomExceptionResolver implements HandlerExceptionResolver {
 
         return modelAndView;
     }
+
 }
