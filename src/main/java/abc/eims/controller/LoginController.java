@@ -7,6 +7,7 @@ import abc.eims.utils.CaptchaUtil;
 import abc.eims.utils.CookieUtil;
 import abc.eims.utils.MD5Utils;
 import abc.eims.vo.Response;
+import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,11 +35,6 @@ public class LoginController {
 
     @Autowired
     private EmployeeServiceImpl employeeService;
-
-    @RequestMapping(value = "/toLogin")
-    public String toLogin() {
-        return "login";
-    }
 
     /**
      * 点击生成验证码
@@ -82,7 +78,8 @@ public class LoginController {
      * @return
      */
     @RequestMapping("login_by_password")
-    public ModelAndView employeeLogin(
+    @ResponseBody
+    public Response employeeLogin(
             @RequestParam("e_account") String account,
             @RequestParam("e_password") String password,
             @RequestParam("code") String identifyingcode) {
@@ -98,13 +95,12 @@ public class LoginController {
             try {
                 employee = employeeService.findEmployeeByIdAndPassword(account, password);
             } catch (CustomException e) {
-                return new ModelAndView("login", "msg", e.getMessage());
+                return new Response(Response.Code.PasswordError);
             }
-
             CookieUtil.addCookie(String.valueOf(employee.getE_id()));
-            return new ModelAndView("index", "msg", Response.Code.Success);
+            return new Response(Response.Code.Success);
         } else {
-            return new ModelAndView("login", "msg", Response.Code.CodeError);
+            return new Response(Response.Code.CodeError);
         }
     }
 

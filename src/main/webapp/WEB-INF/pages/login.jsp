@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="${ctx}/resources/css/public.css" media="all"/>
 </head>
 <body class="loginBody">
-<form class="layui-form" id="loginFrm" method="post" action="${ctx }/auth/login_by_password.action">
+<form class="layui-form" id="loginFrm" method="post">
     <div class="login_face"><img src="${ctx}/resources/images/face.jpg" class="userAvatar"></div>
     <div class="layui-form-item input-item">
         <label for="e_account">账户</label>
@@ -35,7 +35,7 @@
         <img src="${ctx}/auth/changeCode.action" id="imgCode_image">
     </div>
     <div class="layui-form-item">
-        <button class="layui-btn layui-block" lay-filter="login" lay-submit>登录</button>
+        <button class="layui-btn layui-block" lay-filter="login" lay-submit id="loginBtn">登录</button>
     </div>
     <div class="layui-form-item layui-row" style="text-align: center;color: red;">
         ${error }
@@ -53,38 +53,60 @@
             layer = parent.layer === undefined ? layui.layer : top.layer
         $ = layui.jquery;
 
-        //登录按钮
-        form.on("submit(login)", function (data) {
+
+        document.getElementById("loginBtn").onclick = function (ev) {
             $(this).text("登录中...").attr("disabled", "disabled").addClass("layui-disabled");
+            var account = document.getElementById("e_account").value;
+            var password = document.getElementById("e_password").value;
+            var code = document.getElementById("code").value;
+            $.get("${ctx }/auth/login_by_password.action", {
+                e_account: account,
+                e_password: password,
+                code: code
+            }, function (res) {
+                if(res['code'] == 0){
+                    window.location.href = '/index/toMain.action'
+                }else {
+                    layer.confirm(res['msg'], {icon: 3, title: '提示信息'}, function (index) {
+                        layer.close(index);
+                        location.reload();
+                    });
+                }
+            });
+        };
 
-            // console.log("登录中")
-            // var account = document.getElementById("e_account").value;
-            // var password = document.getElementById("e_password").value;
-            // var code = document.getElementById("code").value;
-            // console.log("value:" + account + password + code);
-            // $.ajax({
-            //     url: "/auth/login_by_password.action",
-            //     data: {
-            //         'e_account': account,
-            //         'e_password': password,
-            //         'code': code
-            //     },
-            //     type: "post",
-            //     dataType: "json",
-            //     success: function (data) {
-            //         console.log(data);
-            //         window.location.href = 'index.jsp'
-            //     },
-            //     error: function (data) {
-            //     }
-            // });
 
-            setTimeout(function () {
-                $("#loginFrm").submit();
-            }, 1000);
-
-            return false;
-        });
+        // //登录按钮
+        // form.on("submit(login)", function (data) {
+        //     $(this).text("登录中...").attr("disabled", "disabled").addClass("layui-disabled");
+        //     // console.log("登录中")
+        //     // var account = document.getElementById("e_account").value;
+        //     // var password = document.getElementById("e_password").value;
+        //     // var code = document.getElementById("code").value;
+        //     // console.log("value:" + account + password + code);
+        //     // $.ajax({
+        //     //     url: "/auth/login_by_password.action",
+        //     //     data: {
+        //     //         'e_account': account,
+        //     //         'e_password': password,
+        //     //         'code': code
+        //     //     },
+        //     //     type: "post",
+        //     //     dataType: "json",
+        //     //     success: function (data) {
+        //     //         console.log(data);
+        //     //         window.location.href = 'index.jsp'
+        //     //     },
+        //     //     error: function (data) {
+        //     //     }
+        //     // });
+        //
+        //     setTimeout(function () {
+        //         $("#loginFrm").submit();
+        //     }, 1000);
+        //
+        //     return false;
+        // });
 
         //表单输入效果
         $(".loginBody .input-item").click(function (e) {

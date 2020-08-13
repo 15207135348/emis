@@ -17,6 +17,7 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
         id: "userListTable",
         cols: [[
             {type: "checkbox", fixed: "left", width: 50},
+            {field: 'e_id', title: 'ID', width: 50, align: "center"},
             {field: 'e_account', title: '账号', minWidth: 100, align: "center"},
             {field: 'e_name', title: '姓名', minWidth: 100, align: "center"},
             {field: 'e_sex', title: '性别', align: 'center'},
@@ -31,48 +32,20 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
     //搜索【此功能需要后台配合，所以暂时没有动态效果演示】
     $(".search_btn").on("click", function () {
         if ($(".searchVal").val() != '') {
-            table.reload("newsListTable", {
+            table.reload("userListTable", {
                 page: {
                     curr: 1 //重新从第 1 页开始
                 },
                 where: {
-                    key: $(".searchVal").val()  //搜索的关键字
+                    key: {
+                        e_id: $(".searchVal").val()
+                    }
                 }
-            })
+            }, 'data')
         } else {
             layer.msg("请输入搜索的内容");
         }
     });
-
-    function getSex(val) {
-        if(val === 0){
-            return "男"
-        }else {
-            return "女"
-        }
-    }
-
-    function getType(val) {
-        if(val === 0){
-            return "上班打卡";
-        }
-        if(val === 1){
-            return "下班打卡";
-        }
-    }
-
-
-    function getGrage(val) {
-        if(val === 1){
-            return "超级管理员";
-        }
-        if(val === 2){
-            return "管理员";
-        }
-        if(val === 3){
-            return "普通员工";
-        }
-    }
 
     //添加用户
     function addUser(edit) {
@@ -88,10 +61,10 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
                     body.find(".userCode").val(edit.e_account);  //登录名
                     body.find(".userName").val(edit.e_name);  //登录名
                     body.find(".birthday").val(edit.e_birthday);  //登录名
-                    body.find(".userSex input[value="+sex_code+"]").prop("checked","checked");  //性别
+                    body.find(".userSex input[value=" + sex_code + "]").prop("checked", "checked");  //性别
                     body.find(".userPhone").val(edit.e_phone);  //电话
                     body.find(".userEmail").val(edit.e_email);  //邮箱
-                    body.find(".userGrade input[value="+grade_code+"]").prop("checked","checked");  //等级
+                    body.find(".userGrade input[value=" + grade_code + "]").prop("checked", "checked");  //等级
                     form.render();
                 }
                 setTimeout(function () {
@@ -123,9 +96,9 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
                 accounts.push(data[k].e_account);
             }
             layer.confirm('确定删除选中的用户？', {icon: 3, title: '提示信息'}, function (index) {
-                $.get("/employee/del_employee_info.action",{
-                    accountList : accounts.join(',')
-                },function(data){
+                $.get("/employee/del_employee_info.action", {
+                    accountList: accounts.join(',')
+                }, function (data) {
                     tableIns.reload();
                     layer.close(index);
                 })
@@ -142,9 +115,9 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
             addUser(data);
         } else if (layEvent === 'del') { //删除
             layer.confirm('确定删除此用户？', {icon: 3, title: '提示信息'}, function (index) {
-                $.get("/employee/del_employee_info.action",{
-                    accountList : data.e_account
-                },function(data){
+                $.get("/employee/del_employee_info.action", {
+                    accountList: data.e_account
+                }, function (data) {
                     tableIns.reload();
                     layer.close(index);
                 })
