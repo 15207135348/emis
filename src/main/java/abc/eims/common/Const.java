@@ -1,12 +1,15 @@
 package abc.eims.common;
 
 /**
+ * 存放静态常量的类，用来实现权限管理功能。
+ *
  * @author wangzhe
  * @date 2020/8/10 8:40
  */
 public class Const {
 
-    public static final String one = "[\n" +
+    /**系统管理员对应的JSON字符串*/
+    public static final String SYSTEM_ADMINISTRATOR = "[\n" +
             "\t{\n" +
             "\t\t\"title\": \"员工管理\",\n" +
             "\t\t\"icon\": \"&#xe655;\",\n" +
@@ -63,7 +66,8 @@ public class Const {
             "\t}\n" +
             "]";
 
-    public static final String two = "[\n" +
+    /**普通管理员对应的JSON字符串*/
+    public static final String ADMINISTRATOR = "[\n" +
             "\t{\n" +
             "\t\t\"title\": \"员工管理\",\n" +
             "\t\t\"icon\": \"&#xe655;\",\n" +
@@ -120,7 +124,8 @@ public class Const {
             "\t}\n" +
             "]";
 
-    public static final String three = "[\n" +
+    /**普通员工对应的JSON字符串*/
+    public static final String CUSTOMER = "[\n" +
             "\t{\n" +
             "\t\t\"title\": \"员工管理\",\n" +
             "\t\t\"icon\": \"&#xe655;\",\n" +

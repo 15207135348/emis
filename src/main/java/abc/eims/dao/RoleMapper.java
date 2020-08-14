@@ -4,8 +4,6 @@ import abc.eims.entity.Role;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 /**
  * @author wangzhe
  * @date 2020/8/9 9:14
@@ -13,14 +11,33 @@ import java.util.List;
 @Repository
 public interface RoleMapper {
 
-    public List<Role> findAll();
-
+    /**
+     * 通知rId查找对应权限
+     *
+     * @param rId 权限Id
+     * @return 对应的权限
+     */
     Role findById(@Param("rId") Integer rId);
 
-    int insert(Role recode);
+    /**
+     * 新增权限
+     *
+     * @param recode 权限
+     */
+    void insert(Role recode);
 
-    int update(Role recode);
+    /**
+     * 更新权限信息
+     *
+     * @param recode 权限
+     */
+    void update(Role recode);
 
+    /**
+     * 删除权限信息
+     *
+     * @param rId 权限Id
+     */
     void deleteById(@Param("rId") Integer rId);
 
 

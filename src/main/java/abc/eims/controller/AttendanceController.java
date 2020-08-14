@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 考勤记录相关操作的Controller层
+ *
  * @author wangzhe
  * @date 2020/8/9 19:12
  */
@@ -32,10 +34,14 @@ public class AttendanceController {
     @Autowired
     private EmployeeServiceImpl employeeService;
 
+    /**
+     * 获取当前用户的考勤记录
+     *
+     * @return 返回当前用户的考勤记录-JSON
+     */
     @RequestMapping("get_my_attendance_record")
     @ResponseBody
     public JSONObject getMyAttendanceRecord() {
-
         JSONObject object = new JSONObject();
         List<Attendance> attendList = null;
         try {
@@ -43,7 +49,9 @@ public class AttendanceController {
         } catch (Exception e) {
             object.put("code", "-1");
             object.put("msg", "查询失败");
+            return object;
         }
+        /**若记录不为空，则讲对应的员工账户和姓名一起返回到前端*/
         if (attendList != null) {
             JSONArray array = new JSONArray();
             for (Attendance attendance : attendList) {
@@ -61,10 +69,14 @@ public class AttendanceController {
         return object;
     }
 
+    /**
+     * 获取所有用户的考勤记录
+     *
+     * @return 返回所有用户的考勤记录-JSON
+     */
     @RequestMapping("get_employee_attendance_record")
     @ResponseBody
     public JSONObject getAllAttendanceRecord() {
-
         JSONObject object = new JSONObject();
         List<Attendance> attendListAll = null;
         try {
@@ -72,7 +84,9 @@ public class AttendanceController {
         } catch (Exception e) {
             object.put("code", "-1");
             object.put("msg", "查询失败");
+            return object;
         }
+        /**若记录不为空，则讲对应的账户和密码一起返回到前端*/
         if (attendListAll != null) {
             JSONArray array = new JSONArray();
             for (Attendance attendance : attendListAll) {
@@ -90,6 +104,12 @@ public class AttendanceController {
         return object;
     }
 
+    /**
+     * 管理员修改考勤记录
+     *
+     * @param request HttpRequest
+     * @return 返回是否操作成功
+     */
     @RequestMapping("set_employee_attendance_record")
     @ResponseBody
     public Map<String, String> changeAttendanceRecord(HttpServletRequest request) {
@@ -107,15 +127,23 @@ public class AttendanceController {
         } catch (Exception e) {
             map.put("code", "-1");
             map.put("msg", "操作失败");
+            return map;
         }
         map.put("code", "0");
         map.put("msg", "操作成功");
         return map;
     }
 
+    /**
+     * 管理员删除考勤记录
+     *
+     * @param aIdList 考勤记录的Id
+     * @return 返回是否操作成功
+     */
     @RequestMapping("/del_attendance_info")
     @ResponseBody
-    public Map<String, String> delAttendanceRecord(@RequestParam("idList") String aIdList) {
+    public Map<String, String> delAttendanceRecord(
+                    @RequestParam("idList") String aIdList) {
         Map<String, String> map = new HashMap<>();
         try {
             String[] arr = aIdList.split(",");
@@ -123,6 +151,7 @@ public class AttendanceController {
         } catch (Exception e) {
             map.put("code", "-1");
             map.put("msg", "操作失败");
+            return map;
         }
         map.put("code", "0");
         map.put("msg", "操作成功");

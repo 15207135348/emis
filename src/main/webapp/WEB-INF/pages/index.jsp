@@ -50,7 +50,7 @@
 		<div class="layui-side layui-bg-black">
 			<div class="user-photo">
 				<a class="img" title="我的头像" ><img src="${ctx }/resources/images/face.jpg" class="userAvatar"></a>
-				<p >你好！<span id="userName"></span>, 欢迎登录</p>
+				<p >你好！<span id="userName"></span> 欢迎登录。</p>
 			</div>
 			<div class="navBar layui-side-scroll" id="navBar">
 				<ul class="layui-nav layui-nav-tree">

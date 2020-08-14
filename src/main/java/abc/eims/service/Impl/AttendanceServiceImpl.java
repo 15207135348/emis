@@ -20,28 +20,55 @@ public class AttendanceServiceImpl implements IAttendanceService {
     @Autowired
     private AttendanceMapper attendanceMapper;
 
+    /**
+     * 通过eId查找考勤记录
+     *
+     * @param eId 员工id
+     * @return 考勤记录
+     */
     @Override
     public Attendance findByEid(Integer eId) {
         return attendanceMapper.findByEid(eId);
     }
 
+    /**
+     * 获取本人考勤记录
+     *
+     * @return 相应的考勤记录
+     */
     @Override
     public List<Attendance> getMyAttendance() {
         int eId = Integer.parseInt(Objects.requireNonNull(CookieUtil.getCookieValueFromRequest()));
         return attendanceMapper.getMyAttendance(eId);
     }
 
+    /**
+     * 获取所有考勤记录
+     *
+     * @return 所有考勤记录
+     */
     @Override
     public List<Attendance> getAllAttendance() {
         return attendanceMapper.findAll();
     }
 
-
+    /**
+     * 修改考勤信息
+     *
+     * @param aId   考勤记录Id
+     * @param aType 考勤类型
+     * @param aTime 打卡时间
+     */
     @Override
     public void changeAttendanceRecord(Integer aId, Integer aType, String aTime) {
         attendanceMapper.changeAttendanceRecord(aId, aType, aTime);
     }
 
+    /**
+     * 删除考勤记录
+     *
+     * @param aIdList 考勤记录Id
+     */
     @Override
     public void delAttendanceRecord(List<String> aIdList) {
         attendanceMapper.deleteByaId(aIdList);

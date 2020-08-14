@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.Objects;
 
 /**
+ * 权限功能相关的Controller层
+ *
  * @author wangzhe
  * @date 2020/8/9 11:34
  */
@@ -23,12 +25,15 @@ public class RoleController {
     private EmployeeServiceImpl employeeService;
 
     /**
-     * 跳转到登陆页面
+     * 通过不同的权限id，返回不同的页面。
+     *
+     * @return 返回主页面-JSON
      */
     @RequestMapping(value = "get_menu", produces = "application/json;charset=utf-8")
     @ResponseBody
     public String getMenu() {
-        int eId = Integer.parseInt(Objects.requireNonNull(CookieUtil.getCookieValueFromRequest()));
+        int eId = Integer.parseInt(Objects.requireNonNull(
+                        CookieUtil.getCookieValueFromRequest()));
         Employee employee = employeeService.findEmployeeById(eId);
         if (employee == null) {
             return getMenuById(0);
@@ -37,14 +42,19 @@ public class RoleController {
         return getMenuById(roleId);
     }
 
-
+    /**
+     * 返回roleId对应的JSON
+     *
+     * @param roleId 权限id
+     * @return 对应的JSON
+     */
     private String getMenuById(int roleId) {
         if (roleId == 1) {
-            return Const.one;
+            return Const.SYSTEM_ADMINISTRATOR;
         } else if (roleId == 2) {
-            return Const.two;
+            return Const.ADMINISTRATOR;
         }
-        return Const.three;
+        return Const.CUSTOMER;
     }
 
 }

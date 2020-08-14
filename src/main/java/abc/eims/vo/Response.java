@@ -3,11 +3,13 @@ package abc.eims.vo;
 import com.alibaba.fastjson.JSONObject;
 
 /**
+ * 返回前端信息
+ *
  * @author wangzhe
  * @date 2020/8/10 04:59
  */
 public class Response {
-    // 请求是否成功
+
     private int code;
     private String msg;
     private Object data;
@@ -59,13 +61,14 @@ public class Response {
 
     public enum Code {
 
-        Success(0, "登录成功"),
+        LoginSuccess(0, "登录成功"),
+        Success(0, "操作成功"),
         ParameterError(-1, "参数错误"),
         UserNotExistError(-2, "用户不存在"),
         UserHasExistError(-3, "用户已存在"),
-        PasswordError(-4, "密码错误"),
+        PasswordError(-4, "账号或密码错误！"),
         UnLoginError(-5, "尚未登录"),
-        CodeError(-6, "验证码错误"),
+        CodeError(-6, "验证码错误！"),
         SystemError(-1000, "服务器内部错误");
         private int code;
         private String msg;

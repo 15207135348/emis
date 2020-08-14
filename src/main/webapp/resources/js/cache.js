@@ -82,7 +82,7 @@ layui.use(['form','jquery',"layer"],function() {
                 $(this).siblings(".admin-header-lock-input").val('');
                 layer.closeAll("page");
             }else{
-                layer.msg("密码错误，请重新输入！");
+                layer.msg("账号或密码错误，请重新输入！");
                 $(this).siblings(".admin-header-lock-input").val('').focus();
             }
         }

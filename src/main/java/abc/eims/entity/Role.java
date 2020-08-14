@@ -1,6 +1,8 @@
 package abc.eims.entity;
 
 /**
+ * 权限
+ *
  * @author wangzhe
  * @date 2020/8/9 9:11
  */

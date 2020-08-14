@@ -19,16 +19,6 @@ public interface IEmployeeService {
 
     void delEmployeeInfoByAccount(List<String> accountList);
 
-    void changeEmployeeInfo(Integer eId,
-                            String account,
-                            String password,
-                            String name,
-                            String birthday,
-                            Integer sex,
-                            String phone,
-                            String email,
-                            String roleId);
-
     void changeEmployeeRole(String account, String roleId);
 
     void insert(Employee employee);

@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * 与个人信息操作有关的Controller层
+ *
  * @author wangzhe
  * @date 2020/8/9 15:02
  */
@@ -22,10 +24,18 @@ public class UserInfoController {
     @Autowired
     private UserInfoServiceImpl userInfoService;
 
+    /**
+     * 修改密码
+     *
+     * @param oldPwd 旧密码
+     * @param newPwd 新密码
+     * @return 返回是否修改成功
+     */
     @RequestMapping("set_my_password")
     @ResponseBody
-    public Map<String, String> changePassword(@RequestParam("old_password") String oldPwd,
-                                              @RequestParam("new_password") String newPwd) {
+    public Map<String, String> changePassword(
+            @RequestParam("old_password") String oldPwd,
+            @RequestParam("new_password") String newPwd) {
         Map<String, String> map = new HashMap<>();
         try {
             userInfoService.changePassword(oldPwd, newPwd);
@@ -39,13 +49,24 @@ public class UserInfoController {
         return map;
     }
 
+    /**
+     * 修改个人信息
+     *
+     * @param name     姓名
+     * @param birthday 生日
+     * @param sex      性别
+     * @param phone    电话号码
+     * @param email    e-mail
+     * @return 返回是否修改成功
+     */
     @RequestMapping("set_my_info")
     @ResponseBody
-    public Map<String, String> changeInfo(String name,
-                                          Date birthday,
-                                          Integer sex,
-                                          String phone,
-                                          String email) {
+    public Map<String, String> changeInfo(
+                        @RequestParam("e_name") String name,
+                        @RequestParam("e_birthday") Date birthday,
+                        @RequestParam("e_sex") Integer sex,
+                        @RequestParam("e_phone") String phone,
+                        @RequestParam("e_email") String email) {
         Map<String, String> map = new HashMap<>();
         try {
             userInfoService.changeInfo(name, birthday, sex, phone, email);

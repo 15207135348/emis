@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
 /**
+ * 员工考勤记录
+ *
  * @author wangzhe
  * @date 2020/8/8 23:28
  */

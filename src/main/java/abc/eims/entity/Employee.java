@@ -7,6 +7,8 @@ import com.alibaba.fastjson.JSONObject;
 import java.util.Date;
 
 /**
+ * 员工信息
+ *
  * @author wangzhe
  * @date 2020/8/7 15:39
  */

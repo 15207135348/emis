@@ -7,7 +7,6 @@ import abc.eims.utils.CaptchaUtil;
 import abc.eims.utils.CookieUtil;
 import abc.eims.utils.MD5Utils;
 import abc.eims.vo.Response;
-import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +24,8 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
+ * 和员工信息相关的Controller
+ *
  * @author wangzhe
  * @date 2020/8/9 11:34
  */
@@ -39,43 +39,50 @@ public class LoginController {
     /**
      * 点击生成验证码
      *
-     * @param request
-     * @param response
+     * @param request  HttpRequest
+     * @param response HttpResponse
      * @throws ServletException
      * @throws IOException
      */
     @RequestMapping(value = "/changeCode")
     @ResponseBody
-    public void getIdentifyingCode(HttpServletRequest request, HttpServletResponse response)
+    public void getIdentifyingCode(HttpServletRequest request,
+                                   HttpServletResponse response)
             throws ServletException, IOException {
-        // 验证码存储在session的identifyingCode属性中
+        //验证码存储在session的identifyingCode属性中
         CaptchaUtil.outputCaptcha(request, response);
     }
 
-
+    /**
+     * 账号注册
+     *
+     * @param employee 注册员工信息
+     * @return 是否注册成功
+     */
     @RequestMapping("register")
     @ResponseBody
     public Response employeeRegister(@RequestBody Employee employee) {
+        //查找要注册的用户是否存在
         Employee employee1 = employeeService.findByAccount(employee.getE_account());
         if (employee1 != null) {
             return new Response(Response.Code.UserHasExistError);
         }
+        //将密码通过MD5加密后存入数据库中
         String password = MD5Utils.encodeByMD5(employee.getE_password());
         employee.setE_password(password);
-
         employeeService.insert(employee);
+        //将员工id放入cookie中，用于会话信息保存。
         CookieUtil.addCookie(String.valueOf(employee.getE_id()));
         return new Response(Response.Code.Success);
-
     }
 
     /**
-     * 登录
+     * 登录功能
      *
-     * @param account
-     * @param password
-     * @param identifyingcode
-     * @return
+     * @param account         员工账户
+     * @param password        登录密码
+     * @param identifyingcode 验证码
+     * @return 是否登录成功
      */
     @RequestMapping("login_by_password")
     @ResponseBody
@@ -84,11 +91,13 @@ public class LoginController {
             @RequestParam("e_password") String password,
             @RequestParam("code") String identifyingcode) {
 
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.
-                    getRequestAttributes()).getRequest();
+        HttpServletRequest request = ((ServletRequestAttributes)
+                RequestContextHolder.getRequestAttributes()).getRequest();
         HttpSession httpSession = request.getSession();
 
+        //对输入的账号处理
         account = StringUtils.trim(account);
+        //取出存放在session中的验证码
         String code = (String) httpSession.getAttribute("identifyingCode");
         if (StringUtils.equalsIgnoreCase(identifyingcode, code)) {
             Employee employee;
@@ -105,11 +114,15 @@ public class LoginController {
     }
 
     /**
-     * @return
+     * 退出登录
+     *
+     * @return login页面
      */
     @RequestMapping("login_out")
     public String logout() {
+        //清除Cookie中的信息
         CookieUtil.removeCookie();
         return "login";
     }
+
 }

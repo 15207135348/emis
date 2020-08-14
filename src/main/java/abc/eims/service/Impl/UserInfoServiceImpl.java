@@ -20,20 +20,37 @@ public class UserInfoServiceImpl implements IUserInfoService {
     @Autowired
     private UserInfoMapper userInfoMapper;
 
+    /**
+     * 修改密码
+     *
+     * @param oldPwd 旧密码
+     * @param newPwd 新密码
+     */
     @Override
     public void changePassword(String oldPwd, String newPwd) {
+        //从Cookie取出当前用户Id
         int eId = Integer.parseInt(Objects.requireNonNull(
-                            CookieUtil.getCookieValueFromRequest()));
+                CookieUtil.getCookieValueFromRequest()));
         oldPwd = MD5Utils.encodeByMD5(oldPwd);
         newPwd = MD5Utils.encodeByMD5(newPwd);
         userInfoMapper.changePwd(eId, oldPwd, newPwd);
     }
 
+    /**
+     * 修改个人信息
+     *
+     * @param name     姓名
+     * @param birthday 生日
+     * @param sex      性别
+     * @param phone    电话号码
+     * @param email    e-mail
+     */
     @Override
     public void changeInfo(String name, Date birthday,
                            Integer sex, String phone, String email) {
+        //从Cookie取出当前用户Id
         int eId = Integer.parseInt(Objects.requireNonNull(
-                            CookieUtil.getCookieValueFromRequest()));
+                CookieUtil.getCookieValueFromRequest()));
         userInfoMapper.changeInfo(eId, name, birthday, sex, phone, email);
     }
 
