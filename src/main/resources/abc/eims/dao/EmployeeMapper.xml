@@ -69,4 +69,11 @@
         </foreach>
     </delete>
 
+    <select id="fuzzyFindByAccount" resultType="employee">
+        SELECT *
+        FROM t_employee
+        WHERE e_account like concat('%',#{account},'%')
+    </select>
+
+
 </mapper>

@@ -102,4 +102,6 @@ public interface EmployeeMapper {
     int changeEmployeeRole(@Param("account") String account,
                            @Param("roleId") String roleId);
 
+    List<Employee> fuzzyFindByAccount(@Param("account") String account);
+
 }

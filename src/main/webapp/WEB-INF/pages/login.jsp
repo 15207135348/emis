@@ -72,6 +72,7 @@
 
         document.getElementById("registerBtn").onclick = function (ev) {
             window.open("/index/toRegister.action");
+            // window.location.href = '/index/toLogin.action';
         };
 
 

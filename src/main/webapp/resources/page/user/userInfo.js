@@ -70,7 +70,7 @@ layui.use(['form', 'layer', 'upload', 'laydate', "address"], function () {
             'e_email': $(".userEmail").val(),
             'e_birthday': $(".userBirthday").val()
         }, function (res) {
-            console.log(res);
+            // console.log(res);
             window.localStorage.setItem("userInfo", JSON.stringify(res['data']));
             layer.close(index);
             layer.msg("提交成功！");

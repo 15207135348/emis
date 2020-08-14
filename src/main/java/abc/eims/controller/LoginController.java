@@ -87,7 +87,7 @@ public class LoginController {
         employee.setE_role_id(3);
         employeeService.insert(employee);
         //将员工id放入cookie中，用于会话信息保存。
-        CookieUtil.addCookie(String.valueOf(employee.getE_id()));
+//        CookieUtil.addCookie(String.valueOf(employee.getE_id()));
         return new Response(Response.Code.Success);
     }
 

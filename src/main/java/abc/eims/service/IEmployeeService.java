@@ -34,4 +34,6 @@ public interface IEmployeeService {
 
     Employee findByAccount(String eAccount);
 
+    List<Employee> fuzzyFindByAccount(String eAccount);
+
 }

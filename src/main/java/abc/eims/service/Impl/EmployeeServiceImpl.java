@@ -157,4 +157,17 @@ public class EmployeeServiceImpl implements IEmployeeService {
         return employeeMapper.findByAccount(eAccount);
     }
 
+    /**
+     * 通过账号查找员工信息
+     *
+     * @param eAccount 账号
+     * @return 对应的员工信息
+     */
+    @Override
+    public List<Employee> fuzzyFindByAccount(String eAccount) {
+        return employeeMapper.fuzzyFindByAccount(eAccount);
+    }
+
+
+
 }

@@ -46,7 +46,7 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
     //添加用户
     function addUser(edit) {
         var index = layui.layer.open({
-            title: "添加用户",
+            title: "",
             type: 2,
             content: "userAdd_1.html",
             success: function (layero, index) {

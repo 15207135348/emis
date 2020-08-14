@@ -42,12 +42,14 @@ public class EmployeeController {
         List<Employee> empList;
         try {
             String eAccount = request.getParameter("e_account");
-            if (eAccount == null){
+            /**搜索框内容为空则返回所有用户信息*/
+            if (eAccount == null) {
                 empList = employeeService.getAllEmployeeInfo();
-            }else {
-                empList = new ArrayList<>();
-                Employee employee = employeeService.findByAccount(eAccount);
-                empList.add(employee);
+            } else {
+                /**若搜索内容不为空，根据搜索框内容进行模糊查询*/
+                List<Employee> employeeList =
+                        employeeService.fuzzyFindByAccount(eAccount);
+                empList = new ArrayList<>(employeeList);
             }
 
         } catch (Exception e) {
@@ -90,10 +92,11 @@ public class EmployeeController {
 
         Map<String, String> map = new HashMap<>();
 
-        int eId = Integer.parseInt(Objects.requireNonNull(CookieUtil.getCookieValueFromRequest()));
+        int eId = Integer.parseInt(Objects.requireNonNull(
+                CookieUtil.getCookieValueFromRequest()));
         int targetRole = employeeService.findByAccount(account).getE_role_id();
         int myRole = employeeService.findEmployeeById(eId).getE_role_id();
-        if (myRole >= targetRole){
+        if (myRole >= targetRole) {
             map.put("code", "-1");
             map.put("msg", "权限不足，无法修改");
             return map;

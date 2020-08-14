@@ -23,6 +23,10 @@ public class IndexController {
         return "login";
     }
 
+    /**
+     * 跳转到注册页面
+     * @return  register页面
+     */
     @RequestMapping(value = "/toRegister")
     public String toRegister() {
         return "register";
