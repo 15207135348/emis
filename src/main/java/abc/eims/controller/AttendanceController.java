@@ -41,7 +41,7 @@ public class AttendanceController {
      */
     @RequestMapping("get_my_attendance_record")
     @ResponseBody
-    public JSONObject getMyAttendanceRecord() {
+    public JSONObject getMyAttendanceRecord(HttpServletRequest request) {
         JSONObject object = new JSONObject();
         List<Attendance> attendList = null;
         try {
@@ -51,15 +51,31 @@ public class AttendanceController {
             object.put("msg", "查询失败");
             return object;
         }
-        /**若记录不为空，则讲对应的员工账户和姓名一起返回到前端*/
+        /**若记录不为空，则讲对应的账户和密码一起返回到前端*/
         if (attendList != null) {
             JSONArray array = new JSONArray();
-            for (Attendance attendance : attendList) {
-                Employee e = employeeService.findEmployeeById(attendance.getE_id());
-                JSONObject o = attendance.toJSON();
-                o.put("e_account", e.getE_account());
-                o.put("e_name", e.getE_name());
-                array.add(o);
+            String key = request.getParameter("key");
+            if (key == null){
+                for (Attendance attendance : attendList) {
+                    Employee e = employeeService.findEmployeeById(attendance.getE_id());
+                    JSONObject o = attendance.toJSON();
+                    o.put("e_account", e.getE_account());
+                    o.put("e_name", e.getE_name());
+                    array.add(o);
+                }
+            }else {
+                for (Attendance attendance : attendList) {
+                    Employee e = employeeService.findEmployeeById(attendance.getE_id());
+                    String aId = attendance.getA_id().toString();
+                    String time = attendance.getA_time();
+                    String type = attendance.getA_type() == 1 ? "上班打卡" : "下班打卡";
+                    if (aId.contains(key) || time.contains(key) || type.contains(key)){
+                        JSONObject o = attendance.toJSON();
+                        o.put("e_account", e.getE_account());
+                        o.put("e_name", e.getE_name());
+                        array.add(o);
+                    }
+                }
             }
             object.put("code", "0");
             object.put("msg", "操作成功");
@@ -76,9 +92,9 @@ public class AttendanceController {
      */
     @RequestMapping("get_employee_attendance_record")
     @ResponseBody
-    public JSONObject getAllAttendanceRecord() {
+    public JSONObject getAllAttendanceRecord(HttpServletRequest request) {
         JSONObject object = new JSONObject();
-        List<Attendance> attendListAll = null;
+        List<Attendance> attendListAll;
         try {
             attendListAll = attendanceService.getAllAttendance();
         } catch (Exception e) {
@@ -89,12 +105,30 @@ public class AttendanceController {
         /**若记录不为空，则讲对应的账户和密码一起返回到前端*/
         if (attendListAll != null) {
             JSONArray array = new JSONArray();
-            for (Attendance attendance : attendListAll) {
-                Employee e = employeeService.findEmployeeById(attendance.getE_id());
-                JSONObject o = attendance.toJSON();
-                o.put("e_account", e.getE_account());
-                o.put("e_name", e.getE_name());
-                array.add(o);
+            String key = request.getParameter("key");
+            if (key == null){
+                for (Attendance attendance : attendListAll) {
+                    Employee e = employeeService.findEmployeeById(attendance.getE_id());
+                    JSONObject o = attendance.toJSON();
+                    o.put("e_account", e.getE_account());
+                    o.put("e_name", e.getE_name());
+                    array.add(o);
+                }
+            }else {
+                for (Attendance attendance : attendListAll) {
+                    Employee e = employeeService.findEmployeeById(attendance.getE_id());
+                    String aId = attendance.getA_id().toString();
+                    String eAccount = e.getE_account();
+                    String eName = e.getE_name();
+                    String time = attendance.getA_time();
+                    String type = attendance.getA_type() == 1 ? "上班打卡" : "下班打卡";
+                    if (aId.contains(key) || eAccount.contains(key) || eName.contains(key) || time.contains(key) || type.contains(key)){
+                        JSONObject o = attendance.toJSON();
+                        o.put("e_account", e.getE_account());
+                        o.put("e_name", e.getE_name());
+                        array.add(o);
+                    }
+                }
             }
             object.put("code", "0");
             object.put("msg", "操作成功");

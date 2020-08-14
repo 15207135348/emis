@@ -50,7 +50,7 @@
 		<div class="layui-side layui-bg-black">
 			<div class="user-photo">
 				<a class="img" title="我的头像" ><img src="${ctx }/resources/images/face.jpg" class="userAvatar"></a>
-				<p >你好！<span id="userName"></span> 欢迎登录。</p>
+				<p >你好！<span id="userName"></span>，欢迎登录。</p>
 			</div>
 			<div class="navBar layui-side-scroll" id="navBar">
 				<ul class="layui-nav layui-nav-tree">
@@ -176,7 +176,12 @@
 	            layer.close(index);
 	            layer.msg("缓存清除成功！");
 	        },1000);
-	    })
+	    });
+
+        var userInfo = JSON.parse(window.localStorage.getItem("userInfo"));
+        var span = document.getElementById("userName");
+        var txt = document.createTextNode(userInfo['e_name']);
+        span.appendChild(txt);
 
 		//刷新后还原打开的窗口
 	    if(cacheStr == "true") {

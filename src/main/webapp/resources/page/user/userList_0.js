@@ -14,7 +14,7 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
         height: "full-125",
         limits: [10, 15, 20, 25],
         limit: 20,
-        id: "userListTable",
+        id: "userList",
         cols: [[
             {type: "checkbox", fixed: "left", width: 50},
             {field: 'e_id', title: 'ID', width: 50, align: "center"},
@@ -32,16 +32,14 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
     //搜索【此功能需要后台配合，所以暂时没有动态效果演示】
     $(".search_btn").on("click", function () {
         if ($(".searchVal").val() != '') {
-            table.reload("userListTable", {
+            tableIns.reload({
                 page: {
                     curr: 1 //重新从第 1 页开始
                 },
                 where: {
-                    key: {
-                        e_id: $(".searchVal").val()
-                    }
+                    e_account: $(".searchVal").val()
                 }
-            }, 'data')
+            });
         } else {
             layer.msg("请输入搜索的内容");
         }
@@ -106,7 +104,7 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
         } else {
             layer.msg("请选择需要删除的用户");
         }
-    })
+    });
 
     //列表操作
     table.on('tool(userList)', function (obj) {
@@ -125,4 +123,4 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
         }
     });
 
-})
+});

@@ -23,6 +23,11 @@ public class IndexController {
         return "login";
     }
 
+    @RequestMapping(value = "/toRegister")
+    public String toRegister() {
+        return "register";
+    }
+
     /**
      * 跳转到首页
      *

@@ -63,8 +63,8 @@ public class CaptchaUtil {
         String identifyingCode = getRandomString();
         request.getSession(true).setAttribute("identifyingCode", identifyingCode);
 
-        int width = 100;
-        int height = 30;
+        int width = 116;
+        int height = 36;
 
         Color color = getRandomColor();
         Color reverse = getReverseColor(color);

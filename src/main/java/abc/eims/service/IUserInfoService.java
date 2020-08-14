@@ -1,5 +1,7 @@
 package abc.eims.service;
 
+import abc.eims.entity.Employee;
+
 import java.util.Date;
 
 /**
@@ -10,10 +12,10 @@ public interface IUserInfoService {
 
     void changePassword(String oldPwd, String newPwd);
 
-    void changeInfo(String name,
-                    Date birthday,
-                    Integer sex,
-                    String phone,
-                    String email);
+    Employee changeInfo(String name,
+                        Date birthday,
+                        Integer sex,
+                        String phone,
+                        String email);
 
 }

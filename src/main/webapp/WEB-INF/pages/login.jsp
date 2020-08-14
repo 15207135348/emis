@@ -20,28 +20,22 @@
     <div class="login_face"><img src="${ctx}/resources/images/face.jpg" class="userAvatar"></div>
     <div class="layui-form-item input-item">
         <label for="e_account">账户</label>
-        <input type="text" placeholder="请输入账户名" autocomplete="off" id="e_account" name="e_account" class="layui-input"
-               lay-verify="required">
+        <input type="text" placeholder="请输入账户名" autocomplete="off" id="e_account" name="e_account" class="layui-input">
     </div>
     <div class="layui-form-item input-item">
         <label for="e_password">密码</label>
-        <input type="password" placeholder="请输入密码" autocomplete="off" id="e_password" name="e_password"
-               class="layui-input" lay-verify="required">
+        <input type="password" placeholder="请输入密码" autocomplete="off" id="e_password" name="e_password" class="layui-input">
     </div>
     <div class="layui-form-item input-item" id="imgCode">
         <label for="code">验证码</label>
-        <input type="text" placeholder="请输入验证码" autocomplete="off" id="code" name="code" class="layui-input"
-               lay-verify="required">
+        <input type="text" placeholder="请输入验证码" autocomplete="off" id="code" name="code" class="layui-input">
         <img src="${ctx}/auth/changeCode.action" id="imgCode_image">
     </div>
     <div class="layui-form-item">
         <button class="layui-btn layui-block" lay-filter="login" lay-submit id="loginBtn">登录</button>
     </div>
-    <div class="layui-form-item layui-row" style="text-align: center;color: red;">
-        ${error }
-        <!-- 	<a href="javascript:;" class="seraph icon-qq layui-col-xs4 layui-col-sm4 layui-col-md4 layui-col-lg4"></a>
-            <a href="javascript:;" class="seraph icon-wechat layui-col-xs4 layui-col-sm4 layui-col-md4 layui-col-lg4"></a>
-            <a href="javascript:;" class="seraph icon-sina layui-col-xs4 layui-col-sm4 layui-col-md4 layui-col-lg4"></a> -->
+    <div class="layui-form-item">
+        <button class="layui-btn layui-btn-warm layui-block" lay-filter="register" lay-submit id="registerBtn">注册</button>
     </div>
 </form>
 
@@ -64,8 +58,9 @@
                 e_password: password,
                 code: code
             }, function (res) {
-                if(res['code'] == 0){
-                    window.location.href = '/index/toMain.action'
+                if(res['code'] === 0){
+                    window.localStorage.setItem("userInfo", JSON.stringify(res['data']));
+                    window.location.href = '/index/toMain.action';
                 }else {
                     layer.confirm(res['msg'], {icon: 3, title: '提示信息'}, function (index) {
                         layer.close(index);
@@ -75,38 +70,10 @@
             });
         };
 
+        document.getElementById("registerBtn").onclick = function (ev) {
+            window.open("/index/toRegister.action");
+        };
 
-        // //登录按钮
-        // form.on("submit(login)", function (data) {
-        //     $(this).text("登录中...").attr("disabled", "disabled").addClass("layui-disabled");
-        //     // console.log("登录中")
-        //     // var account = document.getElementById("e_account").value;
-        //     // var password = document.getElementById("e_password").value;
-        //     // var code = document.getElementById("code").value;
-        //     // console.log("value:" + account + password + code);
-        //     // $.ajax({
-        //     //     url: "/auth/login_by_password.action",
-        //     //     data: {
-        //     //         'e_account': account,
-        //     //         'e_password': password,
-        //     //         'code': code
-        //     //     },
-        //     //     type: "post",
-        //     //     dataType: "json",
-        //     //     success: function (data) {
-        //     //         console.log(data);
-        //     //         window.location.href = 'index.jsp'
-        //     //     },
-        //     //     error: function (data) {
-        //     //     }
-        //     // });
-        //
-        //     setTimeout(function () {
-        //         $("#loginFrm").submit();
-        //     }, 1000);
-        //
-        //     return false;
-        // });
 
         //表单输入效果
         $(".loginBody .input-item").click(function (e) {
@@ -127,9 +94,9 @@
 
         var image = document.getElementById("imgCode_image");
         image.onclick = function (ev) {
-            image.setAttribute("src", "http://localhost:8080/auth/changeCode.action");
-            image.update()
+            $("#imgCode_image").attr("src", "http://localhost:8080/auth/changeCode.action?t=" + + Math.random());
         };
+
 
     })
 

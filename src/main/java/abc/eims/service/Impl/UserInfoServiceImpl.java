@@ -1,6 +1,8 @@
 package abc.eims.service.Impl;
 
+import abc.eims.dao.EmployeeMapper;
 import abc.eims.dao.UserInfoMapper;
+import abc.eims.entity.Employee;
 import abc.eims.service.IUserInfoService;
 import abc.eims.utils.CookieUtil;
 import abc.eims.utils.MD5Utils;
@@ -19,6 +21,9 @@ public class UserInfoServiceImpl implements IUserInfoService {
 
     @Autowired
     private UserInfoMapper userInfoMapper;
+
+    @Autowired
+    private EmployeeMapper employeeMapper;
 
     /**
      * 修改密码
@@ -46,12 +51,14 @@ public class UserInfoServiceImpl implements IUserInfoService {
      * @param email    e-mail
      */
     @Override
-    public void changeInfo(String name, Date birthday,
-                           Integer sex, String phone, String email) {
+    public Employee changeInfo(String name, Date birthday,
+                               Integer sex, String phone, String email) {
         //从Cookie取出当前用户Id
         int eId = Integer.parseInt(Objects.requireNonNull(
                 CookieUtil.getCookieValueFromRequest()));
         userInfoMapper.changeInfo(eId, name, birthday, sex, phone, email);
+
+        return employeeMapper.findById(eId);
     }
 
 }

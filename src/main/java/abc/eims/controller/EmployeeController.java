@@ -3,6 +3,7 @@ package abc.eims.controller;
 import abc.eims.entity.Employee;
 import abc.eims.service.Impl.AttendanceServiceImpl;
 import abc.eims.service.Impl.EmployeeServiceImpl;
+import abc.eims.utils.CookieUtil;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.ibatis.annotations.Param;
@@ -13,10 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 员工信息相关的Controller层
@@ -38,11 +36,20 @@ public class EmployeeController {
      */
     @RequestMapping(value = "/get_employee_info")
     @ResponseBody
-    public JSONObject getAllEmployeeInfo() {
+    public JSONObject getEmployeeInfo(HttpServletRequest request) {
+
         JSONObject object = new JSONObject();
-        List<Employee> empList = null;
+        List<Employee> empList;
         try {
-            empList = employeeService.getAllEmployeeInfo();
+            String eAccount = request.getParameter("e_account");
+            if (eAccount == null){
+                empList = employeeService.getAllEmployeeInfo();
+            }else {
+                empList = new ArrayList<>();
+                Employee employee = employeeService.findByAccount(eAccount);
+                empList.add(employee);
+            }
+
         } catch (Exception e) {
             object.put("code", -1);
             object.put("msg", "查询失败");
@@ -80,7 +87,17 @@ public class EmployeeController {
         String email = request.getParameter("e_email");
         Integer roleId = Integer.valueOf(request.getParameter("e_role_id"));
 
+
         Map<String, String> map = new HashMap<>();
+
+        int eId = Integer.parseInt(Objects.requireNonNull(CookieUtil.getCookieValueFromRequest()));
+        int targetRole = employeeService.findByAccount(account).getE_role_id();
+        int myRole = employeeService.findEmployeeById(eId).getE_role_id();
+        if (myRole >= targetRole){
+            map.put("code", "-1");
+            map.put("msg", "权限不足，无法修改");
+            return map;
+        }
         try {
             int res = employeeService.updateOrInsert(account, name,
                     birthday, sex, phone, email, roleId);

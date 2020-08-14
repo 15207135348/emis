@@ -30,49 +30,18 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
     //搜索【此功能需要后台配合，所以暂时没有动态效果演示】
     $(".search_btn").on("click", function () {
         if ($(".searchVal").val() != '') {
-            table.reload("newsListTable", {
+            tableIns.reload({
                 page: {
                     curr: 1 //重新从第 1 页开始
                 },
                 where: {
-                    key: $(".searchVal").val()  //搜索的关键字
+                    e_account: $(".searchVal").val()
                 }
-            })
+            });
         } else {
             layer.msg("请输入搜索的内容");
         }
     });
-
-
-    function getSex(val) {
-        if(val === 0){
-            return "男"
-        }else {
-            return "女"
-        }
-    }
-
-    function getType(val) {
-        if(val === 0){
-            return "上班打卡";
-        }
-        if(val === 1){
-            return "下班打卡";
-        }
-    }
-
-
-    function getGrage(val) {
-        if(val === 1){
-            return "超级管理员";
-        }
-        if(val === 2){
-            return "管理员";
-        }
-        if(val === 3){
-            return "普通员工";
-        }
-    }
 
     //添加用户
     function addUser(edit) {
@@ -131,7 +100,7 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
         } else {
             layer.msg("请选择需要删除的用户");
         }
-    })
+    });
 
     //列表操作
     table.on('tool(userList)', function (obj) {

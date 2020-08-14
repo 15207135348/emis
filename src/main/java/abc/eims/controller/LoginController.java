@@ -5,6 +5,7 @@ import abc.eims.exception.CustomException;
 import abc.eims.service.Impl.EmployeeServiceImpl;
 import abc.eims.utils.CaptchaUtil;
 import abc.eims.utils.CookieUtil;
+import abc.eims.utils.DateTimeUtil;
 import abc.eims.utils.MD5Utils;
 import abc.eims.vo.Response;
 import org.apache.commons.lang3.StringUtils;
@@ -22,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Date;
 
 /**
  * 和员工信息相关的Controller
@@ -56,20 +58,33 @@ public class LoginController {
     /**
      * 账号注册
      *
-     * @param employee 注册员工信息
      * @return 是否注册成功
      */
     @RequestMapping("register")
     @ResponseBody
-    public Response employeeRegister(@RequestBody Employee employee) {
+    public Response employeeRegister(HttpServletRequest request) {
+        String account = request.getParameter("e_account");
+        String password = request.getParameter("e_password");
+        String name = request.getParameter("e_name");
+        Integer sex = Integer.valueOf(request.getParameter("e_sex"));
+        String phone = request.getParameter("e_phone");
+        String email = request.getParameter("e_email");
+        String birthday = request.getParameter("e_birthday");
         //查找要注册的用户是否存在
-        Employee employee1 = employeeService.findByAccount(employee.getE_account());
-        if (employee1 != null) {
+        Employee employee = employeeService.findByAccount(account);
+        if (employee != null) {
             return new Response(Response.Code.UserHasExistError);
         }
+        employee = new Employee();
+        employee.setE_account(account);
         //将密码通过MD5加密后存入数据库中
-        String password = MD5Utils.encodeByMD5(employee.getE_password());
-        employee.setE_password(password);
+        employee.setE_password(MD5Utils.encodeByMD5(password));
+        employee.setE_sex(sex);
+        employee.setE_name(name);
+        employee.setE_phone(phone);
+        employee.setE_email(email);
+        employee.setE_birthday(DateTimeUtil.dateToStamp(birthday));
+        employee.setE_role_id(3);
         employeeService.insert(employee);
         //将员工id放入cookie中，用于会话信息保存。
         CookieUtil.addCookie(String.valueOf(employee.getE_id()));
@@ -107,7 +122,7 @@ public class LoginController {
                 return new Response(Response.Code.PasswordError);
             }
             CookieUtil.addCookie(String.valueOf(employee.getE_id()));
-            return new Response(Response.Code.Success);
+            return new Response(Response.Code.Success, employee.toJSON());
         } else {
             return new Response(Response.Code.CodeError);
         }

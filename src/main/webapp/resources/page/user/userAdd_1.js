@@ -28,7 +28,8 @@ layui.use(['form', 'layer', 'laydate'], function () {
             e_birthday: e_birthday,  //生日
             e_sex: e_sex,  //性别
             e_phone: e_phone,  //电话
-            e_email: e_email
+            e_email: e_email,
+            e_role_id: 3
         }, function (res) {
             if (!exec) {
                 top.layer.close(index);
