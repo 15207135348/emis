@@ -86,7 +86,7 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
 
     //批量删除
     $(".delAll_btn").click(function () {
-        var checkStatus = table.checkStatus('userListTable'),
+        var checkStatus = table.checkStatus('userList'),
             data = checkStatus.data,
             accounts = [];
         if (data.length > 0) {
