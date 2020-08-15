@@ -18,7 +18,6 @@
 <body>
 
 <form class="layui-form layui-row">
-
     <div class="layui-col-md6 layui-col-xs12">
         <div class="layui-form-item">
             <label class="layui-form-label">用户名</label>
@@ -71,7 +70,7 @@
         </div>
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button class="layui-btn" lay-submit="" lay-filter="register">注册</button>
+                <button class="layui-btn" lay-submit="" lay-filter="register" id="register">注册</button>
                 <button type="reset" class="layui-btn layui-btn-primary">重置</button>
             </div>
         </div>
@@ -94,8 +93,7 @@
         });
 
         //提交个人资料
-        form.on("submit(register)", function (data) {
-
+        document.getElementById("register").onclick = function (ev) {
             var password = $(".password").val();
             var confirmPwd = $(".confirmPwd").val();
             if(!new RegExp(password).test(confirmPwd)){
@@ -113,14 +111,19 @@
                 'e_birthday': $(".userBirthday").val()
             }, function (res) {
                 if(res['code'] === 0){
-                    window.location.href = "/index/toLogin.action";
+                    layer.confirm("注册成功", {icon: 1, title: '提示信息'}, function (index) {
+                        layer.close(index);
+                        window.location.href = "/index/toLogin.action";
+                    });
                 }
                 else {
-                    layer.msg(res['msg']);
-                    location.reload();
+                    layer.confirm(res['msg'], {icon: 3, title: '提示信息'}, function (index) {
+                        layer.close(index);
+                    });
                 }
             });
-        });
+            return false;
+        }
     })
 </script>
 </html>
