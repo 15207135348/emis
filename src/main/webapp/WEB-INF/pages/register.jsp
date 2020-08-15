@@ -1,7 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <!DOCTYPE html>
-<html>
+<style>
+    .registerHtml,.registerBody{ height:100%;}
+    .registerBody{ background:url("${ctx}/resources/images/login_bg.jpg") no-repeat center center;}
+    .registerBody form.layui-form{ padding:0 20px; width:405px; height:510px; position:absolute; left:50%; top:30%; margin:-150px 0 0 -150px; -webkit-box-sizing:border-box;-moz-box-sizing:border-box; -o-box-sizing:border-box; box-sizing:border-box; background:#fff;-webkit-border-radius:5px; -moz-border-radius:5px; border-radius:5px; box-shadow:0 0 50px #009688;}
+    .registerBody .layui-form-item{ position:relative;}
+</style>
+<html class="registerHtml">
 <head>
     <meta charset="utf-8">
     <title>登录-员工信息管理系统</title>
@@ -15,64 +21,61 @@
     <link rel="stylesheet" href="../../resources/layui/css/layui.css" media="all"/>
     <link rel="stylesheet" href="${ctx}/resources/css/public.css" media="all"/>
 </head>
-<body>
-
-<form class="layui-form layui-row">
-    <div class="layui-col-md6 layui-col-xs12">
-        <div class="layui-form-item">
-            <label class="layui-form-label">用户名</label>
-            <div class="layui-input-block">
-                <input type="text" placeholder="请输入账户名" lay-verify="required|userCode" id="userCode" class="layui-input userCode">
-            </div>
+<body class="registerBody">
+<form class="layui-form">
+    <div class="layui-form-item layui-row" style="margin-top: 20px">
+        <label class="layui-form-label">用户名</label>
+        <div class="layui-input-inline">
+            <input type="text" placeholder="请输入账户名" lay-verify="required|userCode" id="userCode" class="layui-input userCode">
         </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">密码</label>
-            <div class="layui-input-block">
-                <input type="text" placeholder="请输入密码" lay-verify="required|password" class="layui-input password">
-            </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">密码框</label>
+        <div class="layui-input-inline">
+            <input type="text" placeholder="请输入密码" lay-verify="required|password" class="layui-input password">
         </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">确认密码</label>
-            <div class="layui-input-block">
-                <input type="text" placeholder="请输入确认密码" lay-verify="required|confirmPwd" class="layui-input confirmPwd">
-            </div>
+    </div>
+    <div class="layui-form-item layui-row">
+        <label class="layui-form-label">确认密码</label>
+        <div class="layui-input-inline">
+            <input type="text" placeholder="请输入确认密码" lay-verify="required|confirmPwd" class="layui-input confirmPwd">
         </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">真实姓名</label>
-            <div class="layui-input-block">
-                <input type="text" value="" placeholder="请输入真实姓名" lay-verify="required" class="layui-input userName">
-            </div>
+    </div>
+    <div class="layui-form-item layui-row">
+        <label class="layui-form-label">真实姓名</label>
+        <div class="layui-input-inline">
+            <input type="text" value="" placeholder="请输入真实姓名" lay-verify="required" class="layui-input userName">
         </div>
-        <div class="layui-form-item" pane="">
-            <label class="layui-form-label">性别</label>
-            <div class="layui-input-block userSex">
-                <input type="radio" name="sex" value="1" title="男" checked>
-                <input type="radio" name="sex" value="0" title="女">
-            </div>
+    </div>
+    <div class="layui-form-item layui-row" pane="">
+        <label class="layui-form-label">性别</label>
+        <div class="layui-input-inline userSex">
+            <input type="radio" name="sex" value="1" title="男" checked>
+            <input type="radio" name="sex" value="0" title="女">
         </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">电话号码</label>
-            <div class="layui-input-block">
-                <input type="tel" value="" placeholder="请输入手机号码" lay-verify="phone" class="layui-input userPhone">
-            </div>
+    </div>
+    <div class="layui-form-item layui-row">
+        <label class="layui-form-label">电话号码</label>
+        <div class="layui-input-inline">
+            <input type="tel" value="" placeholder="请输入手机号码" lay-verify="phone" class="layui-input userPhone">
         </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">邮箱</label>
-            <div class="layui-input-block">
-                <input type="email" value="" placeholder="请输入邮箱地址" lay-verify="email" class="layui-input userEmail">
-            </div>
+    </div>
+    <div class="layui-form-item layui-row">
+        <label class="layui-form-label">邮箱</label>
+        <div class="layui-input-inline">
+            <input type="email" value="" placeholder="请输入邮箱地址" lay-verify="email" class="layui-input userEmail">
         </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">生日</label>
-            <div class="layui-input-block">
-                <input type="text" value="" id="birthday" placeholder="请输入出生年月日" lay-verify="required" readonly class="layui-input userBirthday">
-            </div>
+    </div>
+    <div class="layui-form-item layui-row">
+        <label class="layui-form-label">生日</label>
+        <div class="layui-input-inline">
+            <input type="text" value="" id="birthday" placeholder="请输入出生年月日" lay-verify="required" readonly class="layui-input userBirthday">
         </div>
-        <div class="layui-form-item">
-            <div class="layui-input-block">
-                <button class="layui-btn" lay-submit="" lay-filter="register" id="register">注册</button>
-                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-            </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit="" lay-filter="register" id="register">注册</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
     </div>
 </form>
@@ -129,6 +132,7 @@
             });
             return false;
         }
+
     })
 </script>
 </html>

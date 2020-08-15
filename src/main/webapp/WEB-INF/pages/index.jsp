@@ -20,7 +20,7 @@
 	<div class="layui-layout layui-layout-admin">
 		<!-- 顶部 -->
 		<div class="layui-header header">
-			<div class="layui-main mag0">
+			<div class="layui-main mag0" style="margin: 0 0">
 				<a href="#" class="logo">员工信息管理系统</a>
 				<!-- 显示/隐藏菜单 -->
 				<a href="javascript:;" class="seraph hideMenu icon-caidan"></a>
