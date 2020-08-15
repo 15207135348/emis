@@ -55,7 +55,7 @@ public class AttendanceController {
         if (attendList != null) {
             JSONArray array = new JSONArray();
             String key = request.getParameter("key");
-            if (key == null){
+            if (key == null) {
                 for (Attendance attendance : attendList) {
                     Employee e = employeeService.findEmployeeById(attendance.getE_id());
                     JSONObject o = attendance.toJSON();
@@ -63,13 +63,13 @@ public class AttendanceController {
                     o.put("e_name", e.getE_name());
                     array.add(o);
                 }
-            }else {
+            } else {
                 for (Attendance attendance : attendList) {
                     Employee e = employeeService.findEmployeeById(attendance.getE_id());
                     String aId = attendance.getA_id().toString();
                     String time = attendance.getA_time();
                     String type = attendance.getA_type() == 1 ? "上班打卡" : "下班打卡";
-                    if (aId.contains(key) || time.contains(key) || type.contains(key)){
+                    if (aId.contains(key) || time.contains(key) || type.contains(key)) {
                         JSONObject o = attendance.toJSON();
                         o.put("e_account", e.getE_account());
                         o.put("e_name", e.getE_name());
@@ -106,7 +106,7 @@ public class AttendanceController {
         if (attendListAll != null) {
             JSONArray array = new JSONArray();
             String key = request.getParameter("key");
-            if (key == null){
+            if (key == null) {
                 for (Attendance attendance : attendListAll) {
                     Employee e = employeeService.findEmployeeById(attendance.getE_id());
                     JSONObject o = attendance.toJSON();
@@ -114,7 +114,7 @@ public class AttendanceController {
                     o.put("e_name", e.getE_name());
                     array.add(o);
                 }
-            }else {
+            } else {
                 for (Attendance attendance : attendListAll) {
                     Employee e = employeeService.findEmployeeById(attendance.getE_id());
                     String aId = attendance.getA_id().toString();
@@ -122,7 +122,7 @@ public class AttendanceController {
                     String eName = e.getE_name();
                     String time = attendance.getA_time();
                     String type = attendance.getA_type() == 1 ? "上班打卡" : "下班打卡";
-                    if (aId.contains(key) || eAccount.contains(key) || eName.contains(key) || time.contains(key) || type.contains(key)){
+                    if (aId.contains(key) || eAccount.contains(key) || eName.contains(key) || time.contains(key) || type.contains(key)) {
                         JSONObject o = attendance.toJSON();
                         o.put("e_account", e.getE_account());
                         o.put("e_name", e.getE_name());
@@ -177,7 +177,7 @@ public class AttendanceController {
     @RequestMapping("/del_attendance_info")
     @ResponseBody
     public Map<String, String> delAttendanceRecord(
-                    @RequestParam("idList") String aIdList) {
+            @RequestParam("idList") String aIdList) {
         Map<String, String> map = new HashMap<>();
         try {
             String[] arr = aIdList.split(",");

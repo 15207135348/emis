@@ -1,12 +1,10 @@
 package abc.eims.controller;
 
 import abc.eims.entity.Employee;
-import abc.eims.service.Impl.AttendanceServiceImpl;
 import abc.eims.service.Impl.EmployeeServiceImpl;
 import abc.eims.utils.CookieUtil;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -75,25 +73,31 @@ public class EmployeeController {
     /**
      * 管理员修改员工信息
      *
-     * @param request HttpRequest
-     * @return 是否操作成功
+     * @param account  账号
+     * @param name     姓名
+     * @param birthday 生日
+     * @param sex      性别
+     * @param phone    电话
+     * @param email    e-mail
+     * @param roleId   权限
+     * @return 是否修改成功
      */
     @RequestMapping("/set_employee_info")
     @ResponseBody
-    public Map<String, String> changeEmployeeInfo(HttpServletRequest request) {
-        String account = request.getParameter("e_account");
-        String name = request.getParameter("e_name");
-        String birthday = request.getParameter("e_birthday");
-        Integer sex = Integer.valueOf(request.getParameter("e_sex"));
-        String phone = request.getParameter("e_phone");
-        String email = request.getParameter("e_email");
-        Integer roleId = Integer.valueOf(request.getParameter("e_role_id"));
-
+    public Map<String, String> changeEmployeeInfo(
+                @RequestParam("e_account") String account,
+                @RequestParam("e_name") String name,
+                @RequestParam("e_birthday") String birthday,
+                @RequestParam("e_sex") Integer sex,
+                @RequestParam("e_phone") String phone,
+                @RequestParam("e_email") String email,
+                @RequestParam("e_role_id") Integer roleId) {
 
         Map<String, String> map = new HashMap<>();
-
+        /**从Cookie中取出员工Id*/
         int eId = Integer.parseInt(Objects.requireNonNull(
                 CookieUtil.getCookieValueFromRequest()));
+        /**判断员工是否有修改权限*/
         int targetRole = employeeService.findByAccount(account).getE_role_id();
         int myRole = employeeService.findEmployeeById(eId).getE_role_id();
         if (myRole >= targetRole) {
@@ -102,6 +106,7 @@ public class EmployeeController {
             return map;
         }
         try {
+            /**添加员工信息记录，若记录已存在则修改。*/
             int res = employeeService.updateOrInsert(account, name,
                     birthday, sex, phone, email, roleId);
             if (res == 1) {
@@ -117,7 +122,6 @@ public class EmployeeController {
             return map;
         }
         return map;
-
     }
 
     /**
@@ -154,8 +158,8 @@ public class EmployeeController {
     @RequestMapping("set_employee_role")
     @ResponseBody
     public Map<String, String> changeEmployeeRole(
-            @RequestParam("e_account") String account,
-            @RequestParam("e_role_id") String roleId) {
+                @RequestParam("e_account") String account,
+                @RequestParam("e_role_id") String roleId) {
 
         Map<String, String> map = new HashMap<>();
         try {

@@ -8,7 +8,9 @@ package abc.eims.common;
  */
 public class Const {
 
-    /**系统管理员对应的JSON字符串*/
+    /**
+     * 系统管理员对应的JSON字符串
+     */
     public static final String SYSTEM_ADMINISTRATOR = "[\n" +
             "\t{\n" +
             "\t\t\"title\": \"员工管理\",\n" +
@@ -66,7 +68,9 @@ public class Const {
             "\t}\n" +
             "]";
 
-    /**普通管理员对应的JSON字符串*/
+    /**
+     * 普通管理员对应的JSON字符串
+     */
     public static final String ADMINISTRATOR = "[\n" +
             "\t{\n" +
             "\t\t\"title\": \"员工管理\",\n" +
@@ -124,7 +128,9 @@ public class Const {
             "\t}\n" +
             "]";
 
-    /**普通员工对应的JSON字符串*/
+    /**
+     * 普通员工对应的JSON字符串
+     */
     public static final String CUSTOMER = "[\n" +
             "\t{\n" +
             "\t\t\"title\": \"员工管理\",\n" +

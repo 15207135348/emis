@@ -1,7 +1,6 @@
 package abc.eims.service;
 
 import abc.eims.entity.Employee;
-import abc.eims.exception.CustomException;
 
 import java.util.List;
 
@@ -11,7 +10,7 @@ import java.util.List;
  */
 public interface IEmployeeService {
 
-    Employee findEmployeeByIdAndPassword(String account, String password) throws CustomException;
+    Employee findEmployeeByIdAndPassword(String account, String password);
 
     Employee findEmployeeById(int id);
 

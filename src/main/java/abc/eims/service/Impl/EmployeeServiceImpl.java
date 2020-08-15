@@ -3,7 +3,6 @@ package abc.eims.service.Impl;
 import abc.eims.dao.AttendanceMapper;
 import abc.eims.dao.EmployeeMapper;
 import abc.eims.entity.Employee;
-import abc.eims.exception.CustomException;
 import abc.eims.service.IEmployeeService;
 import abc.eims.utils.DateTimeUtil;
 import abc.eims.utils.MD5Utils;
@@ -33,18 +32,13 @@ public class EmployeeServiceImpl implements IEmployeeService {
      * @param account  账号
      * @param password 密码
      * @return 员工信息
-     * @throws CustomException
      */
     @Override
-    public Employee findEmployeeByIdAndPassword(
-            String account, String password) throws CustomException {
-        //先进行MD5加密
+    public Employee findEmployeeByIdAndPassword(String account, String password){
+        //对密码进行MD5加密
         String encode = MD5Utils.encodeByMD5(password);
-        Employee employee1 = employeeMapper.selectByAccountAndPassword(account, encode);
-        if (employee1 == null) {
-            throw new CustomException("账号或密码错误！");
-        }
-        return employee1;
+        Employee employee = employeeMapper.selectByAccountAndPassword(account, encode);
+        return employee;
     }
 
     /**
@@ -167,7 +161,6 @@ public class EmployeeServiceImpl implements IEmployeeService {
     public List<Employee> fuzzyFindByAccount(String eAccount) {
         return employeeMapper.fuzzyFindByAccount(eAccount);
     }
-
 
 
 }

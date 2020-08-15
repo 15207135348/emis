@@ -102,6 +102,12 @@ public interface EmployeeMapper {
     int changeEmployeeRole(@Param("account") String account,
                            @Param("roleId") String roleId);
 
+    /**
+     * 通过账号进行模糊查询
+     *
+     * @param account 账号
+     * @return 员工信息
+     */
     List<Employee> fuzzyFindByAccount(@Param("account") String account);
 
 }

@@ -57,7 +57,6 @@ public class UserInfoServiceImpl implements IUserInfoService {
         int eId = Integer.parseInt(Objects.requireNonNull(
                 CookieUtil.getCookieValueFromRequest()));
         userInfoMapper.changeInfo(eId, name, birthday, sex, phone, email);
-
         return employeeMapper.findById(eId);
     }
 

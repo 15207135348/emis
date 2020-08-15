@@ -33,6 +33,7 @@ public class UserInfoController {
 
     @Autowired
     private EmployeeServiceImpl employeeService;
+
     /**
      * 修改密码
      *
@@ -60,17 +61,18 @@ public class UserInfoController {
 
     /**
      * 修改个人信息
+     *
      * @return 返回是否修改成功
      */
     @RequestMapping("set_my_info")
     @ResponseBody
-    public Response changeInfo(HttpServletRequest request) {
+    public Response changeInfo(
+            @RequestParam("e_name") String name,
+            @RequestParam("e_birthday") String birthday,
+            @RequestParam("e_sex") Integer sex,
+            @RequestParam("e_phone") String phone,
+            @RequestParam("e_email") String email) {
 
-        String name = request.getParameter("e_name");
-        String birthday = request.getParameter("e_birthday");
-        Integer sex = Integer.valueOf(request.getParameter("e_sex"));
-        String phone = request.getParameter("e_phone");
-        String email = request.getParameter("e_email");
         Employee employee;
         try {
             Date date = DateTimeUtil.strToDate(birthday, "yyyy年MM月dd日");
@@ -81,14 +83,18 @@ public class UserInfoController {
         return new Response(Response.Code.Success, employee.toJSON());
     }
 
-
+    /**
+     * 获取个人信息
+     *
+     * @return 个人信息
+     */
     @RequestMapping("get_my_info")
     @ResponseBody
-    public Response getMyInfo(){
+    public Response getMyInfo() {
         Map<String, String> map = new HashMap<>();
         try {
             int eId = Integer.parseInt(Objects.requireNonNull(
-                    CookieUtil.getCookieValueFromRequest()));
+                        CookieUtil.getCookieValueFromRequest()));
             Employee employee = employeeService.findEmployeeById(eId);
             return new Response(Response.Code.Success, employee.toJSON());
         } catch (Exception e) {

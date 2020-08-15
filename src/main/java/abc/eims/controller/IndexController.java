@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * 页面跳转相关的Controller层
+ * 页面跳转相关操作Controller层
  *
  * @author wangzhe
  * @date 2020/8/8 12:37
@@ -25,7 +25,8 @@ public class IndexController {
 
     /**
      * 跳转到注册页面
-     * @return  register页面
+     *
+     * @return register页面
      */
     @RequestMapping(value = "/toRegister")
     public String toRegister() {
