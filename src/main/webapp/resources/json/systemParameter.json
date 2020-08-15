@@ -1,14 +1,14 @@
 {
-	"cmsName": "员工信息管理系统",
-	"version": "v2.0",
-	"author": "王者",
-	"homePage": "index.html",
-	"server": "windows",
-	"dataBase": "8.00.2039",
-	"maxUpload": "2M",
-	"userRights": "超级管理员",
-	"description": "员工信息管理系统~",
-	"powerby": "copyright @2020 wangzhe@abc",
-	"record": "京ICP备14040xxx号-1",
-	"keywords": "啦啦啦啦啦~"
+  "cmsName": "员工信息管理系统",
+  "version": "v2.0",
+  "author": "王者",
+  "homePage": "index.html",
+  "server": "windows",
+  "dataBase": "8.00.2039",
+  "maxUpload": "2M",
+  "userRights": "超级管理员",
+  "description": "员工信息管理系统~",
+  "powerby": "copyright @2020 wangzhe@abc",
+  "record": "京ICP备14040xxx号-1",
+  "keywords": "啦啦啦啦啦~"
 }

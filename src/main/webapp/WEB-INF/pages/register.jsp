@@ -2,10 +2,36 @@
          pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <style>
-    .registerHtml,.registerBody{ height:100%;}
-    .registerBody{ background:url("${ctx}/resources/images/login_bg.jpg") no-repeat center center;}
-    .registerBody form.layui-form{ padding:0 20px; width:405px; height:510px; position:absolute; left:50%; top:30%; margin:-150px 0 0 -150px; -webkit-box-sizing:border-box;-moz-box-sizing:border-box; -o-box-sizing:border-box; box-sizing:border-box; background:#fff;-webkit-border-radius:5px; -moz-border-radius:5px; border-radius:5px; box-shadow:0 0 50px #009688;}
-    .registerBody .layui-form-item{ position:relative;}
+    .registerHtml, .registerBody {
+        height: 100%;
+    }
+
+    .registerBody {
+        background: url("${ctx}/resources/images/login_bg.jpg") no-repeat center center;
+    }
+
+    .registerBody form.layui-form {
+        padding: 0 20px;
+        width: 405px;
+        height: 510px;
+        position: absolute;
+        left: 50%;
+        top: 30%;
+        margin: -150px 0 0 -150px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -o-box-sizing: border-box;
+        box-sizing: border-box;
+        background: #fff;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        box-shadow: 0 0 50px #009688;
+    }
+
+    .registerBody .layui-form-item {
+        position: relative;
+    }
 </style>
 <html class="registerHtml">
 <head>
@@ -26,7 +52,8 @@
     <div class="layui-form-item layui-row" style="margin-top: 20px">
         <label class="layui-form-label">用户名</label>
         <div class="layui-input-inline">
-            <input type="text" placeholder="请输入账户名" lay-verify="required|userCode" id="userCode" class="layui-input userCode">
+            <input type="text" placeholder="请输入账户名" lay-verify="required|userCode" id="userCode"
+                   class="layui-input userCode">
         </div>
     </div>
     <div class="layui-form-item">
@@ -69,7 +96,8 @@
     <div class="layui-form-item layui-row">
         <label class="layui-form-label">生日</label>
         <div class="layui-input-inline">
-            <input type="text" value="" id="birthday" placeholder="请输入出生年月日" lay-verify="required" readonly class="layui-input userBirthday">
+            <input type="text" value="" id="birthday" placeholder="请输入出生年月日" lay-verify="required" readonly
+                   class="layui-input userBirthday">
         </div>
     </div>
     <div class="layui-form-item">
@@ -87,7 +115,7 @@
     layui.use(['form', 'layer', 'jquery', 'laydate'], function () {
         var form = layui.form,
             layer = parent.layer === undefined ? layui.layer : top.layer,
-        $ = layui.jquery;
+            $ = layui.jquery;
 
         var laydate = layui.laydate;
         //执行一个laydate实例
@@ -99,7 +127,7 @@
         document.getElementById("register").onclick = function (ev) {
             var password = $(".password").val();
             var confirmPwd = $(".confirmPwd").val();
-            if(!new RegExp(password).test(confirmPwd)){
+            if (!new RegExp(password).test(confirmPwd)) {
                 layer.msg("两次输入密码不一致，请重新输入！");
                 return;
             }
@@ -108,12 +136,12 @@
                 'e_account': $(".userCode").val(),
                 'e_password': $(".password").val(),
                 'e_name': $(".userName").val(),
-                'e_sex' : $(".userSex input:checked").val(),
+                'e_sex': $(".userSex input:checked").val(),
                 'e_phone': $(".userPhone").val(),
                 'e_email': $(".userEmail").val(),
                 'e_birthday': $(".userBirthday").val()
             }, function (res) {
-                if(res['code'] === 0){
+                if (res['code'] === 0) {
                     layer.confirm("注册成功", {icon: 1, title: '提示信息'}, function (index) {
                         layer.close(index);
                         var data = {
@@ -123,8 +151,7 @@
                         window.sessionStorage.setItem("registerUser", JSON.stringify(data));
                         window.location.href = "/index/toLogin.action";
                     });
-                }
-                else {
+                } else {
                     layer.confirm(res['msg'], {icon: 3, title: '提示信息'}, function (index) {
                         layer.close(index);
                     });

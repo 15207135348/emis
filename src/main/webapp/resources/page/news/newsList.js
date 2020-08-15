@@ -69,7 +69,7 @@ layui.use(['form', 'layer', 'laydate', 'table', 'laytpl'], function () {
                     body.find(".a_id").val(edit.a_id);
                     body.find(".userCode").val(edit.e_account);
                     body.find(".userName").val(edit.e_name);
-                    body.find(".a_type input[value="+type_code+"]").prop("checked","checked");  //性别
+                    body.find(".a_type input[value=" + type_code + "]").prop("checked", "checked");  //性别
                     body.find(".a_time").val(edit.a_time);
                     form.render();
                 }
@@ -136,31 +136,31 @@ layui.use(['form', 'layer', 'laydate', 'table', 'laytpl'], function () {
 
 
     function getSex(val) {
-        if(val === 0){
+        if (val === 0) {
             return "男"
-        }else {
+        } else {
             return "女"
         }
     }
 
     function getType(val) {
-        if(val === 0){
+        if (val === 0) {
             return "上班打卡";
         }
-        if(val === 1){
+        if (val === 1) {
             return "下班打卡";
         }
     }
 
 
     function getGrage(val) {
-        if(val === 1){
+        if (val === 1) {
             return "超级管理员";
         }
-        if(val === 2){
+        if (val === 2) {
             return "管理员";
         }
-        if(val === 3){
+        if (val === 3) {
             return "普通员工";
         }
     }

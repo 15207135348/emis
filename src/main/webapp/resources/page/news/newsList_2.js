@@ -69,7 +69,7 @@ layui.use(['form', 'layer', 'laydate', 'table', 'laytpl'], function () {
                     body.find(".a_id").val(edit.a_id);
                     body.find(".userCode").val(edit.e_account);
                     body.find(".userName").val(edit.e_name);
-                    body.find(".a_type input[value="+type_code+"]").prop("checked","checked");  //性别
+                    body.find(".a_type input[value=" + type_code + "]").prop("checked", "checked");  //性别
                     body.find(".a_time").val(edit.a_time);
                     form.render();
                 }

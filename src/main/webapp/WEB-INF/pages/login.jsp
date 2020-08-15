@@ -24,7 +24,8 @@
     </div>
     <div class="layui-form-item input-item">
         <label for="e_password">密码</label>
-        <input type="password" placeholder="请输入密码" autocomplete="off" id="e_password" name="e_password" class="layui-input">
+        <input type="password" placeholder="请输入密码" autocomplete="off" id="e_password" name="e_password"
+               class="layui-input">
     </div>
     <div class="layui-form-item input-item" id="imgCode">
         <label for="code">验证码</label>
@@ -35,7 +36,8 @@
         <button class="layui-btn layui-block" lay-filter="login" lay-submit id="loginBtn">登录</button>
     </div>
     <div class="layui-form-item">
-        <button class="layui-btn layui-btn-warm layui-block" lay-filter="register" lay-submit id="registerBtn">注册</button>
+        <button class="layui-btn layui-btn-warm layui-block" lay-filter="register" lay-submit id="registerBtn">注册
+        </button>
     </div>
 </form>
 
@@ -48,7 +50,7 @@
         $ = layui.jquery;
 
         var data = JSON.parse(window.sessionStorage.getItem("registerUser"));
-        if (data){
+        if (data) {
             var e_account = document.getElementById("e_account");
             var e_password = document.getElementById("e_password");
             e_account.value = data['e_account'];
@@ -64,10 +66,10 @@
                 e_password: password,
                 code: code
             }, function (res) {
-                if(res['code'] === 0){
+                if (res['code'] === 0) {
                     window.localStorage.setItem("userInfo", JSON.stringify(res['data']));
                     window.location.href = '/index/toMain.action';
-                }else {
+                } else {
                     layer.confirm(res['msg'], {icon: 3, title: '提示信息'}, function (index) {
                         layer.close(index);
                         location.reload();
@@ -101,7 +103,7 @@
 
         var image = document.getElementById("imgCode_image");
         image.onclick = function (ev) {
-            $("#imgCode_image").attr("src", "http://localhost:8080/auth/changeCode.action?t=" + + Math.random());
+            $("#imgCode_image").attr("src", "http://localhost:8080/auth/changeCode.action?t=" + +Math.random());
         };
 
 

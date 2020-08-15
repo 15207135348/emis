@@ -7,7 +7,7 @@ layui.use(['form', 'layer', 'laydate'], function () {
     //执行一个laydate实例
     laydate.render({
         elem: '#a_time' //指定元素
-        ,type: 'datetime'
+        , type: 'datetime'
     });
 
     form.on("submit(addNews)", function (data) {
