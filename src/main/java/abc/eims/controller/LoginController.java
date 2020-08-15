@@ -86,9 +86,16 @@ public class LoginController {
         employee.setE_birthday(DateTimeUtil.dateToStamp(birthday));
         employee.setE_role_id(3);
         employeeService.insert(employee);
-        //将员工id放入cookie中，用于会话信息保存。
-//        CookieUtil.addCookie(String.valueOf(employee.getE_id()));
-        return new Response(Response.Code.Success);
+
+
+        Employee employee1 = employeeService.findByAccount(account);
+        if (employee1 == null){
+            return new Response(Response.Code.PhoneOrEmailHasUsedError);
+        }else {
+            //将员工id放入cookie中，用于会话信息保存。
+            CookieUtil.addCookie(String.valueOf(employee.getE_id()));
+            return new Response(Response.Code.Success, employee1.toJSON());
+        }
     }
 
     /**

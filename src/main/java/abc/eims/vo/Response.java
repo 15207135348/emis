@@ -69,6 +69,7 @@ public class Response {
         PasswordError(-4, "账号或密码错误！"),
         UnLoginError(-5, "尚未登录"),
         CodeError(-6, "验证码错误！"),
+        PhoneOrEmailHasUsedError(-7, "手机或者邮箱已被使用！"),
         SystemError(-1000, "服务器内部错误");
         private int code;
         private String msg;

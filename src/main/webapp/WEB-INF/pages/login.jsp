@@ -47,7 +47,13 @@
             layer = parent.layer === undefined ? layui.layer : top.layer
         $ = layui.jquery;
 
-
+        var data = JSON.parse(window.sessionStorage.getItem("registerUser"));
+        if (data){
+            var e_account = document.getElementById("e_account");
+            var e_password = document.getElementById("e_password");
+            e_account.value = data['e_account'];
+            e_password.value = "";
+        }
         document.getElementById("loginBtn").onclick = function (ev) {
             $(this).text("登录中...").attr("disabled", "disabled").addClass("layui-disabled");
             var account = document.getElementById("e_account").value;

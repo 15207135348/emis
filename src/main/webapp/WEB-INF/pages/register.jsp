@@ -113,6 +113,11 @@
                 if(res['code'] === 0){
                     layer.confirm("注册成功", {icon: 1, title: '提示信息'}, function (index) {
                         layer.close(index);
+                        var data = {
+                            'e_account': $(".userCode").val(),
+                            'e_password': $(".password").val()
+                        };
+                        window.sessionStorage.setItem("registerUser", JSON.stringify(data));
                         window.location.href = "/index/toLogin.action";
                     });
                 }
