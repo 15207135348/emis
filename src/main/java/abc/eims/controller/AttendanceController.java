@@ -43,7 +43,7 @@ public class AttendanceController {
     @ResponseBody
     public JSONObject getMyAttendanceRecord(HttpServletRequest request) {
         JSONObject object = new JSONObject();
-        List<Attendance> attendList = null;
+        List<Attendance> attendList;
         try {
             attendList = attendanceService.getMyAttendance();
         } catch (Exception e) {
@@ -51,7 +51,7 @@ public class AttendanceController {
             object.put("msg", "查询失败");
             return object;
         }
-        /**若记录不为空，则讲对应的账户和密码一起返回到前端*/
+        /*若记录不为空，则讲对应的账户和密码一起返回到前端进行展示*/
         if (attendList != null) {
             JSONArray array = new JSONArray();
             String key = request.getParameter("key");
@@ -102,7 +102,7 @@ public class AttendanceController {
             object.put("msg", "查询失败");
             return object;
         }
-        /**若记录不为空，则讲对应的账户和密码一起返回到前端*/
+        /*若记录不为空，则讲对应的账户和密码一起返回到前端进行展示*/
         if (attendListAll != null) {
             JSONArray array = new JSONArray();
             String key = request.getParameter("key");

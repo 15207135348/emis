@@ -35,10 +35,9 @@ public class EmployeeServiceImpl implements IEmployeeService {
      */
     @Override
     public Employee findEmployeeByIdAndPassword(String account, String password){
-        //对密码进行MD5加密
+        //对密码进行MD5加密然后进行查询
         String encode = MD5Utils.encodeByMD5(password);
-        Employee employee = employeeMapper.selectByAccountAndPassword(account, encode);
-        return employee;
+        return employeeMapper.selectByAccountAndPassword(account, encode);
     }
 
     /**
@@ -71,7 +70,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
     @Transactional(rollbackFor = Exception.class)
     public void delEmployeeInfoByAccount(List<String> list) {
         for (String account : list) {
-            /**删除员工信息前，将改员工对应的考勤记录删除*/
+            /*删除员工信息前，将改员工对应的考勤记录删除*/
             Employee employee = employeeMapper.findByAccount(account);
             Integer eId = employee.getE_id();
             attendanceMapper.deleteByeId(eId);
@@ -117,7 +116,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
                               String birthday, Integer sex,
                               String phone, String email,
                               Integer roleId) {
-        /**查找员工是否存在，不存在则插入一条员工信息，存在则更新。*/
+        /*查找员工是否存在，不存在则插入一条员工信息，存在则更新。*/
         Employee employee = employeeMapper.findByAccount(account);
         if (employee != null) {
             employeeMapper.update(employee.getE_id(), account,
@@ -127,7 +126,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
             Date date = DateTimeUtil.dateToStamp(birthday);
             Employee e = new Employee();
             e.setE_account(account);
-            //默认密码为123456
+            //管理员添加员工，设置默认密码为123456
             e.setE_password(MD5Utils.encodeByMD5("123456"));
             e.setE_name(name);
             e.setE_sex(sex);

@@ -40,11 +40,11 @@ public class EmployeeController {
         List<Employee> empList;
         try {
             String eAccount = request.getParameter("e_account");
-            /**搜索框内容为空则返回所有用户信息*/
+            /*搜索框内容为空则返回所有用户信息*/
             if (eAccount == null) {
                 empList = employeeService.getAllEmployeeInfo();
             } else {
-                /**若搜索内容不为空，根据搜索框内容进行模糊查询*/
+                /*若搜索内容不为空，根据搜索框内容进行模糊查询*/
                 List<Employee> employeeList =
                         employeeService.fuzzyFindByAccount(eAccount);
                 empList = new ArrayList<>(employeeList);
@@ -55,7 +55,7 @@ public class EmployeeController {
             object.put("msg", "查询失败");
             return object;
         }
-        /**若记录不为空，则讲员工信息转换为JSON返回到前端*/
+        /*若记录不为空，则讲员工信息转换为JSON返回到前端*/
         if (empList != null) {
             JSONArray array = new JSONArray();
             for (Employee employee : empList) {
@@ -94,10 +94,10 @@ public class EmployeeController {
                 @RequestParam("e_role_id") Integer roleId) {
 
         Map<String, String> map = new HashMap<>();
-        /**从Cookie中取出员工Id*/
+        /*从Cookie中取出员工Id*/
         int eId = Integer.parseInt(Objects.requireNonNull(
                 CookieUtil.getCookieValueFromRequest()));
-        /**判断员工是否有修改权限*/
+        /*判断员工是否有修改权限*/
         int targetRole = employeeService.findByAccount(account).getE_role_id();
         int myRole = employeeService.findEmployeeById(eId).getE_role_id();
         if (myRole >= targetRole) {
@@ -106,7 +106,7 @@ public class EmployeeController {
             return map;
         }
         try {
-            /**添加员工信息记录，若记录已存在则修改。*/
+            /*添加员工信息记录，若记录已存在则修改。*/
             int res = employeeService.updateOrInsert(account, name,
                     birthday, sex, phone, email, roleId);
             if (res == 1) {

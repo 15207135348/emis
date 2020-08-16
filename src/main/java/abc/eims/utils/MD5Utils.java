@@ -1,7 +1,10 @@
 package abc.eims.utils;
 
 import java.security.MessageDigest;
+
 /**
+ * MD5工具类
+ *
  * @author wangzhe
  * @date 2020/8/9 18:59
  */
@@ -15,8 +18,8 @@ public class MD5Utils {
     /**
      * 对字符串进行MD5编码
      *
-     * @param originString
-     * @return
+     * @param originString 要加密的信息
+     * @return 加密后的信息
      */
     public static String encodeByMD5(String originString) {
         if (originString != null) {
@@ -55,8 +58,8 @@ public class MD5Utils {
     /**
      * 将一个字节转化成16进制形式的字符串
      *
-     * @param b
-     * @return
+     * @param b 字节
+     * @return 16进制字符串
      */
     private static String byteToHexString(byte b) {
         int n = b;
@@ -67,7 +70,4 @@ public class MD5Utils {
         return hexDigits[d1] + hexDigits[d2];
     }
 
-    public static void main(String[] args) {
-        System.out.println(encodeByMD5("admin"));
-    }
 }

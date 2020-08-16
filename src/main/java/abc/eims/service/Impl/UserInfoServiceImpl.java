@@ -33,9 +33,10 @@ public class UserInfoServiceImpl implements IUserInfoService {
      */
     @Override
     public void changePassword(String oldPwd, String newPwd) {
-        //从Cookie取出当前用户Id
+        /*从Cookie取出当前用户Id*/
         int eId = Integer.parseInt(Objects.requireNonNull(
                 CookieUtil.getCookieValueFromRequest()));
+        /*将明文转换为密文存储*/
         oldPwd = MD5Utils.encodeByMD5(oldPwd);
         newPwd = MD5Utils.encodeByMD5(newPwd);
         userInfoMapper.changePwd(eId, oldPwd, newPwd);
@@ -53,10 +54,11 @@ public class UserInfoServiceImpl implements IUserInfoService {
     @Override
     public Employee changeInfo(String name, Date birthday,
                                Integer sex, String phone, String email) {
-        //从Cookie取出当前用户Id
+        /*从Cookie取出当前用户Id*/
         int eId = Integer.parseInt(Objects.requireNonNull(
                 CookieUtil.getCookieValueFromRequest()));
         userInfoMapper.changeInfo(eId, name, birthday, sex, phone, email);
+        //修改信息后返回最新的员工信息
         return employeeMapper.findById(eId);
     }
 

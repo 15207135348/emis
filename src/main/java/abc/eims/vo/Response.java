@@ -60,7 +60,6 @@ public class Response {
 
 
     public enum Code {
-
         LoginSuccess(0, "登录成功"),
         Success(0, "操作成功"),
         ParameterError(-1, "参数错误"),

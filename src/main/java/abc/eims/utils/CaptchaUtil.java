@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.util.Random;
 
 /**
+ * 验证码工具
+ *
  * @author wangzhe
  * @date 2020/8/7 14:55
  */
@@ -19,18 +21,18 @@ public class CaptchaUtil {
     private CaptchaUtil() {
     }
 
-    /*
+    /**
      * 随机字符字典
      */
     private static final char[] CHARS = {'2', '3', '4', '5', '6', '7', '8',
             '9'};
 
-    /*
+    /**
      * 随机数
      */
-    private static Random random = new Random();
+    private static final Random random = new Random();
 
-    /*
+    /**
      * 获取6位随机数
      */
     private static String getRandomString() {
@@ -41,7 +43,7 @@ public class CaptchaUtil {
         return buffer.toString();
     }
 
-    /*
+    /**
      * 获取随机数颜色
      */
     private static Color getRandomColor() {
@@ -49,7 +51,7 @@ public class CaptchaUtil {
                 random.nextInt(255));
     }
 
-    /*
+    /**
      * 返回某颜色的反色
      */
     private static Color getReverseColor(Color c) {
@@ -81,10 +83,8 @@ public class CaptchaUtil {
             g.drawRect(random.nextInt(width), random.nextInt(height), 1, 1);
         }
 
-        // 转成JPEG格式
+        //转成JPEG格式
         ServletOutputStream out = response.getOutputStream();
-//        JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
-//        encoder.encode(bi);
         ImageIO.write(bi, "jpeg", out);
         out.flush();
     }

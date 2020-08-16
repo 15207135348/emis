@@ -7,7 +7,6 @@ import abc.eims.utils.CookieUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -39,7 +38,9 @@ public class AttendanceServiceImpl implements IAttendanceService {
      */
     @Override
     public List<Attendance> getMyAttendance() {
-        int eId = Integer.parseInt(Objects.requireNonNull(CookieUtil.getCookieValueFromRequest()));
+        //将当前用户Id从Cookie中取出
+        int eId = Integer.parseInt(Objects.requireNonNull(
+                CookieUtil.getCookieValueFromRequest()));
         return attendanceMapper.getMyAttendance(eId);
     }
 

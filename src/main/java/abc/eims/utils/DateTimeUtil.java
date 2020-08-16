@@ -10,13 +10,24 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
+ * 日期工具类
+ *
  * @author wangzhe
  * @date 2020/8/9 17:59
  */
 public class DateTimeUtil {
 
+    /**
+     * 日期格式
+     */
     static final String STANDARD_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
+    /**
+     * 时间戳转换为日期
+     *
+     * @param s 时间戳
+     * @return 日期
+     */
     public static Date dateToStamp(String s) {
         if (s == null) {
             return null;
@@ -58,10 +69,6 @@ public class DateTimeUtil {
         }
         DateTime dateTime = new DateTime(date);
         return dateTime.toString(STANDARD_FORMAT);
-    }
-
-    public static void main(String[] args) {
-        System.out.println(dateToStr(new Date()));
     }
 
 }

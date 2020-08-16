@@ -36,7 +36,9 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(Integer e_id, String e_account, String e_password, String e_name, Date e_birthday, Integer e_sex, String e_phone, String e_email, Integer e_role_id) {
+    public Employee(Integer e_id, String e_account, String e_password,
+                    String e_name, Date e_birthday, Integer e_sex,
+                    String e_phone, String e_email, Integer e_role_id) {
         this.e_id = e_id;
         this.e_account = e_account;
         this.e_password = e_password;
