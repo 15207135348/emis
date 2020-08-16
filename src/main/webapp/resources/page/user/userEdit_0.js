@@ -10,26 +10,29 @@ layui.use(['form', 'layer', 'laydate'], function () {
     });
 
 
-    form.on("submit(addUser)", function (data) {
+    form.on("submit(editUser)", function (data) {
+
         // 弹出loading
-        var index = top.layer.msg('数据提交中，请稍候', {icon: 16, time: false, shade: 0.8});
+        var index = top.layer.msg('数据提交中，请稍候...', {icon: 16, time: false, shade: 0.8});
         var exec = false;
         var e_account = $(".userCode").val(),
             e_name = $(".userName").val(),
             e_birthday = $(".birthday").val(),
             e_sex = $(".userSex input:checked").val(),
             e_phone = $(".userPhone").val(),
-            e_email = $(".userEmail").val();
+            e_email = $(".userEmail").val(),
+            e_role_id = $(".userGrade input:checked").val();
+
 
         // 实际使用时的提交信息
-        $.get("/employee/add_employee_info.action", {
+        $.get("/employee/set_employee_info.action", {
             e_account: e_account,  //登录名
             e_name: e_name,  //名字
             e_birthday: e_birthday,  //生日
             e_sex: e_sex,  //性别
             e_phone: e_phone,  //电话
-            e_email: e_email,
-            e_role_id: 3
+            e_email: e_email,  //邮箱
+            e_role_id: e_role_id
         }, function (res) {
             if (!exec) {
                 top.layer.close(index);

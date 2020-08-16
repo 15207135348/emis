@@ -25,7 +25,7 @@ layui.use(['form', 'layer', 'laydate'], function () {
 
 
         // 实际使用时的提交信息
-        $.get("/employee/set_employee_info.action", {
+        $.get("/employee/add_employee_info.action", {
             e_account: e_account,  //登录名
             e_name: e_name,  //名字
             e_birthday: e_birthday,  //生日

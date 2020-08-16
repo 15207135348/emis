@@ -10,7 +10,7 @@ layui.use(['form', 'layer', 'laydate'], function () {
     });
 
 
-    form.on("submit(addUser)", function (data) {
+    form.on("submit(editUser)", function (data) {
         // 弹出loading
         var index = top.layer.msg('数据提交中，请稍候', {icon: 16, time: false, shade: 0.8});
         var exec = false;
@@ -22,7 +22,7 @@ layui.use(['form', 'layer', 'laydate'], function () {
             e_email = $(".userEmail").val();
 
         // 实际使用时的提交信息
-        $.get("/employee/add_employee_info.action", {
+        $.get("/employee/set_employee_info.action", {
             e_account: e_account,  //登录名
             e_name: e_name,  //名字
             e_birthday: e_birthday,  //生日

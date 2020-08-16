@@ -112,7 +112,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
      * @return 是否操作成功
      */
     @Override
-    public int updateOrInsert(String account, String name,
+    public void update(String account, String name,
                               String birthday, Integer sex,
                               String phone, String email,
                               Integer roleId) {
@@ -121,21 +121,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
         if (employee != null) {
             employeeMapper.update(employee.getE_id(), account,
                     employee.getE_password(), name, birthday, sex, phone, email, roleId);
-            return 0;
-        } else {
-            Date date = DateTimeUtil.dateToStamp(birthday);
-            Employee e = new Employee();
-            e.setE_account(account);
-            //管理员添加员工，设置默认密码为123456
-            e.setE_password(MD5Utils.encodeByMD5("123456"));
-            e.setE_name(name);
-            e.setE_sex(sex);
-            e.setE_birthday(date);
-            e.setE_phone(phone);
-            e.setE_email(email);
-            e.setE_role_id(roleId);
-            employeeMapper.insert(e);
-            return 1;
+
         }
     }
 

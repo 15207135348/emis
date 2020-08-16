@@ -62,6 +62,8 @@ public class Response {
     public enum Code {
         LoginSuccess(0, "登录成功"),
         Success(0, "操作成功"),
+        AddSuccess(0, "添加成功"),
+        EditSuccess(0, "修改成功"),
         ParameterError(-1, "参数错误"),
         UserNotExistError(-2, "用户不存在"),
         UserHasExistError(-3, "用户已存在"),
@@ -69,6 +71,7 @@ public class Response {
         UnLoginError(-5, "尚未登录"),
         CodeError(-6, "验证码错误！"),
         PhoneOrEmailHasUsedError(-7, "手机或者邮箱已被使用！"),
+        InsufficientPermissions(-8, "权限不足！"),
         SystemError(-1000, "服务器内部错误");
         private int code;
         private String msg;

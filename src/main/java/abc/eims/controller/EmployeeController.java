@@ -3,6 +3,9 @@ package abc.eims.controller;
 import abc.eims.entity.Employee;
 import abc.eims.service.Impl.EmployeeServiceImpl;
 import abc.eims.utils.CookieUtil;
+import abc.eims.utils.DateTimeUtil;
+import abc.eims.utils.MD5Utils;
+import abc.eims.vo.Response;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,7 +87,7 @@ public class EmployeeController {
      */
     @RequestMapping("/set_employee_info")
     @ResponseBody
-    public Map<String, String> changeEmployeeInfo(
+    public Response changeEmployeeInfo(
                 @RequestParam("e_account") String account,
                 @RequestParam("e_name") String name,
                 @RequestParam("e_birthday") String birthday,
@@ -93,35 +96,69 @@ public class EmployeeController {
                 @RequestParam("e_email") String email,
                 @RequestParam("e_role_id") Integer roleId) {
 
-        Map<String, String> map = new HashMap<>();
         /*从Cookie中取出员工Id*/
         int eId = Integer.parseInt(Objects.requireNonNull(
                 CookieUtil.getCookieValueFromRequest()));
+        Employee employee = employeeService.findByAccount(account);
+        if (employee == null){
+            return new Response(Response.Code.UserNotExistError);
+        }
         /*判断员工是否有修改权限*/
         int targetRole = employeeService.findByAccount(account).getE_role_id();
         int myRole = employeeService.findEmployeeById(eId).getE_role_id();
         if (myRole >= targetRole) {
-            map.put("code", "-1");
-            map.put("msg", "权限不足，无法修改");
-            return map;
+            return new Response(Response.Code.InsufficientPermissions);
         }
         try {
             /*添加员工信息记录，若记录已存在则修改。*/
-            int res = employeeService.updateOrInsert(account, name,
+            employeeService.update(account, name,
                     birthday, sex, phone, email, roleId);
-            if (res == 1) {
-                map.put("code", "0");
-                map.put("msg", "添加成功");
-            } else {
-                map.put("code", "0");
-                map.put("msg", "修改成功");
-            }
+            return new Response(Response.Code.EditSuccess);
         } catch (Exception e) {
-            map.put("code", "-1");
-            map.put("msg", "信息修改失败");
-            return map;
+            return new Response(Response.Code.SystemError);
         }
-        return map;
+    }
+
+
+    /**
+     * 账号注册
+     *
+     * @return 是否注册成功
+     */
+    @RequestMapping("add_employee_info")
+    @ResponseBody
+    public Response employeeRegister(
+            @RequestParam("e_account") String account,
+            @RequestParam("e_name") String name,
+            @RequestParam("e_sex") Integer sex,
+            @RequestParam("e_phone") String phone,
+            @RequestParam("e_email") String email,
+            @RequestParam("e_birthday") String birthday,
+            @RequestParam("e_role_id") Integer roleId) {
+
+        /**查找要注册的用户是否存在，不存在则新增。*/
+        Employee employee = employeeService.findByAccount(account);
+        if (employee != null) {
+            return new Response(Response.Code.UserHasExistError);
+        }
+        employee = new Employee();
+        employee.setE_account(account);
+        //将密码通过MD5加密后存入数据库中
+        employee.setE_password(MD5Utils.encodeByMD5("123456"));
+        employee.setE_sex(sex);
+        employee.setE_name(name);
+        employee.setE_phone(phone);
+        employee.setE_email(email);
+        employee.setE_birthday(DateTimeUtil.dateToStamp(birthday));
+        employee.setE_role_id(roleId);
+        employeeService.insert(employee);
+
+        Employee employee1 = employeeService.findByAccount(account);
+        if (employee1 == null) {
+            return new Response(Response.Code.PhoneOrEmailHasUsedError);
+        } else {
+            return new Response(Response.Code.AddSuccess, employee1.toJSON());
+        }
     }
 
     /**

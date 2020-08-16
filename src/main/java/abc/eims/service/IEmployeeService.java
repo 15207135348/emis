@@ -68,7 +68,7 @@ public interface IEmployeeService {
      * @param roleId   权限
      * @return 是否操作成功
      */
-    int updateOrInsert(String account, String name, String birthday,
+    void update(String account, String name, String birthday,
                        Integer sex, String phone, String email, Integer roleId);
 
     /**

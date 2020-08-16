@@ -71,6 +71,41 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
                     });
                 }, 500)
             }
+        });
+        layui.layer.full(index);
+        window.sessionStorage.setItem("index", index);
+        //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+        $(window).on("resize", function () {
+            layui.layer.full(window.sessionStorage.getItem("index"));
+        })
+    }
+
+
+    function editUser(edit){
+        var index = layui.layer.open({
+            title: "-",
+            type: 2,
+            content: "userEdit_0.html",
+            success: function (layero, index) {
+                var body = layui.layer.getChildFrame('body', index);
+                if (edit) {
+                    var sex_code = edit.e_sex === '男' ? "1" : "0";
+                    var grade_code = edit.e_role_id === '管理员' ? "2" : "3";
+                    body.find(".userCode").val(edit.e_account);  //登录名
+                    body.find(".userName").val(edit.e_name);  //登录名
+                    body.find(".birthday").val(edit.e_birthday);  //登录名
+                    body.find(".userSex input[value=" + sex_code + "]").prop("checked", "checked");  //性别
+                    body.find(".userPhone").val(edit.e_phone);  //电话
+                    body.find(".userEmail").val(edit.e_email);  //邮箱
+                    body.find(".userGrade input[value=" + grade_code + "]").prop("checked", "checked");  //等级
+                    form.render();
+                }
+                setTimeout(function () {
+                    layui.layer.tips('点击此处返回用户列表', '.layui-layer-setwin .layui-layer-close', {
+                        tips: 3
+                    });
+                }, 500)
+            }
         })
         layui.layer.full(index);
         window.sessionStorage.setItem("index", index);
@@ -79,6 +114,7 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
             layui.layer.full(window.sessionStorage.getItem("index"));
         })
     }
+
 
     $(".addNews_btn").click(function () {
         addUser();
@@ -110,7 +146,7 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
     table.on('tool(userList)', function (obj) {
         var layEvent = obj.event, data = obj.data;
         if (layEvent === 'edit') { //编辑
-            addUser(data);
+            editUser(data);
         } else if (layEvent === 'del') { //删除
             layer.confirm('确定删除此用户？', {icon: 3, title: '提示信息'}, function (index) {
                 $.get("/employee/del_employee_info.action", {
