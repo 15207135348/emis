@@ -32,10 +32,16 @@ layui.use(['form', 'layer', 'laydate'], function () {
             e_role_id: 3
         }, function (res) {
             if (!exec) {
-                top.layer.close(index);
-                top.layer.msg(res["msg"]);
-                layer.closeAll("iframe");
-                parent.location.reload();
+                if(res['code'] === 0){
+                    top.layer.close(index);
+                    top.layer.msg(res["msg"]);
+                    layer.closeAll("iframe");
+                    parent.location.reload();
+                }else {
+                    layer.confirm(res['msg'], {icon: 3, title: '提示信息'}, function (index) {
+                        layer.close(index);
+                    })
+                }
                 exec = true;
             }
         });
