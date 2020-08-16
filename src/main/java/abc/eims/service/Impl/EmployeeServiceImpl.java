@@ -136,6 +136,17 @@ public class EmployeeServiceImpl implements IEmployeeService {
         return employeeMapper.findByAccount(eAccount);
     }
 
+    @Override
+    public Employee findByPhone(String phone) {
+        return employeeMapper.findByPhone(phone);
+    }
+
+    @Override
+    public Employee findByEmail(String email) {
+        return employeeMapper.findByEmail(email);
+    }
+
+
     /**
      * 通过账号查找员工信息
      *

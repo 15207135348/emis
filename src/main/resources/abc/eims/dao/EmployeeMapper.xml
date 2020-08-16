@@ -29,6 +29,19 @@
         WHERE e_account = #{account}
     </select>
 
+    <select id="findByEmail" resultType="employee">
+        SELECT *
+        FROM t_employee
+        WHERE e_email = #{email}
+    </select>
+
+
+    <select id="findByPhone" resultType="employee">
+        SELECT *
+        FROM t_employee
+        WHERE e_phone = #{phone}
+    </select>
+
     <insert id="insert" parameterType="employee">
         INSERT INTO t_employee
         (e_account, e_password, e_name, e_birthday, e_sex, e_phone, e_email, e_role_id)

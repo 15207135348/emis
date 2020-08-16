@@ -24,6 +24,7 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
             {field: 'e_birthday', title: '生日', align: 'center'},
             {field: 'e_email', title: '邮箱', minWidth: 200, align: 'center'},
             {field: 'e_phone', title: '手机', minWidth: 150, align: "center"},
+            {field: 'e_role_id', title: '角色', align: 'center', minWidth: 100},
             {title: '操作', minWidth: 175, templet: '#userListBar', fixed: "right", align: "center"}
         ]]
     });

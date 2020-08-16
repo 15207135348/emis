@@ -22,7 +22,9 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
             {field: 'e_name', title: '姓名', minWidth: 100, align: "center"},
             {field: 'e_sex', title: '性别', align: 'center'},
             {field: 'e_birthday', title: '生日', align: 'center'},
-            {field: 'e_email', title: '邮箱', minWidth: 200, align: 'center'}
+            {field: 'e_email', title: '邮箱', minWidth: 200, align: 'center'},
+            {field: 'e_phone', title: '手机', minWidth: 150, align: "center"},
+            {field: 'e_role_id', title: '角色', align: 'center', minWidth: 100}
         ]]
     });
 

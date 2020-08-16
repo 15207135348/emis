@@ -72,6 +72,8 @@ public class Response {
         CodeError(-6, "验证码错误！"),
         PhoneOrEmailHasUsedError(-7, "手机或者邮箱已被使用！"),
         InsufficientPermissions(-8, "权限不足！"),
+        PhoneHasUsedError(-9, "手机已被使用！"),
+        EmailHasUsedError(-10, "邮箱已被使用！"),
         SystemError(-1000, "服务器内部错误");
         private int code;
         private String msg;

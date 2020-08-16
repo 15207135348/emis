@@ -37,6 +37,23 @@ public interface EmployeeMapper {
     Employee findByAccount(@Param("account") String account);
 
     /**
+     * 通过账号查找员工信息
+     *
+     * @param email 员工账号
+     * @return 对应的员工信息
+     */
+    Employee findByEmail(@Param("email") String email);
+
+
+    /**
+     * 通过账号查找员工信息
+     *
+     * @param phone 员工账号
+     * @return 对应的员工信息
+     */
+    Employee findByPhone(@Param("phone") String phone);
+
+    /**
      * 插入一条员工信息
      *
      * @param recode 员工信息

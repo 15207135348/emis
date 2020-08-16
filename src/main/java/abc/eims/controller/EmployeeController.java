@@ -137,7 +137,15 @@ public class EmployeeController {
             @RequestParam("e_role_id") Integer roleId) {
 
         /**查找要注册的用户是否存在，不存在则新增。*/
-        Employee employee = employeeService.findByAccount(account);
+        Employee employee = employeeService.findByEmail(email);
+        if (employee != null) {
+            return new Response(Response.Code.EmailHasUsedError);
+        }
+        employee = employeeService.findByPhone(email);
+        if (employee != null) {
+            return new Response(Response.Code.PhoneHasUsedError);
+        }
+        employee = employeeService.findByAccount(account);
         if (employee != null) {
             return new Response(Response.Code.UserHasExistError);
         }
@@ -154,7 +162,7 @@ public class EmployeeController {
         employeeService.insert(employee);
         Employee employee1 = employeeService.findByAccount(account);
         if (employee1 == null) {
-            return new Response(Response.Code.PhoneOrEmailHasUsedError);
+            return new Response(Response.Code.SystemError);
         } else {
             return new Response(Response.Code.AddSuccess, employee1.toJSON());
         }

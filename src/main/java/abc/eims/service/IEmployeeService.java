@@ -80,6 +80,23 @@ public interface IEmployeeService {
     Employee findByAccount(String eAccount);
 
     /**
+     * 通过账号查找员工信息
+     *
+     * @param phone 账号
+     * @return 对应的员工信息
+     */
+    Employee findByPhone(String phone);
+
+
+    /**
+     * 通过账号查找员工信息
+     *
+     * @param email 账号
+     * @return 对应的员工信息
+     */
+    Employee findByEmail(String email);
+
+    /**
      * 模糊查询员工信息
      *
      * @param eAccount 账号
