@@ -13,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
@@ -96,20 +98,18 @@ public class EmployeeController {
                 @RequestParam("e_email") String email,
                 @RequestParam("e_role_id") Integer roleId) {
 
-        /*从Cookie中取出员工Id*/
-        int eId = Integer.parseInt(Objects.requireNonNull(
-                CookieUtil.getCookieValueFromRequest()));
-        Employee employee = employeeService.findByAccount(account);
-        if (employee == null){
-            return new Response(Response.Code.UserNotExistError);
-        }
-        /*判断员工是否有修改权限*/
-        int targetRole = employeeService.findByAccount(account).getE_role_id();
-        int myRole = employeeService.findEmployeeById(eId).getE_role_id();
-        if (myRole >= targetRole) {
-            return new Response(Response.Code.InsufficientPermissions);
-        }
         try {
+            String eId = CookieUtil.getCookieValueFromRequest();
+            if (eId == null) {
+                return new Response(Response.Code.UnLoginError);
+            }
+            Employee my = employeeService.findEmployeeById(Integer.parseInt(eId));
+            if (my == null){
+                return new Response(Response.Code.UserNotExistError);
+            }
+            if (!isOperable(my)){
+                return new Response(Response.Code.InsufficientPermissions);
+            }
             /*添加员工信息记录，若记录已存在则修改。*/
             employeeService.update(account, name,
                     birthday, sex, phone, email, roleId);
@@ -127,7 +127,7 @@ public class EmployeeController {
      */
     @RequestMapping("add_employee_info")
     @ResponseBody
-    public Response employeeRegister(
+    public Response addEmployeeInfo(
             @RequestParam("e_account") String account,
             @RequestParam("e_name") String name,
             @RequestParam("e_sex") Integer sex,
@@ -152,7 +152,6 @@ public class EmployeeController {
         employee.setE_birthday(DateTimeUtil.dateToStamp(birthday));
         employee.setE_role_id(roleId);
         employeeService.insert(employee);
-
         Employee employee1 = employeeService.findByAccount(account);
         if (employee1 == null) {
             return new Response(Response.Code.PhoneOrEmailHasUsedError);
@@ -169,20 +168,27 @@ public class EmployeeController {
      */
     @RequestMapping("del_employee_info")
     @ResponseBody
-    public Map<String, String> delEmployeeInfo(
+    public Response delEmployeeInfo(
             @RequestParam("accountList") String accountList) {
-        Map<String, String> map = new HashMap<>();
+
         try {
+            String eId = CookieUtil.getCookieValueFromRequest();
+            if (eId == null) {
+                return new Response(Response.Code.UnLoginError);
+            }
+            Employee my = employeeService.findEmployeeById(Integer.parseInt(eId));
+            if (my == null){
+                return new Response(Response.Code.UserNotExistError);
+            }
+            if (!isOperable(my)){
+                return new Response(Response.Code.InsufficientPermissions);
+            }
             String[] arr = accountList.split(",");
             employeeService.delEmployeeInfoByAccount(Arrays.asList(arr));
+            return new Response(Response.Code.Success);
         } catch (Exception e) {
-            map.put("code", "-1");
-            map.put("msg", "删除失败");
-            return map;
+            return new Response(Response.Code.SystemError);
         }
-        map.put("code", "0");
-        map.put("msg", "操作成功");
-        return map;
     }
 
     /**
@@ -194,23 +200,62 @@ public class EmployeeController {
      */
     @RequestMapping("set_employee_role")
     @ResponseBody
-    public Map<String, String> changeEmployeeRole(
+    public Response changeEmployeeRole(
                 @RequestParam("e_account") String account,
                 @RequestParam("e_role_id") String roleId) {
 
-        Map<String, String> map = new HashMap<>();
         try {
+            String eId = CookieUtil.getCookieValueFromRequest();
+            if (eId == null) {
+                return new Response(Response.Code.UnLoginError);
+            }
+            Employee my = employeeService.findEmployeeById(Integer.parseInt(eId));
+            if (my == null){
+                return new Response(Response.Code.UserNotExistError);
+            }
+            if (!isOperable(my)){
+                return new Response(Response.Code.InsufficientPermissions);
+            }
             employeeService.changeEmployeeRole(account, roleId);
+            return new Response(Response.Code.Success);
         } catch (Exception e) {
-            map.put("code", "-1");
-            map.put("msg", "操作失败");
-            return map;
+            return new Response(Response.Code.SystemError);
         }
-        map.put("code", "0");
-        map.put("msg", "操作成功");
-        return map;
+
     }
 
+
+    private boolean isOperable(Employee my){
+        int myRole = my.getE_role_id();
+        HttpServletRequest request = ((ServletRequestAttributes)
+                Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+        String account = request.getParameter("e_account");
+        String accountList = request.getParameter("accountList");
+        if (account == null && accountList == null){
+            return true;
+        }
+        if (account != null){
+            Employee employee = employeeService.findByAccount(account);
+            if (employee != null){
+                /*判断员工是否有修改权限*/
+                int targetRole = employeeService.findByAccount(account).getE_role_id();
+                return myRole < targetRole;
+            }
+        }else {
+            String[] arr = accountList.split(",");
+            for (String acc : arr){
+                Employee employee = employeeService.findByAccount(acc);
+                if (employee != null){
+                    /*判断员工是否有修改权限*/
+                    int targetRole = employee.getE_role_id();
+                    if (myRole >= targetRole) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
 }
 
 

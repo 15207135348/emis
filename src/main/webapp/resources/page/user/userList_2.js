@@ -146,9 +146,16 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
             layer.confirm('确定删除此用户？', {icon: 3, title: '提示信息'}, function (index) {
                 $.get("/employee/del_employee_info.action", {
                     accountList: data.e_account
-                }, function (data) {
-                    tableIns.reload();
-                    layer.close(index);
+                }, function (res) {
+                    if(res['code'] == 0){
+                        tableIns.reload();
+                        layer.close(index);
+                    }
+                    else {
+                        layer.confirm(res['msg'], {icon: 3, title: '提示信息'}, function (index) {
+                            layer.close(index);
+                        });
+                    }
                 })
             });
         }
